@@ -866,7 +866,7 @@ html.calm .mc-in{transition:none}
 <style data-src="css/v2.css">
 /* ==========================================================
    Balapan v2 — new screens, scenes, charts, mobile tab bar,
-   game levels and the dark (deep olive) theme.
+   game levels and the dark (midnight navy) theme.
    ========================================================== */
 .hidden{display:none !important}
 .small{font-size:.88rem}
@@ -1261,43 +1261,43 @@ input[type=range]{accent-color:var(--clay-deep); width:100%}
 .fact-row{display:flex; gap:10px}
 
 /* ==========================================================
-   DARK THEME — deep olive / dark moss (not navy, not black).
-   Muted accents: soft clay, sage, warm oat text. No neon.
+   DARK THEME — deep midnight navy (not charcoal).
+   Muted accents: dusty clay, soft sage, oat text. No neon.
    ========================================================== */
 html.dark{
   color-scheme:dark;
-  --oat:#1f2318;          /* page background: deep olive */
-  --paper:#2a2f20;        /* surfaces: slightly lighter moss */
-  --sand:#353b28;
-  --sand-deep:#4a5238;
-  --line:#3b412f;
-  --ink:#EDE6D3;          /* warm oat text */
-  --ink-soft:#C9C1AA;
-  --ink-faint:#9C9C85;
-  --clay:#C9937A; --clay-deep:#B47C63; --clay-soft:#3c3426;
-  --sage:#A3B48F; --sage-deep:#83976F; --sage-soft:#2f3a25;
-  --dusty:#9FB0A8; --dusty-deep:#7E918A; --dusty-soft:#2b3430;
+  --oat:#141c2e;          /* page background */
+  --paper:#1e2840;        /* surfaces: slightly lighter navy */
+  --sand:#2a3654;
+  --sand-deep:#3a4868;
+  --line:#2e3a58;
+  --ink:#EDE4D3;          /* oat text */
+  --ink-soft:#C2B8A7;
+  --ink-faint:#8D92A6;
+  --clay:#C9917A; --clay-deep:#B27A62; --clay-soft:#3a3044;
+  --sage:#9CB297; --sage-deep:#7C9878; --sage-soft:#22363a;
+  --dusty:#8EA5BF; --dusty-deep:#6C86A3; --dusty-soft:#233150;
   --butter:#D8C08A; --butter-deep:#B99C5C;
   --rose:#C7A296;
-  --shadow-paper:0 1px 0 rgba(10,12,6,.3), 0 10px 28px -16px rgba(8,10,4,.7);
-  --shadow-soft:0 10px 30px -16px rgba(8,10,4,.75);
+  --shadow-paper:0 1px 0 rgba(0,0,0,.25), 0 10px 28px -16px rgba(0,0,0,.65);
+  --shadow-soft:0 10px 30px -16px rgba(0,0,0,.7);
 }
-html.dark body{background:#1f2318; background:linear-gradient(180deg,#1f2318 0%, #262b1d 100%) fixed}
+html.dark body{background:#141c2e; background:linear-gradient(180deg,#141c2e 0%, #1b2540 100%) fixed}
 html.dark body::before{opacity:.10; mix-blend-mode:screen}
-html.dark body::after{background:radial-gradient(1100px 600px at 85% -10%, rgba(201,147,122,.07), transparent 60%), radial-gradient(900px 500px at -10% 110%, rgba(163,180,143,.08), transparent 60%)}
-html.dark .topbar{background:rgba(31,35,24,.93) !important; border-color:var(--line) !important}
-html.dark .btn{--fg:#F4EEDD}
+html.dark body::after{background:radial-gradient(1100px 600px at 85% -10%, rgba(142,165,191,.10), transparent 60%), radial-gradient(900px 500px at -10% 110%, rgba(156,178,151,.08), transparent 60%)}
+html.dark .topbar{background:rgba(20,28,46,.92) !important; border-color:var(--line) !important}
+html.dark .btn{--fg:#F4ECDD}
 html.dark .btn.ghost{--fg:var(--ink)}
-html.dark .btn:not(.ghost):not(.clay):not(.sage):not(.dusty):not(.paper){--bg:#EDE6D3; --fg:#1f2318}
-html.dark .seg button[aria-pressed="true"], html.dark .langsw button[aria-pressed="true"], html.dark .d-tabs [aria-selected="true"]{background:var(--ink); color:#1f2318}
-html.dark .chip-both{background:#343a27}
-html.dark .stage{background:linear-gradient(#2a2f20,#252a1c)}
-html.dark .stage-memory{background:linear-gradient(#2a2f20,#252a1c)}
-html.dark .kb-k{box-shadow:0 3px 0 #15180f}
+html.dark .btn:not(.ghost):not(.clay):not(.sage):not(.dusty):not(.paper){--bg:#EDE4D3; --fg:#141c2e}
+html.dark .seg button[aria-pressed="true"], html.dark .langsw button[aria-pressed="true"], html.dark .d-tabs [aria-selected="true"]{background:var(--ink); color:#141c2e}
+html.dark .chip-both{background:#2a2a42}
+html.dark .stage{background:linear-gradient(#1e2840,#1a233a)}
+html.dark .stage-memory{background:linear-gradient(#1e2840,#1a233a)}
+html.dark .kb-k{box-shadow:0 3px 0 #0f1626}
 html.dark .kb-k.hint{color:#2b2414}
-html.dark .sheet-bg{background:rgba(12,14,8,.6)}
-html.dark .toast{background:#EDE6D3; color:#1f2318}
-html.dark .tabbar{background:#23281b; box-shadow:0 -8px 24px -18px rgba(5,6,3,.85)}
+html.dark .sheet-bg{background:rgba(8,12,22,.6)}
+html.dark .toast{background:#EDE4D3; color:#141c2e}
+html.dark .tabbar{background:#18213a; box-shadow:0 -8px 24px -18px rgba(0,0,0,.8)}
 html.dark .df-pic{filter:brightness(.88)}
 html.dark .scene{filter:brightness(.9) saturate(.9)}
 html.dark .demo-tag{background:#D8C08A; color:#2b2414}
@@ -5276,7 +5276,7 @@ var BF = window.BF = window.BF || {};
     var s = f().settings;
     html.classList.toggle("calm", !!s.calm);
     html.classList.toggle("dark", s.theme==="dark");
-    var m = document.querySelector('meta[name="theme-color"]'); if(m) m.setAttribute("content", s.theme==="dark" ? "#1f2318" : "#F3EBDD");
+    var m = document.querySelector('meta[name="theme-color"]'); if(m) m.setAttribute("content", s.theme==="dark" ? "#141c2e" : "#F3EBDD");
   }
   BF.applySettings = applySettings;
   function bind(){

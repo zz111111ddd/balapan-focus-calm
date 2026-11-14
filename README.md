@@ -45,7 +45,7 @@ It runs from `file://`: data lives in classic JS files (no `fetch`, no ES module
 | **Mood stickers** | 8 hand-drawn faces by time of day (morning, midday, after school, evening), with day and week views. |
 | **Specialist tab** | Per-child summary, sleep-vs-mood chart, scatter with a trend line and Pearson *r*, trigger outcomes by day, screen time vs mood, a correlation table, a triggers table, moods by time of day, a daily-log table, diary entries and plans. Filters: 7/14/30 days, all or a custom range, plus specialist role and name. **Printable A4 report** in the chosen language ([EN sample](docs/sample-report-en.pdf), [RU sample](docs/sample-report-ru.pdf)), and per-child **JSON export/import**. |
 | **Demo child** | "Mira", clearly labeled *demo*, with 2 weeks of realistic data. It's seeded on first launch but **not** active, so the first screen is still your own quiz. You can **clear the demo data** in Settings or Children (and restore it). |
-| **Look** | The hand-crafted muted palette stays. Light "oat" theme plus a **dark theme on deep olive / dark moss** (#1f2318 → #262b1d, lighter moss surfaces, warm oat text, soft clay and sage accents, no neon, no pure black). Calm mode, sound off by default. |
+| **Look** | The hand-crafted muted palette stays. Light "oat" theme plus a **dark theme on deep midnight navy** (#141c2e → #1b2540, lighter navy surfaces, oat text, dusty clay and soft sage accents, no neon). Calm mode, sound off by default. |
 | **Mobile** | A fully responsive website (no PWA, no install prompt): bottom tab bar, bottom-sheet dialogs, full-screen games. |
 
 ### The games
@@ -98,7 +98,7 @@ balapan-focus-calm/
 ├── index.html               # shell: header, tab bar, footer, print area, script list
 ├── balapan-single.html      # generated single-file build (python3 build-single.py)
 ├── build-single.py
-├── css/  base · components · screens · games · v2 (new screens, scenes, dark olive theme, mobile) · print (A4 report)
+├── css/  base · components · screens · games · v2 (new screens, scenes, dark navy theme, mobile) · print (A4 report)
 ├── js/
 │   ├── i18n/i18n.js         # L(en, ru), language switch, plurals, dates
 │   ├── data/                # situations.js, situations-2.js, situations-3.js (122), content.js, demo.js
@@ -131,7 +131,7 @@ $0 (3 plans, 1 child) · **$12.99/month** (2 children) · **$79.99/year** (up to
 | ![Daily log](docs/screenshots/desktop-10-daily-log.jpg) | ![Trigger log](docs/screenshots/desktop-11-trigger-log.jpg) |
 | Daily log: sleep, food, day factors | Trigger outcome log + adaptive steps |
 | ![Specialist](docs/screenshots/desktop-19-dark-specialist.jpg) | ![A4 report](docs/screenshots/desktop-23-report-a4-p1.jpg) |
-| Specialist tab (dark olive theme) | Printable A4 report |
+| Specialist tab (dark navy theme) | Printable A4 report |
 | ![Settings](docs/screenshots/desktop-14-settings-voice.jpg) | ![Russian](docs/screenshots/desktop-20-ru-home.jpg) |
 | Voice settings | Russian interface |
 
@@ -174,7 +174,7 @@ All screenshots are in [`docs/screenshots/`](docs/screenshots/).
 - **Наклейки настроения** по времени суток, вид за день и за неделю.
 - **Вкладка для специалиста:** графики (сон и настроение, точечная диаграмма с линией тренда и корреляцией, исходы триггеров, экраны и настроение), таблицы корреляций, триггеров и дневника дня. Фильтры по датам, **отчёт A4 для печати** на выбранном языке, экспорт и импорт JSON.
 - **Демо-ребёнок «Мира»** с данными за 2 недели. Он помечен как демо и не мешает первому запуску; удалить его можно в настройках.
-- **Тёмная тема** на глубоком оливковом / тёмном моховом (#1f2318–#262b1d), приглушённые акценты (мягкая глина, шалфей, тёплый овсяный текст), без неона. Светлая тема — прежняя, приглушённая.
+- **Тёмная тема** на глубоком ночном синем (#141c2e–#1b2540), приглушённые акценты (пыльная глина, мягкий шалфей, овсяный текст), без неона. Светлая тема — прежняя, приглушённая.
 - **Мобильная версия** — обычный адаптивный сайт (не PWA): нижняя панель вкладок, диалоги снизу, игры на весь экран.
 
 ### Этика

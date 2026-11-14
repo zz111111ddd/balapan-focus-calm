@@ -48,7 +48,7 @@ var BF = window.BF = window.BF || {};
     var s = f().settings;
     html.classList.toggle("calm", !!s.calm);
     html.classList.toggle("dark", s.theme==="dark");
-    var m = document.querySelector('meta[name="theme-color"]'); if(m) m.setAttribute("content", s.theme==="dark" ? "#1f2318" : "#F3EBDD");
+    var m = document.querySelector('meta[name="theme-color"]'); if(m) m.setAttribute("content", s.theme==="dark" ? "#141c2e" : "#F3EBDD");
   }
   BF.applySettings = applySettings;
   function bind(){
