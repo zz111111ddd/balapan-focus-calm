@@ -71,7 +71,7 @@ def load(pg, snap, route):
 
 def screens(pg):
     ids = pg.evaluate("BF.GAME_ORDER")
-    sc = ["", "library", "games", "diary", "diary?tab=diary", "diary?tab=outcomes", "diary?tab=moods", "diary?tab=progress", "specialist", "family", "settings", "pricing", "safety", "about", "hero", "plan", "quiz", "quiz?new=1"]
+    sc = ["", "welcome", "parent", "library", "games", "diary", "diary?tab=diary", "diary?tab=outcomes", "diary?tab=moods", "diary?tab=progress", "specialist", "family", "settings", "pricing", "safety", "about", "hero", "plan", "quiz", "quiz?new=1"]
     plans = pg.evaluate("Object.keys(BF.store.s.plans)")
     for pid in plans[:2]:
         tag = pg.evaluate("id => BF.store.s.plans[id].tag", pid)

@@ -56,11 +56,11 @@ with sync_playwright() as p:
         pg.goto("about:blank"); pg.goto(BASE + "#/" + route); pg.wait_for_timeout(450)
     games = pg.evaluate("BF.GAME_ORDER")
     plans = pg.evaluate("Object.entries(BF.store.s.plans).slice(0,1).map(([id,p]) => (p.tag==='adhd'?'quest/':'brave/')+id)")
-    routes = ["", "@midquiz", "library", "games", "diary", "diary?tab=outcomes", "diary?tab=moods", "diary?tab=progress", "specialist", "family", "settings", "pricing", "safety", "about", "hero", "plan", "quiz", "quiz?new=1", "@sheet"] + plans + ["game/" + g for g in games]
+    routes = ["", "welcome", "parent", "@midquiz", "library", "games", "diary", "diary?tab=outcomes", "diary?tab=moods", "diary?tab=progress", "specialist", "family", "settings", "pricing", "safety", "about", "hero", "plan", "quiz", "quiz?new=1", "@sheet"] + plans + ["game/" + g for g in games]
     narrow = MOB or W <= 860
     for r in routes:
         if r == "@midquiz":
-            load("")
+            load("welcome")
             for _ in range(2):
                 if pg.locator(".opt").count(): tap(pg, ".opt"); pg.wait_for_timeout(350)
         elif r == "@sheet":
@@ -94,7 +94,7 @@ with sync_playwright() as p:
             load("games")
     if len(ERRS) > n0: res["errors"].append({"games-loop": ERRS[n0:][:3]})
     load("game/keys")
-    other = ".tabbar a[data-nav=diary]" if narrow else ".mainnav a[data-nav=diary]"
+    other = ".tabbar a[data-nav=diary]" if narrow else ".mainnav a[data-nav=parent]"
     pg.evaluate("([a,b]) => { document.querySelector(a).click(); setTimeout(() => document.querySelector(b).click(), 60); }", [".gs-top a.btn", other]); pg.wait_for_timeout(900)
     res["race"] = pg.evaluate("({hash: location.hash, sections: document.querySelectorAll('#app > section').length, route: document.body.dataset.route})")
     pg.keyboard.type("abc"); pg.wait_for_timeout(200)

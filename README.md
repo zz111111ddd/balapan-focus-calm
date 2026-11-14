@@ -8,7 +8,7 @@
 
 [English](#english) · [Русский](#русский)
 
-![Home dashboard](docs/screenshots/desktop-02-home-dashboard.jpg)
+![Home](docs/screenshots/desktop-00-home.jpg)
 
 ---
 
@@ -31,7 +31,7 @@ It runs from `file://`: data lives in classic JS files (no `fetch`, no ES module
 
 | Area | What it does |
 |---|---|
-| **First run = quiz on the home screen** | With no child profile yet, home opens on "Let's get to know your child" with the first question already visible. The 7 steps are: name/age → what's hardest (+ anxiety / focus / both / not sure) → what the child fears → what the parent does when the child is scared → interests → motivators (+ safety check) → **Plan for your family**. Afterwards, home becomes that child's dashboard. You can retake the quiz any time. |
+| **Home = the original v1 landing; first run = quiz greeting** | `#/` is the v1 home (hero, "How a calmer week works", the anxiety/ADHD Venn, Brave Plan / Routine Quest / games cards) in EN and RU with live counts. "Start — no sign-up" opens `#/welcome`: "Let's get to know your child" with the first question already visible. The parent dashboard lives at `#/parent` (header "Parent"). The 7 steps are: name/age → what's hardest (+ anxiety / focus / both / not sure) → what the child fears → what the parent does when the child is scared → interests → motivators (+ safety check) → **Plan for your family**. Afterwards, home becomes that child's dashboard. You can retake the quiz any time. |
 | **Skills track** | The parent learns one skill at a time: the words for this week (acceptance + confidence), habits to gently drop and what to try instead, and a 10-minute daily rhythm. |
 | **122 situations** | 40 anxiety · 36 ADHD/focus · 46 both, in 7 categories (school, home, health, out & about, friends, travel, big feelings). Each one has why it's hard, 3 parent phrases, a 5-step ladder and a warm-up game. Filters, search (EN/RU) and lazy loading in batches of 18. |
 | **Animated scene engine** | `js/core/scene.js` builds a unique SVG scene for every situation from a recipe `background|props|pose|fx|time` (28 backgrounds, ~70 props, 17 effects, day/evening/night). The scenes star the child's own avatar. They stop moving in Calm mode and under `prefers-reduced-motion`. |
@@ -104,7 +104,7 @@ balapan-focus-calm/
 │   ├── data/                # situations.js, situations-2.js, situations-3.js (122), content.js, demo.js
 │   ├── core/                # store (v2, multi-child), scene (SVG scene engine), engine (plans, adaptive steps, LLM stub),
 │   │                        # voice (voice ranking, chunking, neural TTS), charts, avatar, router, ui, icons, sound
-│   ├── screens/             # home (onboarding + dashboard), quiz, plan, library, brave, quest, games, diary,
+│   ├── screens/             # home (v1 landing, #/welcome onboarding, #/parent dashboard), quiz, plan, library, brave, quest, games, diary,
 │   │                        # specialist, family, settings, pricing, safety, about, builder
 │   ├── games/               # 21 games: trail lace dots shapes jars puzzle sizes backpack balloon bubbles rhythm memory simon spot diff keys pictrace color schulte robot changed
 │   └── app.js               # boot, header, child switcher, theme / calm / sound
