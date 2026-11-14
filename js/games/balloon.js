@@ -3,7 +3,7 @@ var BF = window.BF = window.BF || {};
 BF.games = BF.games || {};
 BF.games.balloon = {
   title:{en:"Balloon Breath",ru:"Дыхание-шарик"}, skill:{en:"Calm body",ru:"Спокойное тело"}, motor:false, time:{en:"1–2 min",ru:"1–2 мин"},
-  howto:{en:"Press and hold to breathe in while the balloon fills. Let go and breathe out slowly.",ru:"Нажмите и держите — вдох, пока шарик надувается. Отпустите — медленный выдох."},
+  howto:{en:"Press and hold to breathe in while the balloon fills. Let go and breathe out slowly.",ru:"Нажми и держи — делай вдох, пока шарик надувается. Отпусти — медленный выдох."},
   why:{en:"A longer out-breath is a simple, gentle way to help the body settle before a brave step.",ru:"Длинный выдох — простой и мягкий способ успокоить тело перед смелым шагом."},
   art:function(){ return '<svg viewBox="0 0 120 90"><path d="M60 64 q-3 10 4 22" stroke="#B9A48A" stroke-width="2" fill="none"/><ellipse cx="60" cy="36" rx="24" ry="28" fill="#D9B5A7"/><path d="M55 63 h10 l-5 6z" fill="#C79E8F"/><path d="M48 22 q5 -8 12 -8" stroke="#fff" stroke-opacity=".6" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="60" cy="36" r="40" fill="none" stroke="#A3B59C" stroke-width="2" stroke-dasharray="3 6"/></svg>'; },
   mount:function(stage, api){

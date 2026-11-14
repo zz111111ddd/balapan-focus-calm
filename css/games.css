@@ -184,3 +184,41 @@ html.dark .g-filter a[aria-pressed="true"]{color:#141c2e}
 .stage-color{aspect-ratio:auto}
 /* tracing must fit the screen (a stroke below the fold cannot be traced) */
 @media (min-width:701px){ .stage-pictrace{max-width:min(960px, calc((100vh - 250px) * 600 / 380))} .cl-svg{max-height:calc(100vh - 260px)} }
+
+/* number hunt (Schulte) */
+.stage-schulte,.stage-robot,.stage-changed{aspect-ratio:auto; min-height:360px}
+.sc-wrap{padding:14px; display:flex; flex-direction:column; align-items:center; gap:10px}
+.sc-top{display:flex; gap:12px; align-items:center; width:100%; max-width:440px; justify-content:space-between}
+.sc-top .lvl-tag{position:static}
+.sc-next b{font-size:1.2rem; color:var(--clay-deep)}
+.sc-time{font:800 .9rem var(--f-body); color:var(--ink-faint)}
+.sc-grid{display:grid; grid-template-columns:repeat(var(--n), 1fr); gap:6px; width:min(440px, 100%)}
+.sc-cell{aspect-ratio:1; border:2px solid #E4D6BD; border-radius:12px; font:800 clamp(1.1rem, 4vw, 1.7rem) var(--f-body); color:#5b4a3e; cursor:pointer}
+.sc-cell.ok{opacity:.35; border-style:dashed}
+.sc-cell.no{animation:nudge .3s 2}
+/* follow the robot */
+.rb-wrap{padding:14px; display:grid; grid-template-columns:minmax(0, 380px) 180px; gap:16px; justify-content:center; align-items:start}
+.rb-wrap .lvl-tag{grid-column:1/-1; position:static; justify-self:start}
+.rb-grid{display:grid; grid-template-columns:repeat(var(--n), 1fr); gap:4px; background:#E7D7BC; padding:4px; border-radius:12px}
+.rb-cell{aspect-ratio:1; background:#FBF7EF; border:0; border-radius:8px; cursor:pointer; padding:4px}
+.rb-cell svg{width:100%; height:100%}
+.rb-cell.start{box-shadow:inset 0 0 0 3px #CDBA98}
+.rb-cell.end{background:#E7EFE0}
+.rb-cell.miss{background:#F3DED6}
+.rb-side{display:flex; flex-direction:column; gap:10px; align-items:center}
+.rb-arrow{width:150px; height:120px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; font-weight:800; color:var(--ink-soft); padding:8px}
+.rb-arrow small{color:var(--ink-faint)}
+.rb-trail{display:flex; flex-wrap:wrap; gap:4px; justify-content:center; font:800 1.2rem var(--f-body); color:var(--clay-deep); min-height:1.5em}
+@media (max-width:700px){ .rb-wrap{grid-template-columns:1fr} .rb-side{flex-direction:row; justify-content:center} .rb-arrow{height:90px; width:130px} }
+/* what changed */
+.wc-wrap{padding:14px; display:flex; flex-direction:column; align-items:center; gap:12px}
+.wc-wrap .lvl-tag{position:static; align-self:flex-start}
+.wc-room{position:relative; width:min(520px, 100%); background:#F3EADB; border-radius:16px; padding:18px 14px 10px; box-shadow:inset 0 -14px 0 #D9C3A0}
+.wc-shelf{display:grid; grid-template-columns:repeat(var(--k), 1fr); gap:10px}
+.wc-item{aspect-ratio:1; border:0; border-radius:14px; background:#FBF7EF; color:var(--c); cursor:pointer; display:grid; place-items:center; box-shadow:0 2px 0 #E4D6BD}
+.wc-item svg{width:56%; height:56%; stroke:var(--c); stroke-width:2.4}
+.wc-item.is{box-shadow:0 0 0 4px #A9C29B}
+.wc-item.miss{box-shadow:0 0 0 4px #E2B3B5}
+.wc-curtain{position:absolute; inset:0; border-radius:16px; background:repeating-linear-gradient(90deg, #C9937A 0 18px, #B47C63 18px 22px); animation:fadeIn .4s}
+.wc-curtain[hidden]{display:none}
+html.dark .sc-cell, html.dark .rb-cell, html.dark .wc-item{filter:brightness(.92)}

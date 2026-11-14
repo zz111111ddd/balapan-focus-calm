@@ -59,7 +59,7 @@ BF.games.pictrace = {
       done.insertAdjacentHTML("beforeend", '<path d="'+P.s[s]+'" fill="'+(s===0?P.fill:"none")+'" fill-opacity=".55" stroke="#A96C51" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>');
       if(s < P.s.length-1){ s++; stroke(); api.say(BF.L("Next line — find the new dot.","Следующая линия — найди новую точку.")); return; }
       tok.style.display = "none"; prog.style.display = "none"; BF.sound.star(); paintMeter();
-      api.say(BF.L("You traced a ","Ты обвёл(а): ")+T(P.n)+"!");
+      api.say(BF.L("You traced the "+T(P.n)+"!","Готово: "+T(P.n)+"!"));
       if(k < LIST.length-1){ k++; setTimeout(build, 1000); }
       else { var v = pct(); api.win(v>=85?3:v>=65?2:1, BF.L("Accuracy ","Точность ")+v+"% — "+BF.L("lovely pictures!","чудесные картинки!")); }
     }

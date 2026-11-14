@@ -4,7 +4,7 @@ BF.games = BF.games || {};
 BF.games.diff = {
   title:{en:"Spot the Difference",ru:"Найди отличия"}, skill:{en:"Careful looking",ru:"Внимательный взгляд"}, motor:false, time:{en:"2–3 min",ru:"2–3 мин"},
   howto:{en:"Look at both pictures. Tap anything that is different in the bottom one.",ru:"Посмотри на обе картинки. Нажми на всё, что отличается на нижней."},
-  why:{en:"Comparing slowly, part by part, builds sustained attention and a habit of checking — useful for homework and getting ready.",ru:"Медленное сравнение по частям развивает устойчивое внимание и привычку проверять — пригодится для домашки и сборов."},
+  why:{en:"Comparing slowly, part by part, builds sustained attention and a habit of checking — useful for homework and getting ready.",ru:"Медленное сравнение по частям развивает устойчивое внимание и привычку проверять — пригодится для уроков и сборов."},
   art:function(){ return '<svg viewBox="0 0 120 90"><rect x="6" y="10" width="50" height="70" rx="8" fill="#DCE4D5"/><rect x="64" y="10" width="50" height="70" rx="8" fill="#DCE4D5"/><circle cx="22" cy="28" r="7" fill="#E4CC8F"/><circle cx="80" cy="28" r="7" fill="#C98E70"/><rect x="26" y="50" width="20" height="20" fill="#93A9BA"/><rect x="84" y="50" width="20" height="20" fill="#93A9BA"/><circle cx="80" cy="28" r="12" fill="none" stroke="#A96C51" stroke-width="2.5" stroke-dasharray="3 3"/></svg>'; },
   mount:function(stage, api){
     var U = BF.gameUtil, ND = api.pick([3,5,7]), found = 0, wrong = 0;

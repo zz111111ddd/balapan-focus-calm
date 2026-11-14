@@ -3,7 +3,7 @@ var BF = window.BF = window.BF || {};
 BF.games = BF.games || {};
 BF.games.trail = {
   title:{en:"Trail Tracer",ru:"Тропинка"}, skill:{en:"Fine motor",ru:"Мелкая моторика"}, motor:true, time:{en:"2 min",ru:"2 мин"},
-  howto:{en:"Put a finger on the hero and slowly follow the trail home. If you slip off, just come back — nothing resets.",ru:"Поставьте палец на героя и медленно ведите его по тропинке домой. Соскользнули — просто вернитесь, ничего не сбрасывается."},
+  howto:{en:"Put a finger on the hero and slowly follow the trail home. If you slip off, just come back — nothing resets.",ru:"Поставь палец на героя и медленно веди его по тропинке домой. Палец соскользнул — просто вернись, ничего не сбрасывается."},
   why:{en:"Slow, controlled finger movement builds pencil control and teaches the body that slowing down feels good.",ru:"Медленные точные движения пальцем развивают контроль карандаша и учат тело, что замедляться приятно."},
   art:function(){ return '<svg viewBox="0 0 120 90"><path d="M12 70 C30 20 50 80 70 34 S104 20 110 54" fill="none" stroke="#E7D7BC" stroke-width="16" stroke-linecap="round"/><path d="M12 70 C30 20 50 80 70 34" fill="none" stroke="#C98E70" stroke-width="5" stroke-linecap="round"/><circle cx="70" cy="34" r="8" fill="#FBF7EF" stroke="#A96C51" stroke-width="3"/><path d="M104 46 l6 -12 l6 12z" fill="#A3B59C"/></svg>'; },
   mount:function(stage, api){
@@ -42,7 +42,7 @@ BF.games.trail = {
     function down(e){
       var pt = U.svgPoint(svg, e);
       if(U.dist(pt, samples[idx]) < 48){ tracing = true; try{ svg.setPointerCapture(e.pointerId); }catch(_){} token.classList.add("held"); api.say(BF.L("Slow and steady… follow the dotted line.","Медленно и спокойно… по пунктирной линии.")); }
-      else api.say(BF.L("Start from the hero — put your finger on them.","Начните с героя — поставьте на него палец."));
+      else api.say(BF.L("Start from the hero — put your finger on them.","Начни с героя — поставь на него палец."));
     }
     function move(e){
       if(!tracing) return;
@@ -52,7 +52,7 @@ BF.games.trail = {
         if(n.i > idx){ idx = n.i; paint(); if(idx % 40 === 0) BF.sound.pop(); }
         if(idx >= N-14 || (idx > N*0.85 && U.dist(pt, samples[N-1]) < tol)){ idx = N-1; paint(); levelDone(); }
       } else if(n.d > tol + 6){
-        if(!stage.classList.contains("off")){ slips++; stage.classList.add("off"); api.say(BF.L("Oops — back to the trail. Your progress is safe.","Ой — вернитесь на тропинку. Прогресс сохранён.")); BF.sound.soft(); }
+        if(!stage.classList.contains("off")){ slips++; stage.classList.add("off"); api.say(BF.L("Oops — back to the trail. Your progress is safe.","Ой — вернись на тропинку. Прогресс сохранён.")); BF.sound.soft(); }
         clearTimeout(offT);
       }
     }

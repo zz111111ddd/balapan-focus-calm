@@ -1,6 +1,6 @@
 var BF = window.BF = window.BF || {};
 BF.screens.brave = {
-  title:{en:"Brave Plan",ru:"Смелый план"},
+  title:{en:"Brave Plan",ru:"План смелых шагов"},
   render:function(el, id){
     var st = BF.store, c = st.s, I = BF.icon, A = BF.avatar, esc = BF.ui.esc, T = BF.ui.T;
     var plan = c.plans[id], sit = BF.engine.find(id);
@@ -10,7 +10,7 @@ BF.screens.brave = {
     var POSES = ["wave","shy","idle","walk","jump","walk","cheer"], parts = BF.scene.parse(sit.scene);
     el.innerHTML =
       '<div class="brave wrap">'+
-        '<div class="crumbs"><a href="#/library">'+I('back',16)+' '+BF.L("Library","Библиотека")+'</a>'+BF.ui.tagChip(plan.tag)+(plan.tag==="both"?'<a class="chip" href="#/quest/'+id+'">'+I('clock',14)+' '+BF.L("Also as Routine Quest","Также как Routine Quest")+'</a>':'')+'</div>'+
+        '<div class="crumbs"><a href="#/library">'+I('back',16)+' '+BF.L("Library","Библиотека")+'</a>'+BF.ui.tagChip(plan.tag)+(plan.tag==="both"?'<a class="chip" href="#/quest/'+id+'">'+I('clock',14)+' '+BF.L("Also as Routine Quest","Есть и карточки распорядка")+'</a>':'')+'</div>'+
         '<h1>'+BF.L(hero+" and the "+T(sit.title).toLowerCase(), hero+": "+T(sit.title).toLowerCase())+'</h1>'+
         '<div class="brave-grid">'+
           '<div class="book paper">'+
@@ -26,9 +26,9 @@ BF.screens.brave = {
           '</aside>'+
         '</div>'+
         '<section class="tips">'+
-          '<div class="tip paper"><span class="tape"></span><h3>'+BF.L("Say this","Скажите так")+'</h3><p class="muted small">'+BF.L("Acceptance + confidence — say it once, calmly.","Принятие + уверенность — скажите один раз, спокойно.")+'</p><ul class="quote-list">'+BF.engine.phrases(sit).map(function(p){ return '<li>“'+esc(p)+'”</li>'; }).join("")+'</ul></div>'+
+          '<div class="tip paper"><span class="tape"></span><h3>'+BF.L("Say this","Скажите так")+'</h3><p class="muted small">'+BF.L("First show you understand, then show you believe in them. Say it once, calmly.","Сначала покажите, что понимаете, потом — что верите в ребёнка. Скажите это один раз и спокойно.")+'</p><ul class="quote-list">'+BF.engine.phrases(sit).map(function(p){ return '<li>“'+esc(p)+'”</li>'; }).join("")+'</ul></div>'+
           '<div class="tip paper"><h3>'+BF.L("Gently drop","Мягко откажитесь")+'</h3><ul class="swap-list">'+BF.engine.habitsFor(c).map(function(h){ return '<li><span class="drop">'+T(h.drop)+'</span><span class="arrow">'+I('next',16)+'</span><span class="instead">'+T(h.instead)+'</span></li>'; }).join("")+'</ul></div>'+
-          '<div class="tip paper"><h3>'+BF.L("How to climb","Как подниматься")+'</h3><ul class="plain"><li>'+BF.L("One rung at a time. Repeat a rung until it feels <i>boring</i>.","По одной ступеньке. Повторяйте, пока не станет <i>скучно</i>.")+'</li><li>'+BF.L("Stay nearby, but let "+hero+" do the step. Never force — you set the pace.","Будьте рядом, но шаг делает ребёнок. Никогда не заставляйте — темп решаете вы.")+'</li><li>'+BF.L("Too hard tonight? The evening check-in on the home screen splits the step in two.","Слишком трудно? Вечерний чек-ин на главной разделит шаг на два.")+'</li><li>'+BF.L("If worry stops daily life for weeks,","Если тревога неделями мешает жить,")+' <a href="#/safety">'+BF.L("talk to a specialist","обратитесь к специалисту")+'</a>.</li></ul></div>'+
+          '<div class="tip paper"><h3>'+BF.L("How to climb","Как подниматься")+'</h3><ul class="plain"><li>'+BF.L("One rung at a time. Repeat a rung until it feels <i>boring</i>.","По одной ступеньке. Повторяйте, пока не станет <i>скучно</i>.")+'</li><li>'+BF.L("Stay nearby, but let "+hero+" do the step. Never force — you set the pace.","Будьте рядом, но шаг делает ребёнок. Никогда не заставляйте — темп решаете вы.")+'</li><li>'+BF.L("Too hard tonight? The evening check-in on the home screen splits the step in two.","Слишком трудно? Отметьте это вечером на главной — и шаг разделится на два попроще.")+'</li><li>'+BF.L("If worry stops daily life for weeks,","Если тревога неделями мешает жить,")+' <a href="#/safety">'+BF.L("talk to a specialist","обратитесь к специалисту")+'</a>.</li></ul></div>'+
         '</section>'+
       '</div>'+
       '<div class="celebrate" id="celebrate" hidden><div class="cel-card paper"><div class="cel-kid">'+A.svg(c.avatar,{size:170,pose:"cheer"})+'</div><h2>'+BF.L("The whole ladder — done!","Вся лесенка пройдена!")+'</h2><p>'+BF.L(hero+" climbed every step. That's real courage, not luck.","Каждая ступенька пройдена. Это настоящая смелость, а не везение.")+'</p><div class="cel-actions"><a class="btn clay" href="#/library">'+BF.L("Pick a new situation","Выбрать новую ситуацию")+'</a><button class="btn ghost" id="celClose">'+BF.L("Stay here","Остаться")+'</button></div></div></div>';
@@ -63,7 +63,7 @@ BF.screens.brave = {
         BF.store.addStars(1, "brave step");
         drawLadder();
         if(BF.store.s.plans[id].current >= BF.store.s.plans[id].ladder.length) setTimeout(function(){ el.querySelector("#celebrate").hidden=false; }, 500);
-        else BF.ui.toast(BF.L("Brave step saved. Tonight, do a quick check-in.","Смелый шаг сохранён. Вечером — короткий чек-ин."));
+        else BF.ui.toast(BF.L("Brave step saved. Tonight, do a quick check-in.","Смелый шаг сохранён. Вечером отметьте, как он прошёл."));
       };
     }
     el.querySelector("#bkPrev").onclick = function(){ if(page>0){ page--; BF.voice.stop(); drawPage(); BF.sound.soft(); } };

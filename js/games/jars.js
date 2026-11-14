@@ -3,7 +3,7 @@ var BF = window.BF = window.BF || {};
 BF.games = BF.games || {};
 BF.games.jars = {
   title:{en:"Button Jars",ru:"Баночки с пуговицами"}, skill:{en:"Fine motor",ru:"Мелкая моторика"}, motor:true, time:{en:"2 min",ru:"2 мин"},
-  howto:{en:"Drag each button into the jar that matches its color.",ru:"Перетащите каждую пуговицу в баночку того же цвета."},
+  howto:{en:"Drag each button into the jar that matches its color.",ru:"Перетащи каждую пуговицу в баночку того же цвета."},
   why:{en:"Pinch-and-drag works the small hand muscles, and sorting by one rule, then switching rules, trains flexible attention.",ru:"Перетаскивание тренирует мелкие мышцы руки, а смена правила сортировки — гибкость внимания."},
   art:function(){ return '<svg viewBox="0 0 120 90"><rect x="14" y="34" width="30" height="44" rx="8" fill="#D8E1E7" stroke="#93A9BA" stroke-width="3"/><rect x="48" y="34" width="30" height="44" rx="8" fill="#DCE4D5" stroke="#A3B59C" stroke-width="3"/><rect x="82" y="34" width="30" height="44" rx="8" fill="#F1DED3" stroke="#C98E70" stroke-width="3"/><circle cx="63" cy="16" r="11" fill="#A3B59C"/><circle cx="60" cy="14" r="1.8" fill="#FBF7EF"/><circle cx="66" cy="14" r="1.8" fill="#FBF7EF"/><circle cx="60" cy="19" r="1.8" fill="#FBF7EF"/><circle cx="66" cy="19" r="1.8" fill="#FBF7EF"/><circle cx="28" cy="64" r="7" fill="#93A9BA"/><circle cx="97" cy="66" r="7" fill="#C98E70"/></svg>'; },
   mount:function(stage, api){
@@ -22,7 +22,7 @@ BF.games.jars = {
     function build(){
       var byColor = round===0;
       var keys = byColor ? ["sage","dusty","clay"] : ["round","square","flower"];
-      api.say(byColor ? BF.L("Drag each button into the jar that matches its color.","Перетащите каждую пуговицу в баночку того же цвета.") : BF.L("New rule! Now sort by SHAPE — color doesn't matter.","Новое правило! Теперь по ФОРМЕ — цвет не важен."));
+      api.say(byColor ? BF.L("Drag each button into the jar that matches its color.","Перетащи каждую пуговицу в баночку того же цвета.") : BF.L("New rule! Now sort by SHAPE — color doesn't matter.","Новое правило! Теперь по ФОРМЕ — цвет не важен."));
       stage.innerHTML = '<div class="lvl-tag">'+(byColor?BF.L("Round 1 · by color","Раунд 1 · по цвету"):BF.L("Round 2 · by shape","Раунд 2 · по форме"))+'</div><div class="jar-field" id="jf"></div><div class="jars">'+keys.map(function(k,i){
         var stroke = byColor ? COLORS[k] : "#B9A48A", fill = byColor ? SOFT[k] : "#F1E9DB";
         return '<div class="jar" data-k="'+k+'"><svg viewBox="0 0 120 140" class="jar-svg"><rect x="30" y="4" width="60" height="16" rx="6" fill="'+stroke+'"/><path d="M22 26 h76 q8 0 8 10 v88 q0 12 -12 12 h-68 q-12 0 -12 -12 v-88 q0 -10 8 -10z" fill="'+fill+'" stroke="'+stroke+'" stroke-width="4"/><path d="M30 40 v70" stroke="#fff" stroke-opacity=".55" stroke-width="6" stroke-linecap="round"/></svg>'+(byColor?'':'<span class="jar-label">'+shapeIcon(k)+'</span>')+'<span class="jar-in"></span></div>';

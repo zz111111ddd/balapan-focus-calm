@@ -52,7 +52,7 @@ var BF = window.BF = window.BF || {};
     render:function(el, p, query){
       var st = BF.store, c = st.s, I = BF.icon, T = BF.ui.T, esc = BF.ui.esc;
       var tab = (query && query.tab) || "today";
-      var tabs = [ ["today",BF.L("Daily log","День"),"bed"], ["diary",BF.L("Diary","Дневник"),"pencil"], ["outcomes",BF.L("Triggers","Триггеры"),"target"], ["moods",BF.L("Moods","Настроение"),"smile"], ["progress",BF.L("Progress","Прогресс"),"ladder"] ];
+      var tabs = [ ["today",BF.L("Daily log","День"),"bed"], ["diary",BF.L("Diary","Дневник"),"pencil"], ["outcomes",BF.L("Triggers","Трудные моменты"),"target"], ["moods",BF.L("Moods","Настроение"),"smile"], ["progress",BF.L("Progress","Прогресс"),"ladder"] ];
       el.innerHTML = '<div class="diary wrap">'+
         '<div class="d-head"><div><p class="eyebrow">'+BF.L("Parent dashboard","Кабинет родителя")+' · '+BF.ui.childChip(c,26)+'</p><h1>'+BF.L("Diary for "+esc(BF.ui.heroName()),"Дневник: "+esc(BF.ui.heroName()))+'</h1></div><a class="btn ghost small" href="#/specialist">'+I('chart',16)+' '+BF.L("Specialist view","Для специалиста")+'</a></div>'+
         '<div class="d-tabs" role="tablist">'+tabs.map(function(t){ return '<a role="tab" href="#/diary?tab='+t[0]+'" aria-selected="'+(t[0]===tab)+'">'+I(t[2],18)+'<span>'+t[1]+'</span></a>'; }).join("")+'</div>'+
@@ -86,7 +86,7 @@ var BF = window.BF = window.BF || {};
           BF.MEALS.map(function(m){ var md = d.food[m.v]||{items:[],text:""}; return '<details class="meal"'+(m.v==="breakfast"?' open':'')+'><summary><b>'+T(m.t)+'</b><span class="meal-sum">'+md.items.map(function(v){ return BF.ui.lbl(BF.FOODS,v); }).join(", ")+'</span></summary>'+chips("food."+m.v, BF.FOODS, md.items, true)+'<input class="input small" data-text="food.'+m.v+'" placeholder="'+BF.L("What exactly (optional)","Что именно (необязательно)")+'" value="'+esc(md.text||"")+'"></details>'; }).join("")+
           '<p class="lbl">'+BF.L("Appetite","Аппетит")+'</p>'+chips("food.appetite", BF.APPETITE, d.food.appetite, false)+
           '<p class="lbl">'+BF.L("Sugar / sweets today","Сахар / сладкое сегодня")+'</p>'+chips("food.sugar", BF.SUGAR, d.food.sugar, false)+
-          '<label class="toggle-row"><input type="checkbox" id="newFood" '+(d.food.newFood?'checked':'')+'> '+BF.L("Tried a new food","Пробовал(а) новую еду")+'</label>'+
+          '<label class="toggle-row"><input type="checkbox" id="newFood" '+(d.food.newFood?'checked':'')+'> '+BF.L("Tried a new food","Была новая еда")+'</label>'+
           '<input class="input small" data-text="food.note" placeholder="'+BF.L("Food notes: sugar, new foods, reactions…","Заметки: сахар, новая еда, реакции…")+'" value="'+esc(d.food.note||"")+'">'+
         '</section>'+
         '<section class="log-card paper"><h3>'+I('run',20)+' '+BF.L("Day factors","Факторы дня")+'</h3>'+
@@ -160,8 +160,8 @@ var BF = window.BF = window.BF || {};
   BF.outcomeForm = function(entry, presetSit, done){
     var T = BF.ui.T, esc = BF.ui.esc, e = entry || { at:localISO(), sit:presetSit||"", reaction:[], result:null, intensity:3, helped:[], comment:"" };
     var opts = Object.keys(BF.CATS).map(function(cat){ return '<optgroup label="'+T(BF.CATS[cat])+'">'+BF.SITUATIONS.filter(function(s){ return s.cat===cat; }).map(function(s){ return '<option value="'+s.id+'" '+(s.id===e.sit?'selected':'')+'>'+esc(T(s.title))+'</option>'; }).join("")+'</optgroup>'; }).join("");
-    var sh = BF.ui.sheet('<h2>'+(entry?BF.L("Edit trigger outcome","Изменить запись о триггере"):BF.L("How did it go?","Как всё прошло?"))+'</h2>'+
-      '<div class="field"><label>'+BF.L("Triggering situation","Ситуация-триггер")+'</label><select class="input" id="ofSit"><option value="">'+BF.L("Choose…","Выберите…")+'</option>'+opts+'</select></div>'+
+    var sh = BF.ui.sheet('<h2>'+(entry?BF.L("Edit trigger outcome","Изменить запись"):BF.L("How did it go?","Как всё прошло?"))+'</h2>'+
+      '<div class="field"><label>'+BF.L("Triggering situation","Что произошло")+'</label><select class="input" id="ofSit"><option value="">'+BF.L("Choose…","Выберите…")+'</option>'+opts+'</select></div>'+
       '<div class="field"><label>'+BF.L("When","Когда")+'</label><input type="datetime-local" class="input" id="ofAt" value="'+e.at+'"></div>'+
       '<div class="field"><label>'+BF.L("How did the child react?","Как ребёнок отреагировал?")+'</label>'+chips("reaction", BF.REACTIONS, e.reaction, true)+'</div>'+
       '<div class="field"><label>'+BF.L("Result","Итог")+'</label>'+chips("result", BF.RESULTS, e.result, false)+'</div>'+
@@ -187,8 +187,8 @@ var BF = window.BF = window.BF || {};
     var c = BF.store.s, I = BF.icon, esc = BF.ui.esc, T = BF.ui.T;
     var list = (c.outcomes||[]).slice().sort(function(a,b){ return a.at<b.at?1:-1; });
     var adapt = BF.engine.adaptive(c);
-    body.innerHTML = '<div class="d-actions"><button class="btn clay" id="ofAdd">'+I('plus',18)+' '+BF.L("Log a trigger outcome","Записать исход триггера")+'</button></div>'+
-      (adapt.length?'<div class="adapt paper"><h3>'+I('sparkle',18)+' '+BF.L("Adaptive next steps","Адаптивные следующие шаги")+'</h3><ul class="plain">'+adapt.slice(0,4).map(function(a){ return '<li class="ad-'+a.kind+'">'+esc(T(a.text))+'</li>'; }).join("")+'</ul></div>':'')+
+    body.innerHTML = '<div class="d-actions"><button class="btn clay" id="ofAdd">'+I('plus',18)+' '+BF.L("Log a trigger outcome","Записать, как всё прошло")+'</button></div>'+
+      (adapt.length?'<div class="adapt paper"><h3>'+I('sparkle',18)+' '+BF.L("Adaptive next steps","Что попробовать дальше")+'</h3><ul class="plain">'+adapt.slice(0,4).map(function(a){ return '<li class="ad-'+a.kind+'">'+esc(T(a.text))+'</li>'; }).join("")+'</ul></div>':'')+
       (list.length ? '<div class="oc-list">'+list.map(function(o){
         var r = BF.RESULTS.find(function(x){ return x.v===o.result; });
         return '<article class="oc paper oc-'+o.result+'"><div class="oc-top"><b>'+esc(BF.ui.sitTitle(o.sit))+'</b><span class="chip oc-res">'+(r?T(r.t):"")+'</span><span class="muted small">'+BF.dateFmt(o.at,true)+' · '+BF.L("intensity","интенсивность")+' '+o.intensity+'/5</span><span class="tl-tools"><button class="btn small ghost" data-edit="'+o.id+'">'+I('pencil',16)+'</button><button class="btn small ghost" data-del="'+o.id+'">'+I('trash',16)+'</button></span></div>'+
@@ -228,10 +228,10 @@ var BF = window.BF = window.BF || {};
     var plans = c.planOrder.map(function(id){ return c.plans[id]; }).filter(Boolean);
     var week = []; for(var i=6;i>=0;i--){ var d = new Date(); d.setDate(d.getDate()-i); week.push(st.dayKey(d)); }
     body.innerHTML = '<div class="stats-row">'+
-      [[c.stars,BF.L("stars","звёзд"),"star"],[st.streak(),BF.L("days in a row","дней подряд"),"sun"],[c.done.length,BF.L("steps done","шагов пройдено"),"ladder"],[(c.outcomes||[]).filter(function(o){ return o.result==="managed"; }).length,BF.L("triggers managed","триггеров преодолено"),"target"]].map(function(s){ return '<div class="stat paper">'+I(s[2],22)+'<b>'+s[0]+'</b><small>'+s[1]+'</small></div>'; }).join("")+'</div>'+
+      [[c.stars,BF.L("stars","звёзд"),"star"],[st.streak(),BF.L("days in a row","дней подряд"),"sun"],[c.done.length,BF.L("steps done","шагов пройдено"),"ladder"],[(c.outcomes||[]).filter(function(o){ return o.result==="managed"; }).length,BF.L("triggers managed","трудных моментов пройдено"),"target"]].map(function(s){ return '<div class="stat paper">'+I(s[2],22)+'<b>'+s[0]+'</b><small>'+s[1]+'</small></div>'; }).join("")+'</div>'+
       '<div class="week-strip paper"><h3>'+BF.L("This week","Эта неделя")+'</h3><div class="ws-row">'+week.map(function(d){ var on = c.days.indexOf(d)>=0, n = c.starLog.filter(function(x){ return x.date===d; }).reduce(function(a,x){ return a+x.n; },0); return '<span class="ws '+(on?'on':'')+'"><small>'+BF.weekday(new Date(d+"T12:00:00"))+'</small>'+(on?BF.starSVG(24,true):'<i></i>')+'<b>'+(n||"")+'</b></span>'; }).join("")+'</div></div>'+
       '<h2>'+BF.L("Plans","Планы")+'</h2>'+(plans.length?'<div class="pl-list">'+plans.map(function(p){ var done = p.ladder.filter(function(r){ return r.done; }).length; return '<a class="pl paper" href="#/'+(p.tag==="adhd"?"quest":"brave")+'/'+p.id+'">'+BF.ui.tagChip(p.tag)+'<b>'+esc(BF.ui.sitTitle(p.id))+'</b><span class="bar"><i style="width:'+Math.round(done/p.ladder.length*100)+'%"></i></span><small>'+done+'/'+p.ladder.length+'</small></a>'; }).join("")+'</div>':'<p class="muted">'+BF.L("No plans yet.","Планов пока нет.")+' <a href="#/library">'+BF.L("Open the library","Открыть библиотеку")+'</a></p>')+
       '<h2>'+BF.L("Game levels","Уровни в играх")+'</h2><div class="gl-list">'+BF.GAME_ORDER.map(function(id){ var g = BF.games[id]; if(!g) return ""; var lv = (c.gameLevels||{})[id]||"easy"; return '<span class="gl paper"><b>'+T(g.title)+'</b>'+BF.ui.stars((c.games||{})[id]||0,3,14)+'<small>'+BF.levelName(lv)+'</small></span>'; }).join("")+'</div>'+
-      '<h2>'+BF.L("Evening check-ins","Вечерние чек-ины")+'</h2>'+((c.checkins||[]).length?'<ul class="plain">'+c.checkins.slice(-8).reverse().map(function(x){ return '<li>'+BF.dateFmt(x.date)+': <b>'+({easy:BF.L("easy","легко"),ok:BF.L("okay","нормально"),hard:BF.L("too hard","слишком трудно")}[x.mood])+'</b> — '+esc(BF.stepText(x.step))+'</li>'; }).join("")+'</ul>':'<p class="muted">'+BF.L("None yet.","Пока нет.")+'</p>');
+      '<h2>'+BF.L("Evening check-ins","Вечерние отметки")+'</h2>'+((c.checkins||[]).length?'<ul class="plain">'+c.checkins.slice(-8).reverse().map(function(x){ return '<li>'+BF.dateFmt(x.date)+': <b>'+({easy:BF.L("easy","легко"),ok:BF.L("okay","нормально"),hard:BF.L("too hard","слишком трудно")}[x.mood])+'</b> — '+esc(BF.stepText(x.step))+'</li>'; }).join("")+'</ul>':'<p class="muted">'+BF.L("None yet.","Пока нет.")+'</p>');
   };
 })();

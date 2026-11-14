@@ -907,6 +907,44 @@ html.dark .g-filter a[aria-pressed="true"]{color:#141c2e}
 /* tracing must fit the screen (a stroke below the fold cannot be traced) */
 @media (min-width:701px){ .stage-pictrace{max-width:min(960px, calc((100vh - 250px) * 600 / 380))} .cl-svg{max-height:calc(100vh - 260px)} }
 
+/* number hunt (Schulte) */
+.stage-schulte,.stage-robot,.stage-changed{aspect-ratio:auto; min-height:360px}
+.sc-wrap{padding:14px; display:flex; flex-direction:column; align-items:center; gap:10px}
+.sc-top{display:flex; gap:12px; align-items:center; width:100%; max-width:440px; justify-content:space-between}
+.sc-top .lvl-tag{position:static}
+.sc-next b{font-size:1.2rem; color:var(--clay-deep)}
+.sc-time{font:800 .9rem var(--f-body); color:var(--ink-faint)}
+.sc-grid{display:grid; grid-template-columns:repeat(var(--n), 1fr); gap:6px; width:min(440px, 100%)}
+.sc-cell{aspect-ratio:1; border:2px solid #E4D6BD; border-radius:12px; font:800 clamp(1.1rem, 4vw, 1.7rem) var(--f-body); color:#5b4a3e; cursor:pointer}
+.sc-cell.ok{opacity:.35; border-style:dashed}
+.sc-cell.no{animation:nudge .3s 2}
+/* follow the robot */
+.rb-wrap{padding:14px; display:grid; grid-template-columns:minmax(0, 380px) 180px; gap:16px; justify-content:center; align-items:start}
+.rb-wrap .lvl-tag{grid-column:1/-1; position:static; justify-self:start}
+.rb-grid{display:grid; grid-template-columns:repeat(var(--n), 1fr); gap:4px; background:#E7D7BC; padding:4px; border-radius:12px}
+.rb-cell{aspect-ratio:1; background:#FBF7EF; border:0; border-radius:8px; cursor:pointer; padding:4px}
+.rb-cell svg{width:100%; height:100%}
+.rb-cell.start{box-shadow:inset 0 0 0 3px #CDBA98}
+.rb-cell.end{background:#E7EFE0}
+.rb-cell.miss{background:#F3DED6}
+.rb-side{display:flex; flex-direction:column; gap:10px; align-items:center}
+.rb-arrow{width:150px; height:120px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; font-weight:800; color:var(--ink-soft); padding:8px}
+.rb-arrow small{color:var(--ink-faint)}
+.rb-trail{display:flex; flex-wrap:wrap; gap:4px; justify-content:center; font:800 1.2rem var(--f-body); color:var(--clay-deep); min-height:1.5em}
+@media (max-width:700px){ .rb-wrap{grid-template-columns:1fr} .rb-side{flex-direction:row; justify-content:center} .rb-arrow{height:90px; width:130px} }
+/* what changed */
+.wc-wrap{padding:14px; display:flex; flex-direction:column; align-items:center; gap:12px}
+.wc-wrap .lvl-tag{position:static; align-self:flex-start}
+.wc-room{position:relative; width:min(520px, 100%); background:#F3EADB; border-radius:16px; padding:18px 14px 10px; box-shadow:inset 0 -14px 0 #D9C3A0}
+.wc-shelf{display:grid; grid-template-columns:repeat(var(--k), 1fr); gap:10px}
+.wc-item{aspect-ratio:1; border:0; border-radius:14px; background:#FBF7EF; color:var(--c); cursor:pointer; display:grid; place-items:center; box-shadow:0 2px 0 #E4D6BD}
+.wc-item svg{width:56%; height:56%; stroke:var(--c); stroke-width:2.4}
+.wc-item.is{box-shadow:0 0 0 4px #A9C29B}
+.wc-item.miss{box-shadow:0 0 0 4px #E2B3B5}
+.wc-curtain{position:absolute; inset:0; border-radius:16px; background:repeating-linear-gradient(90deg, #C9937A 0 18px, #B47C63 18px 22px); animation:fadeIn .4s}
+.wc-curtain[hidden]{display:none}
+html.dark .sc-cell, html.dark .rb-cell, html.dark .wc-item{filter:brightness(.92)}
+
 </style>
 <style data-src="css/v2.css">
 /* ==========================================================
@@ -1674,7 +1712,7 @@ S("switch","adhd","home","trail","living|clock,ball,books|walk|tick|d",[5,1,1,1,
  "Переключение между делами|закончить одно дело и начать другое|Переключать внимание тяжело, особенно с интересного. Предупреждение и карточка «дальше» помогают мозгу перестроиться.|Предупреждение за 5 минут с наглядным таймером;Найти, где удобно остановиться;Убрать первое занятие;Посмотреть на карточку «дальше»;Сделать первый крошечный шаг");
 S("pack","adhd","school","backpack","bedroom|backpack,books,lunchbox|idle|none|e",[2,2,2,2,1],
  "Packing the school bag|pack the backpack the night before|Forgotten books and homework cause stressful mornings. A checklist with pictures turns packing into a quick quest.|Homework folder in;Books for tomorrow in;Pencil case check;Water bottle and lunchbox by the door;Backpack by the front door",
- "Собрать рюкзак|собрать рюкзак с вечера|Забытые учебники и домашка делают утро нервным. Чек-лист с картинками превращает сборы в быстрый квест.|Папка с домашкой — в рюкзак;Учебники на завтра — в рюкзак;Проверить пенал;Бутылка воды и ланч-бокс — у двери;Рюкзак — у входной двери");
+ "Собрать рюкзак|собрать рюкзак с вечера|Забытые учебники и домашка делают утро нервным. Список с картинками превращает сборы в быструю игру.|Папка с домашкой — в рюкзак;Учебники на завтра — в рюкзак;Проверить пенал;Бутылка воды и ланч-бокс — у двери;Рюкзак — у входной двери");
 S("teeth","adhd","home","trail","bathroom|toothbrush,mirror|idle|bubbles|d",[1,2,1,1,1],
  "Brushing teeth for two minutes|brush teeth for the full two minutes|Two minutes feels very long. A song or a timer that shows which part of the mouth to brush makes it doable.|Put toothpaste on the brush;Brush the top teeth while the timer runs;Brush the bottom teeth;Brush your tongue and spit;Smile in the mirror",
  "Чистить зубы две минуты|чистить зубы все две минуты|Две минуты кажутся вечностью. Песенка или таймер, который показывает, какую часть рта чистить, помогают.|Выдавить пасту на щётку;Чистить верхние зубы, пока идёт таймер;Чистить нижние зубы;Почистить язык и сплюнуть;Улыбнуться в зеркало");
@@ -1972,23 +2010,23 @@ BF.PHRASES = {
     confident:[ {en:"One breath, one step, one card.",ru:"Один вдох, один шаг, одна карточка."},{en:"You can feel wobbly and still be the one in charge.",ru:"Можно волноваться и всё равно быть главным."},{en:"Let's slow down together — and then you try.",ru:"Давай вместе замедлимся — а потом попробуешь ты."},{en:"Take a break, then come back. I know you can.",ru:"Отдохни и возвращайся. Я знаю, ты сможешь."},{en:"You handled hard things before.",ru:"Ты уже справлялся с трудным."},{en:"I'm proud of you for trying.",ru:"Я горжусь, что ты пробуешь."} ] }
 };
 
-BF.FEELINGS = { en:["wobbly","fluttery","tight","buzzy","fizzy"], ru:["как желе","будто там бабочки","тугим узелком","жужжащим","как газировка"] };
+BF.FEELINGS = { en:["wobbly","fluttery","tight","buzzy","fizzy"], ru:["всё дрожит, как желе","будто порхают бабочки","всё сжалось в комочек","что-то тихонько жужжит","щекочет, как газировка"] };
 
 /* Story templates. Russian keeps the name in nominative; {g:masc|fem} picks gender. */
 BF.STORY = {
   en:{
     open:[ "This is {name}. {name} lives near {world} and loves it there. {Their} best buddy is {buddy}.", "Every hero has a home base. {name}'s is {world}, where {buddy} is always nearby." ],
-    anxiety:[ "One day {name} found out that soon {they} would {event}. {Their} tummy went {feel}. That's the brave feeling — it shows up when something new is coming.", "{Buddy} said: “Worry is like a wave. It rises… and then it goes down again. You don't have to make it go away.”", "So they made a ladder. Not one giant jump — five small steps. The first one was: {step1}.", "When the feeling got big, {name} remembered {their} trick: {power}. And {they} took the next step anyway.", "Step by step, {name} climbed. Maybe it wasn't perfect. But it was brave — and brave is what counts." ],
+    anxiety:[ "One day {name} found out that soon {they} would {event}. {Their} tummy went {feel}. That's the nervous feeling that shows up when something new is coming.", "{Buddy} said: “Worry is like a wave. It rises… and then it goes down again. You don't have to make it go away.”", "So they made a ladder. Not one giant jump — five small steps. The first one was: {step1}.", "When the feeling got big, {name} remembered {their} trick: {power}. And {they} took the next step anyway.", "Step by step, {name} climbed. Maybe it wasn't perfect. But it was brave — and brave is what counts." ],
     adhd:[ "{name} has a busy, bright brain — full of ideas, like {world} on a sunny day. Sometimes it zooms right past the thing {they} need to do.", "Today the mission was to {event}. {Buddy} had a plan: “We don't do it all at once. We do ONE card, then tap Done.”", "First card: {step1}. The timer was a slow little circle. {name} watched it and kept going.", "Halfway there, it was time to move! {name} did a quick wiggle break, then came right back.", "Card by card, the mission was done. {Buddy} cheered: “You did each step — that's how big things get done!”" ],
     both:[ "{name} has a big heart and a busy brain. Sometimes worry and wiggles show up at the same time — and that's okay.", "Soon {name} would {event}. {Their} tummy went {feel}, and {their} thoughts started zooming in every direction.", "{Buddy} said: “Let's slow it all down. One breath. One step. One card at a time.” The first step was: {step1}.", "When it got loud inside, {name} used {their} trick: {power}. Then {they} looked at the next card — just one.", "Step by step, breath by breath, {name} did it. Worry came along for the ride, but {name} was the one driving." ],
     close:"The end — and the beginning of {name}'s brave ladder."
   },
   ru:{
-    open:[ "Это {name}. {name} {g:живёт|живёт} рядом с местом под названием {world} и очень его любит. Лучший друг — {buddy}.", "У каждого героя есть свой дом. У героя по имени {name} это {world}, а рядом всегда {buddy}." ],
-    anxiety:[ "Однажды {name} {g:узнал|узнала}, что скоро нужно будет {event}. В животике стало {feel}. Это смелое чувство — оно приходит, когда впереди что-то новое.", "{Buddy} шепчет: «Тревога — как волна. Она поднимается… а потом снова опускается. Не нужно её прогонять»." , "И они построили лесенку. Не один огромный прыжок, а пять маленьких шагов. Первый шаг: {step1}.", "Когда чувство становилось большим, {name} {g:вспоминал|вспоминала} свой приём: {power}. И всё равно {g:делал|делала} следующий шаг.", "Шаг за шагом {name} {g:поднимался|поднималась} всё выше. Может, не идеально. Зато смело — а это главное." ],
-    adhd:[ "У героя по имени {name} быстрая, яркая голова, полная идей — как {world} в солнечный день. Иногда мысли проносятся мимо того, что нужно сделать.", "Сегодня задание было такое: {event}. {Buddy} предлагает план: «Не всё сразу. Делаем ОДНУ карточку и жмём „Готово“»." , "Первая карточка: {step1}. Таймер был медленным кружочком. {name} {g:смотрел|смотрела} на него и {g:продолжал|продолжала}.", "На середине пора было подвигаться! {name} быстро {g:размялся|размялась} и сразу {g:вернулся|вернулась} к делу.", "Карточка за карточкой — и задание выполнено. {Buddy} радуется: «Ты сделал каждый шаг — так и делаются большие дела!»" ],
-    both:[ "У героя по имени {name} большое сердце и очень занятая голова. Иногда тревога и непоседливость приходят одновременно — и это нормально.", "Скоро нужно было {event}. В животике стало {feel}, а мысли разбежались во все стороны.", "{Buddy} шепчет: «Давай всё замедлим. Один вдох. Один шаг. Одна карточка». Первый шаг: {step1}.", "Когда внутри становилось шумно, {name} {g:вспоминал|вспоминала} свой приём: {power}. А потом {g:смотрел|смотрела} только на следующую карточку.", "Шаг за шагом, вдох за вдохом — {name} {g:справился|справилась}. Тревога ехала рядом, но за рулём был сам герой." ],
-    close:"Конец — и начало смелой лесенки."
+    open:[ "Это {name}. {g:Его|Её} любимое место — {world}, а лучший друг — {buddy}.", "{name} знает: самое уютное место на свете — {world}. А рядом всегда {buddy}." ],
+    anxiety:[ "Однажды {name} {g:узнал|узнала}, что скоро предстоит {event}. В животике {feel}. Так бывает, когда впереди что-то новое: это волнение, и оно не опасно.", "{Buddy} тихонько говорит: «Волнение — как волна. Оно поднимается, а потом снова опускается. Его не нужно прогонять».", "Тогда они придумали лесенку: не один огромный прыжок, а пять маленьких шагов. Первый шаг — {step1}.", "Когда волнение становилось сильным, {name} {g:вспоминал|вспоминала} свой приём — {power}. И всё равно {g:делал|делала} следующий шаг.", "Шаг за шагом {name} {g:поднимался|поднималась} всё выше. Может быть, не идеально. Зато смело — а это главное." ],
+    adhd:[ "{name} — {g:весёлый и быстрый|весёлая и быстрая}. В голове столько идей, что мысли иногда проносятся мимо самого нужного дела.", "Сегодня нужно было {event}. {Buddy} предлагает план: «Не всё сразу. Делаем одну карточку — и нажимаем „Готово“».", "Первая карточка — {step1}. Таймер медленно таял, а {name} {g:смотрел|смотрела} на него и не {g:отвлекался|отвлекалась}.", "На середине пришло время подвигаться! {name} быстро {g:размялся|размялась} и сразу {g:вернулся|вернулась} к делу.", "Карточка за карточкой — и всё готово. {Buddy} радуется: «Ты {g:сделал|сделала} каждый шаг — так и получаются большие дела!»" ],
+    both:[ "{name} — {g:добрый и очень подвижный|добрая и очень подвижная}. Иногда волнение и непоседливость приходят одновременно, и это нормально.", "Скоро нужно было {event}. В животике {feel}, а мысли разбежались в разные стороны.", "{Buddy} говорит: «Давай всё замедлим. Один вдох. Один шаг. Одна карточка». Первый шаг — {step1}.", "Когда внутри становилось шумно, {name} {g:вспоминал|вспоминала} свой приём — {power}, а потом {g:смотрел|смотрела} только на следующую карточку.", "Шаг за шагом, вдох за вдохом — и {name} {g:справился|справилась}. Волнение было рядом, но {g:главным остался|главной осталась} {name}." ],
+    close:"Вот и сказке конец, а смелая лесенка только начинается."
   }
 };
 
@@ -2008,14 +2046,14 @@ BF.SCALE = [
   {v:5, t:{en:"Great day",ru:"Отличный день"}, c:"#6F8A6E"}
 ];
 BF.MOODS = [
-  {v:"happy", t:{en:"Happy",ru:"Радостно"}, val:5},
-  {v:"calm", t:{en:"Calm",ru:"Спокойно"}, val:4},
-  {v:"proud", t:{en:"Proud",ru:"Гордится"}, val:5},
-  {v:"tired", t:{en:"Tired",ru:"Устал(а)"}, val:3},
-  {v:"worried", t:{en:"Worried",ru:"Тревожно"}, val:2},
-  {v:"sad", t:{en:"Sad",ru:"Грустно"}, val:2},
-  {v:"angry", t:{en:"Angry",ru:"Злится"}, val:1},
-  {v:"overwhelmed", t:{en:"Overwhelmed",ru:"Перегружен(а)"}, val:1}
+  {v:"happy", t:{en:"Happy",ru:"Радость"}, val:5},
+  {v:"calm", t:{en:"Calm",ru:"Спокойствие"}, val:4},
+  {v:"proud", t:{en:"Proud",ru:"Гордость"}, val:5},
+  {v:"tired", t:{en:"Tired",ru:"Усталость"}, val:3},
+  {v:"worried", t:{en:"Worried",ru:"Тревога"}, val:2},
+  {v:"sad", t:{en:"Sad",ru:"Грусть"}, val:2},
+  {v:"angry", t:{en:"Angry",ru:"Злость"}, val:1},
+  {v:"overwhelmed", t:{en:"Overwhelmed",ru:"Перегрузка"}, val:1}
 ];
 BF.DAYPARTS = [ {v:"morning",t:{en:"Morning",ru:"Утро"}}, {v:"midday",t:{en:"Midday",ru:"День"}}, {v:"afternoon",t:{en:"After school",ru:"После школы"}}, {v:"evening",t:{en:"Evening",ru:"Вечер"}} ];
 BF.REACTIONS = [
@@ -2055,7 +2093,7 @@ BF.FOODS = [
   {v:"porridge",t:{en:"Porridge",ru:"Каша"}},{v:"eggs",t:{en:"Eggs",ru:"Яйца"}},{v:"bread",t:{en:"Bread",ru:"Хлеб"}},{v:"dairy",t:{en:"Dairy",ru:"Молочное"}},
   {v:"fruit",t:{en:"Fruit",ru:"Фрукты"}},{v:"veg",t:{en:"Vegetables",ru:"Овощи"}},{v:"soup",t:{en:"Soup",ru:"Суп"}},{v:"meat",t:{en:"Meat",ru:"Мясо"}},
   {v:"fish",t:{en:"Fish",ru:"Рыба"}},{v:"pasta",t:{en:"Pasta / rice",ru:"Макароны / рис"}},{v:"sweets",t:{en:"Sweets",ru:"Сладкое"}},{v:"juice",t:{en:"Juice / soda",ru:"Сок / газировка"}},
-  {v:"fastfood",t:{en:"Fast food",ru:"Фастфуд"}},{v:"nothing",t:{en:"Skipped",ru:"Не ел(а)"}}
+  {v:"fastfood",t:{en:"Fast food",ru:"Фастфуд"}},{v:"nothing",t:{en:"Skipped",ru:"Без еды"}}
 ];
 BF.APPETITE = [ {v:1,t:{en:"Very poor",ru:"Очень плохой"}},{v:2,t:{en:"Poor",ru:"Плохой"}},{v:3,t:{en:"Normal",ru:"Обычный"}},{v:4,t:{en:"Good",ru:"Хороший"}},{v:5,t:{en:"Very hungry",ru:"Очень голодный"}} ];
 BF.SUGAR = [ {v:0,t:{en:"None",ru:"Нет"}},{v:1,t:{en:"A little",ru:"Немного"}},{v:2,t:{en:"Some",ru:"Средне"}},{v:3,t:{en:"A lot",ru:"Много"}} ];
@@ -2830,7 +2868,7 @@ BF.config.llmEndpoint = BF.config.llmEndpoint || null;
     if(!stepMap){ stepMap = {}; BF.SITUATIONS.forEach(function(s){ (s.steps||[]).forEach(function(t){ stepMap[t.en.trim()] = {en:t.en, ru:t.ru}; }); }); }
     var str = String(v).trim(), m;
     if(stepMap[str]) return stepMap[str];
-    if((m = str.match(/^Quest card: (.*)$/))){ var q = stepObj(m[1]); return typeof q==="object" ? {en:"Quest card: "+q.en, ru:"Карточка квеста: "+q.ru} : v; }
+    if((m = str.match(/^Quest card: (.*)$/))){ var q = stepObj(m[1]); return typeof q==="object" ? {en:"Quest card: "+q.en, ru:"Карточка распорядка: "+q.ru} : v; }
     if((m = str.match(/^Mini step: just the first part of “(.*)” — for one minute, with you right beside them$/))){ var b = stepObj(m[1]) || stepObj(m[1]+"."); if(typeof b==="object") return splitStep({text:b, min:2})[0].text; }
     return v;
   }
@@ -3204,10 +3242,10 @@ BF.quiz = {
   }
 };
 BF.screens.quiz = {
-  title:{en:"Parent quiz",ru:"Квиз для родителя"},
+  title:{en:"Parent quiz",ru:"Анкета для родителя"},
   render:function(el, p, query){
     var isNew = query && query.new;
-    el.innerHTML = '<div class="quiz wrap"><div class="quiz-intro"><p class="eyebrow">'+(isNew?BF.L("New child","Новый ребёнок"):BF.L("Edit answers","Изменить ответы"))+'</p><h1>'+(isNew?BF.L("Let's get to know your child","Давайте познакомимся с вашим ребёнком"):BF.L("Retake the parent quiz","Пройти квиз заново"))+'</h1></div><div id="quizHost"></div></div>';
+    el.innerHTML = '<div class="quiz wrap"><div class="quiz-intro"><p class="eyebrow">'+(isNew?BF.L("New child","Новый ребёнок"):BF.L("Edit answers","Изменить ответы"))+'</p><h1>'+(isNew?BF.L("Let's get to know your child","Давайте познакомимся с вашим ребёнком"):BF.L("Retake the parent quiz","Заполнить анкету заново"))+'</h1></div><div id="quizHost"></div></div>';
     BF.quiz.mount(el.querySelector("#quizHost"), {});
   }
 };
@@ -3233,7 +3271,7 @@ BF.screens.home = {
         '<h1>'+BF.L("Let's get to know your child","Давайте познакомимся с вашим ребёнком")+'</h1>'+
         '<p class="lede">'+BF.L("Seven short steps, about 2 minutes. Then you get a family plan: a story where your child is the hero, five small brave steps and the exact words to say.","Семь коротких шагов, около 2 минут. Потом — план для вашей семьи: история, где ребёнок — главный герой, пять маленьких смелых шагов и точные слова, что сказать.")+'</p>'+
         '<ul class="ob-points"><li>'+I('lock',16)+' '+BF.L("No sign-up. Everything stays in this browser.","Без регистрации. Всё остаётся в этом браузере.")+'</li><li>'+I('heart',16)+' '+BF.L("For kids 5–10 with anxiety, ADHD, or both.","Для детей 5–10 лет с тревожностью, СДВГ или и тем, и другим.")+'</li><li>'+I('shield',16)+' '+BF.L("Parent support, not therapy or diagnosis.","Поддержка родителя, а не терапия и не диагноз.")+'</li></ul>'+
-        '<p class="ob-links">'+(demo?'<button class="linkbtn" id="obDemo">'+BF.L("Look around first: open the demo child “Mira”","Сначала осмотреться: открыть демо-ребёнка «Мира»")+'</button> · ':'')+'<a href="#/about">'+BF.L("What is Balapan?","Что такое Balapan?")+'</a></p>'+
+        '<p class="ob-links">'+(demo?'<button class="linkbtn" id="obDemo">'+BF.L("Just looking? Open the demo child, Mira","Просто посмотреть? Откройте демо-профиль Миры")+'</button> · ':'')+'<a href="#/about">'+BF.L("What is Balapan?","Что такое Balapan?")+'</a></p>'+
       '</aside>'+
       '<div class="ob-quiz quiz" id="obQuiz"></div>'+
     '</div>';
@@ -3250,17 +3288,17 @@ BF.screens.home = {
     var greet = hour<12 ? BF.L("Good morning","Доброе утро") : hour<18 ? BF.L("Good afternoon","Добрый день") : BF.L("Good evening","Добрый вечер");
     var tiles = [
       {href:"#/library", ico:"book", t:BF.L("Situations","Ситуации"), d:BF.L("122 moments, story + steps","122 ситуации: история и шаги")},
-      {href:"#/games", ico:"puzzle", t:BF.L("Calm games","Спокойные игры"), d:BF.L("16 games · 3 levels","16 игр · 3 уровня")},
+      {href:"#/games", ico:"puzzle", t:BF.L("Calm games","Спокойные игры"), d:BF.L(BF.GAME_ORDER.length+" games · 3 levels",BF.GAME_ORDER.length+" "+BF.plural(BF.GAME_ORDER.length,"игра","игры","игр")+" · 3 уровня")},
       {href:"#/diary?tab=today", ico:"bed", t:BF.L("Daily log","Дневник дня"), d:BF.L("Sleep, food, screens…","Сон, еда, экраны…")},
-      {href:"#/diary?tab=outcomes&add=1", ico:"target", t:BF.L("Log a trigger","Записать триггер"), d:BF.L("How did it go?","Как прошло?")},
+      {href:"#/diary?tab=outcomes&add=1", ico:"target", t:BF.L("Log a trigger","Записать трудный момент"), d:BF.L("How did it go?","Как прошло?")},
       {href:"#/diary?tab=diary&add=1", ico:"pencil", t:BF.L("Diary note","Запись в дневник"), d:BF.L("Mood 1–5 + comment","Настроение 1–5 + комментарий")},
       {href:"#/specialist", ico:"chart", t:BF.L("For the specialist","Для специалиста"), d:BF.L("Charts + printable report","Графики и отчёт для печати")},
       {href:"#/hero", ico:"user", t:BF.L("Edit hero","Изменить героя"), d:BF.L("Looks like "+name,"Похож на ребёнка")},
-      {href:"#/quiz", ico:"refresh", t:BF.L("Retake quiz","Пройти квиз заново"), d:BF.L("Update the answers","Обновить ответы")}
+      {href:"#/quiz", ico:"refresh", t:BF.L("Retake quiz","Заполнить анкету заново"), d:BF.L("Update the answers","Обновить ответы")}
     ];
     el.innerHTML = '<div class="home2 wrap">'+
       (c.isDemo?'<div class="demo-banner paper">'+I('sparkle',20)+'<div><b>'+BF.L("You're viewing demo data.","Вы смотрите демо-данные.")+'</b> '+BF.L("Mira is a fictional child with two weeks of sample entries.","Мира — вымышленный ребёнок с примерами записей за две недели.")+'</div><button class="btn small ghost" id="toReal">'+BF.L("Switch to my child","К моему ребёнку")+'</button></div>':'')+
-      (blocked?'<div class="flag-banner paper">'+I('heart',26)+'<div><b>'+BF.L("We paused brave plans for now.","Мы пока приостановили смелые планы.")+'</b> '+BF.L("You mentioned something that deserves a specialist's support. Please talk with your pediatrician or a child mental-health professional. In a crisis in the US call or text <b>988</b>, or <b>911</b>.","Вы отметили то, что требует поддержки специалиста. Пожалуйста, обратитесь к педиатру или детскому психологу/психиатру. В кризисной ситуации в США — <b>988</b> или <b>911</b>, в Казахстане — <b>112</b> или телефон доверия <b>150</b>.")+' <a href="#/safety?from=quiz">'+BF.L("What to do","Что делать")+'</a></div></div>':'')+
+      (blocked?'<div class="flag-banner paper">'+I('heart',26)+'<div><b>'+BF.L("We paused brave plans for now.","Мы поставили планы смелых шагов на паузу.")+'</b> '+BF.L("You mentioned something that deserves a specialist's support. Please talk with your pediatrician or a child mental-health professional. In a crisis in the US call or text <b>988</b>, or <b>911</b>.","Вы отметили то, что требует поддержки специалиста. Пожалуйста, обратитесь к педиатру или детскому психологу/психиатру. В кризисной ситуации в США — <b>988</b> или <b>911</b>, в Казахстане — <b>112</b> или телефон доверия <b>150</b>.")+' <a href="#/safety?from=quiz">'+BF.L("What to do","Что делать")+'</a></div></div>':'')+
       '<header class="h2-head">'+
         '<div class="h2-scene">'+BF.scene.render(sit ? sit.scene : "park|tree,ball|wave|sun|d", {avatar:c.avatar})+'</div>'+
         '<div class="h2-intro"><p class="eyebrow">'+greet+'</p><h1>'+BF.L(name+"'s home","Главная: "+name)+'</h1>'+
@@ -3270,7 +3308,7 @@ BF.screens.home = {
       '<div class="h2-grid">'+
         '<section class="today paper"><span class="tape"></span><h2>'+BF.L("Today","Сегодня")+'</h2>'+
           (step && !blocked ? '<div class="today-step"><p class="eyebrow">'+T(sit.title)+' · '+BF.L("step","шаг")+' '+(plan.current+1)+'/'+plan.ladder.length+'</p><p class="ts-text">'+esc(T(step.text))+'</p><div class="cel-actions"><a class="btn clay small" href="#/'+(plan.tag==="adhd"?"quest":"brave")+'/'+plan.id+'">'+I('play',16)+' '+BF.L("Open","Открыть")+'</a><a class="btn ghost small" href="#/game/'+plan.game+'?plan='+plan.id+'">'+I('hand',16)+' '+BF.L("Warm-up game","Игра-разминка")+'</a></div>'+
-            '<div class="checkin"><b>'+BF.L("Evening check-in: how did the step go?","Вечерний чек-ин: как прошёл шаг?")+'</b><div class="ci-row">'+[["easy",BF.L("Easy","Легко")],["ok",BF.L("Okay","Нормально")],["hard",BF.L("Too hard","Слишком трудно")]].map(function(m){ return '<button class="btn small ghost ci-'+m[0]+'" data-ci="'+m[0]+'">'+m[1]+'</button>'; }).join("")+'</div></div></div>'
+            '<div class="checkin"><b>'+BF.L("Evening check-in: how did the step go?","Вечером отметьте: как прошёл шаг?")+'</b><div class="ci-row">'+[["easy",BF.L("Easy","Легко")],["ok",BF.L("Okay","Нормально")],["hard",BF.L("Too hard","Слишком трудно")]].map(function(m){ return '<button class="btn small ghost ci-'+m[0]+'" data-ci="'+m[0]+'">'+m[1]+'</button>'; }).join("")+'</div></div></div>'
           : (!blocked ? '<p class="muted">'+BF.L("No active brave plan yet. Pick one below to start.","Пока нет активного плана. Выберите ситуацию ниже.")+'</p>' : '<p class="muted">'+BF.L("Games, diary and the specialist report are still available.","Игры, дневник и отчёт для специалиста по-прежнему доступны.")+'</p>'))+
           '<div class="mood-now"><b>'+BF.L("Mood stickers today","Настроение сегодня")+'</b><div class="mood-parts">'+BF.DAYPARTS.map(function(dp){ var m = todayMoods.filter(function(x){ return x.part===dp.v; }).pop(); return '<button class="mp '+(dp.v===partNow?'now':'')+'" data-part="'+dp.v+'"><span class="mp-st">'+(m?BF.moodFace(m.mood,34):'<span class="mp-empty">+</span>')+'</span><small>'+T(dp.t)+'</small></button>'; }).join("")+'</div></div>'+
         '</section>'+
@@ -3278,11 +3316,11 @@ BF.screens.home = {
           '<button class="tile paper add-kid" id="addKid"><span class="tile-ico">'+I('plus',24)+'</span><b>'+BF.L("Add a child","Добавить ребёнка")+'</b><small>'+BF.L(st.realChildren().length+" of "+st.childLimit()+" on your plan","на тарифе: "+st.realChildren().length+" из "+st.childLimit())+'</small></button>'+
         '</section>'+
       '</div>'+
-      (adapt.length?'<section class="adapt paper"><h2>'+I('sparkle',20)+' '+BF.L("Next steps from your trigger log","Следующие шаги по журналу триггеров")+'</h2><ul class="plain">'+adapt.map(function(a){ return '<li class="ad-'+a.kind+'">'+esc(T(a.text))+' <a href="#/library?open='+a.sit+'">'+BF.L("Open","Открыть")+'</a></li>'; }).join("")+'</ul></section>':'')+
+      (adapt.length?'<section class="adapt paper"><h2>'+I('sparkle',20)+' '+BF.L("Next steps from your trigger log","Что дальше — по вашим записям")+'</h2><ul class="plain">'+adapt.map(function(a){ return '<li class="ad-'+a.kind+'">'+esc(T(a.text))+' <a href="#/library?open='+a.sit+'">'+BF.L("Open","Открыть")+'</a></li>'; }).join("")+'</ul></section>':'')+
       (recs.length?'<section class="start-here"><h2>'+BF.L("Picked for "+name,"Подобрано для: "+name)+'</h2><div class="stones-path">'+recs.map(function(s,ix){
         var has = !!c.plans[s.id];
         return '<article class="stone-card paper"><div class="sc-scene">'+BF.scene.render(s.scene,{avatar:c.avatar, size:"thumb"})+'</div>'+BF.ui.tagChip(s.tag)+'<h3>'+T(s.title)+'</h3><p class="muted">'+T(s.why)+'</p><div class="sc-actions">'+
-          (s.tag!=="adhd"?'<button class="btn small clay" data-open="'+s.id+'" data-mode="brave">'+(has?BF.L("Open","Открыть"):BF.L("Make","Создать"))+' Brave Plan</button>':'')+(s.tag!=="anxiety"?'<button class="btn small sage" data-open="'+s.id+'" data-mode="quest">Routine Quest</button>':'')+'</div></article>';
+          (s.tag!=="adhd"?'<button class="btn small clay" data-open="'+s.id+'" data-mode="brave">'+(has?BF.L("Open Brave Plan","Открыть план смелых шагов"):BF.L("Make Brave Plan","Составить план смелых шагов"))+'</button>':'')+(s.tag!=="anxiety"?'<button class="btn small sage" data-open="'+s.id+'" data-mode="quest">'+BF.L("Routine Quest","Карточки распорядка")+'</button>':'')+'</div></article>';
       }).join("")+'</div></section>':'')+
     '</div>';
     el.querySelectorAll("[data-open]").forEach(function(b){ b.onclick = function(){ BF.plans.open(b.getAttribute("data-open"), b.getAttribute("data-mode")); }; });
@@ -3315,14 +3353,14 @@ BF.screens.about = {
     '</div>'+
     '<section class="facts wrap"><h2 class="center">'+BF.L("Why this matters","Почему это важно")+'</h2><div class="fact-row">'+BF.FACTS.map(function(f){ return '<a class="fact paper" href="'+f.url+'" target="_blank" rel="noopener"><b>'+(BF.lang()==="ru"?f.nru:f.n)+'</b><span>'+T(f.t)+'</span><small>'+f.src+'</small></a>'; }).join("")+'</div></section>'+
     '<section class="how wrap"><h2 class="center">'+BF.L("How a calmer week works","Как проходит спокойная неделя")+'</h2><ol class="how-steps">'+
-      [[BF.L("A 2-minute parent quiz","Квиз для родителя на 2 минуты"),BF.L("What's hard, what your child fears, what you do when they're scared, what they love.","Что трудно, чего ребёнок боится, что вы делаете, когда ему страшно, что он любит.")],
-       [BF.L("Build the hero","Соберите героя"),BF.L("Skin, hair, eyes, clothes, shoes, body shape — your child sees themself being brave.","Кожа, волосы, глаза, одежда, обувь, телосложение — ребёнок видит смелым себя.")],
+      [[BF.L("A 2-minute parent quiz","Анкета для родителя на 2 минуты"),BF.L("What's hard, what your child fears, what you do when they're scared, what they love.","Что трудно, чего ребёнок боится, что вы делаете, когда ему страшно, что он любит.")],
+       [BF.L("Build the hero","Соберите героя"),BF.L("Skin, hair, eyes, clothes, shoes, body shape — your child gets to see themselves being brave.","Кожа, волосы, глаза, одежда, обувь, телосложение — ребёнок видит себя смелым.")],
        [BF.L("Climb one small step","Один маленький шаг"),BF.L("An animated story, a five-rung ladder, one timed card at a time, and stars for every try.","Анимированная история, лесенка из пяти ступенек, одна карточка с таймером и звёзды за каждую попытку.")],
-       [BF.L("Log and adapt","Записывайте и подстраивайте"),BF.L("Diary, mood stickers, sleep and food, trigger outcomes — the next step adapts and a specialist gets a clear report.","Дневник, наклейки настроения, сон и еда, исходы триггеров — следующий шаг подстраивается, а специалист получает понятный отчёт.")]].map(function(s,i){ return '<li class="reveal d'+(i+1)+'"><span class="num">'+(i+1)+'</span><h3>'+s[0]+'</h3><p>'+s[1]+'</p></li>'; }).join("")+
+       [BF.L("Log and adapt","Записывайте и подстраивайте"),BF.L("Diary, mood stickers, sleep and food, trigger outcomes — the next step adapts and a specialist gets a clear report.","Дневник, наклейки настроения, сон и еда, записи о трудных моментах — следующий шаг подстраивается под ребёнка, а специалист получает понятный отчёт.")]].map(function(s,i){ return '<li class="reveal d'+(i+1)+'"><span class="num">'+(i+1)+'</span><h3>'+s[0]+'</h3><p>'+s[1]+'</p></li>'; }).join("")+
     '</ol></section>'+
-    '<section class="venn-sec wrap"><div class="venn-copy"><p class="eyebrow">'+BF.L("Built for the overlap","Создано для пересечения")+'</p><h2>'+BF.L("Worry and wiggles often show up in the same child.","Тревога и непоседливость часто живут в одном ребёнке.")+'</h2><p>'+BF.L("Balapan treats <b>anxiety</b>, <b>focus struggles</b> and <b>both at once</b> as three real starting points — each with its own situations, words and pacing.","Balapan рассматривает <b>тревожность</b>, <b>трудности с вниманием</b> и <b>оба сразу</b> как три реальные отправные точки — у каждой свои ситуации, слова и темп.")+'</p><a class="btn dusty" href="#/library">'+BF.L("Browse "+BF.SITUATIONS.length+" situations","Смотреть "+BF.SITUATIONS.length+" ситуации")+'</a></div>'+
-      '<div class="venn" aria-hidden="true"><div class="v v1"><span>'+BF.L("Anxiety","Тревожность")+'<small>'+BF.L("goodbyes, doctors, storms","прощания, врачи, гроза")+'</small></span></div><div class="v v2"><span>'+BF.L("ADHD / focus","СДВГ / внимание")+'<small>'+BF.L("mornings, homework, waiting","утро, домашка, ожидание")+'</small></span></div><div class="v-mid"><b>'+BF.L("Both","Оба")+'</b><small>'+BF.L("test day, loud lunch","контрольная, столовая")+'</small></div></div></section>'+
-    '<section class="promise wrap"><div class="promise-card paper"><span class="tape"></span><div class="promise-ico">'+I('shield',30)+'</div><div><h3>'+BF.L("Honest about what this is","Честно о том, что это")+'</h3><p>'+BF.L("Daily parent support inspired by research on parent-based approaches — not therapy, no diagnosis, no medical promises. We are not affiliated with any university program. If answers point to something bigger, we don't build a plan and point you to a specialist and, in the US, the 988 crisis line.","Ежедневная поддержка родителя, вдохновлённая исследованиями подхода через родителя, — не терапия, не диагноз, без медицинских обещаний. Мы не связаны ни с какими университетскими программами. Если ответы указывают на что-то серьёзное, мы не строим план и подсказываем обратиться к специалисту (в США — кризисная линия 988).")+'</p><a href="#/safety">'+BF.L("Read our safety page","Страница безопасности")+'</a></div></div>'+
+    '<section class="venn-sec wrap"><div class="venn-copy"><p class="eyebrow">'+BF.L("Built for the overlap","Создано для пересечения")+'</p><h2>'+BF.L("Worry and wiggles often show up in the same child.","Тревога и непоседливость часто живут в одном ребёнке.")+'</h2><p>'+BF.L("Balapan treats <b>anxiety</b>, <b>focus struggles</b> and <b>both at once</b> as three real starting points — each with its own situations, words and pacing.","Balapan рассматривает <b>тревожность</b>, <b>трудности с вниманием</b> и <b>и то и другое сразу</b> как три реальные отправные точки — у каждой свои ситуации, слова и темп.")+'</p><a class="btn dusty" href="#/library">'+BF.L("Browse "+BF.SITUATIONS.length+" situations","Смотреть "+BF.SITUATIONS.length+" ситуации")+'</a></div>'+
+      '<div class="venn" aria-hidden="true"><div class="v v1"><span>'+BF.L("Anxiety","Тревожность")+'<small>'+BF.L("goodbyes, doctors, storms","прощания, врачи, гроза")+'</small></span></div><div class="v v2"><span>'+BF.L("ADHD / focus","СДВГ / внимание")+'<small>'+BF.L("mornings, homework, waiting","утро, уроки, ожидание")+'</small></span></div><div class="v-mid"><b>'+BF.L("Both","Вместе")+'</b><small>'+BF.L("test day, loud lunch","контрольная, столовая")+'</small></div></div></section>'+
+    '<section class="promise wrap"><div class="promise-card paper"><span class="tape"></span><div class="promise-ico">'+I('shield',30)+'</div><div><h3>'+BF.L("Honest about what this is","Честно о том, что это")+'</h3><p>'+BF.L("Daily parent support inspired by research on parent-based approaches — not therapy, no diagnosis, no medical promises. We are not affiliated with any university program. If answers point to something bigger, we don't build a plan and point you to a specialist and, in the US, the 988 crisis line.","Ежедневная поддержка родителя, основанная на исследованиях методов, где главную роль играет родитель, — не терапия, не диагноз, без медицинских обещаний. Мы не связаны ни с какими университетскими программами. Если ответы указывают на что-то серьёзное, мы не строим план и подсказываем обратиться к специалисту (в США — кризисная линия 988).")+'</p><a href="#/safety">'+BF.L("Read our safety page","Страница безопасности")+'</a></div></div>'+
       '<div class="final-cta"><h2>'+BF.L("Track: Skills — the parent learns a skill","Трек: Skills — навык осваивает родитель")+'</h2><p class="fine">'+BF.L("3 plans free · then $12.99/month (2 children) or $79.99/year (up to 3 children)","3 плана бесплатно · далее $12.99/месяц (2 ребёнка) или $79.99/год (до 3 детей)")+'</p><a class="btn big clay" href="#/pricing">'+BF.L("See plans","Тарифы")+'</a></div></section>';
   }
 };
@@ -3427,9 +3465,9 @@ BF.plans = {
       if(m==="hard" && !wasMini){ var q = x.plans[x.activePlan], parts = BF.engine.splitStep(q.ladder[q.current]); q.ladder.splice(q.current, 1, parts[0], parts[1]); }
     });
     st.markActive();
-    BF.ui.toast({ easy:BF.L("Lovely. Tomorrow, try the next rung — or repeat once to make it boring.","Отлично. Завтра — следующая ступенька или ещё раз, чтобы стало скучно."),
+    BF.ui.toast({ easy:BF.L("Nice work. Tomorrow, try the next rung — or repeat this one until it feels boring.","Отлично! Завтра можно перейти на следующую ступеньку — или повторить эту, пока не станет совсем легко."),
       ok:BF.L("Good. Repeat this step tomorrow until it feels easy.","Хорошо. Повторите этот шаг завтра, пока он не станет лёгким."),
-      hard: wasMini ? BF.L("Thanks for being honest. Repeat this mini step tomorrow — stay extra close.","Спасибо за честность. Завтра повторите этот мини-шаг — будьте совсем рядом.") : BF.L("Thanks for being honest. We added a smaller mini step first.","Спасибо за честность. Мы добавили сначала шаг поменьше.") }[m]);
+      hard: wasMini ? BF.L("Thanks for being honest. Repeat this mini step tomorrow — stay extra close.","Спасибо, что честно отметили. Завтра повторите этот мини-шаг и будьте совсем рядом.") : BF.L("Thanks for being honest. We added a smaller mini step first.","Спасибо, что честно отметили. Мы добавили шаг поменьше.") }[m]);
     BF.router.refresh();
   }
 };
@@ -3447,28 +3485,28 @@ BF.screens.plan = {
     var mot = (c.motivators||[]).map(function(v){ return BF.ui.lbl(BF.QUIZ[5].options, v); });
     el.innerHTML =
       '<div class="plan wrap">'+
-        (blocked?'<div class="flag-banner paper">'+I('heart',26)+'<div><b>'+BF.L("We won't build a brave plan yet.","Мы пока не будем строить смелый план.")+'</b> '+BF.L("Some answers need a specialist's support first. Please talk with your pediatrician or a child mental-health professional. In a crisis in the US call or text <b>988</b> (Suicide &amp; Crisis Lifeline) or <b>911</b>.","Некоторые ответы требуют сначала поддержки специалиста. Обратитесь к педиатру или детскому психологу/психиатру. В кризисной ситуации в США — <b>988</b> или <b>911</b>; в Казахстане — <b>112</b>, детский телефон доверия <b>150</b>.")+' <a href="#/safety?from=quiz">'+BF.L("Safety page","Страница безопасности")+'</a></div></div>':'')+
+        (blocked?'<div class="flag-banner paper">'+I('heart',26)+'<div><b>'+BF.L("We won't build a brave plan yet.","Мы пока не будем составлять план смелых шагов.")+'</b> '+BF.L("Some answers need a specialist's support first. Please talk with your pediatrician or a child mental-health professional. In a crisis in the US call or text <b>988</b> (Suicide &amp; Crisis Lifeline) or <b>911</b>.","Некоторые ответы требуют сначала поддержки специалиста. Обратитесь к педиатру или детскому психологу/психиатру. В кризисной ситуации в США — <b>988</b> или <b>911</b>; в Казахстане — <b>112</b>, детский телефон доверия <b>150</b>.")+' <a href="#/safety?from=quiz">'+BF.L("Safety page","Страница безопасности")+'</a></div></div>':'')+
         '<header class="plan-head">'+
           '<div class="plan-hero">'+A.svg(c.avatar,{size:150,pose:"wave"})+'<div class="ph-chick">'+A.chick(56)+'</div></div>'+
           '<div class="plan-intro"><p class="eyebrow">'+BF.L("Step 7 of 7 · Plan for your family","Шаг 7 из 7 · План для вашей семьи")+'</p><h1>'+BF.L(name+"'s brave &amp; focused week","Смелая и собранная неделя: "+name)+'</h1>'+
             '<p class="lede">'+BF.L("Starting point","Отправная точка")+': <b>'+profText+'</b>. '+BF.L("Story world","Мир истории")+': <b>'+T(it.world)+'</b> · '+BF.L("buddy","друг")+': '+T(it.buddy)+'.'+(mot.length?' '+BF.L("Rewards","Награды")+': '+esc(mot.join(", "))+'.':'')+'</p>'+
-            '<div class="plan-meta"><span class="chip">'+(left===Infinity?BF.L("Unlimited plans","Безлимитные планы"):BF.L(left+" of "+st.FREE_PLANS+" free plans left","осталось бесплатных планов: "+left+" из "+st.FREE_PLANS))+'</span><a class="chip" href="#/hero">'+I('pencil',14)+' '+BF.L("Edit hero","Изменить героя")+'</a><a class="chip" href="#/quiz">'+I('refresh',14)+' '+BF.L("Retake quiz","Пройти квиз заново")+'</a><a class="chip" href="#/">'+I('home',14)+' '+BF.L("Home","Главная")+'</a></div>'+
+            '<div class="plan-meta"><span class="chip">'+(left===Infinity?BF.L("Unlimited plans","Сколько угодно планов"):BF.L(left+" of "+st.FREE_PLANS+" free plans left","осталось бесплатных планов: "+left+" из "+st.FREE_PLANS))+'</span><a class="chip" href="#/hero">'+I('pencil',14)+' '+BF.L("Edit hero","Изменить героя")+'</a><a class="chip" href="#/quiz">'+I('refresh',14)+' '+BF.L("Retake quiz","Заполнить анкету заново")+'</a><a class="chip" href="#/">'+I('home',14)+' '+BF.L("Home","Главная")+'</a></div>'+
           '</div>'+
         '</header>'+
-        (recs.length?'<section class="start-here"><h2>'+BF.L("Start here","Начните отсюда")+'</h2><p class="muted">'+BF.L("Picked from what you said is hardest and what your child fears.","Подобрано по тому, что сейчас труднее всего и чего ребёнок боится.")+'</p><div class="stones-path">'+recs.map(function(s,ix){
+        (recs.length?'<section class="start-here"><h2>'+BF.L("Start here","Начните отсюда")+'</h2><p class="muted">'+BF.L("Based on what you said is hardest and what your child is afraid of.","Подобрано по тому, что сейчас труднее всего и чего ребёнок боится.")+'</p><div class="stones-path">'+recs.map(function(s,ix){
             var has = !!c.plans[s.id];
             return '<article class="stone-card paper reveal d'+(ix+1)+'"><span class="stone-n">'+(ix+1)+'</span><div class="sc-scene">'+BF.scene.render(s.scene,{avatar:c.avatar,size:"thumb"})+'</div>'+BF.ui.tagChip(s.tag)+'<h3>'+T(s.title)+'</h3><p class="muted">'+T(s.why)+'</p>'+
-              '<div class="sc-actions">'+(s.tag!=="adhd"?'<button class="btn small clay" data-open="'+s.id+'" data-mode="brave">'+(has?BF.L("Open","Открыть"):BF.L("Make","Создать"))+' Brave Plan</button>':'')+
-              (s.tag!=="anxiety"?'<button class="btn small sage" data-open="'+s.id+'" data-mode="quest">'+(has?BF.L("Open","Открыть"):BF.L("Start","Начать"))+' Routine Quest</button>':'')+'</div></article>';
+              '<div class="sc-actions">'+(s.tag!=="adhd"?'<button class="btn small clay" data-open="'+s.id+'" data-mode="brave">'+(has?BF.L("Open Brave Plan","Открыть план смелых шагов"):BF.L("Make Brave Plan","Составить план смелых шагов"))+'</button>':'')+
+              (s.tag!=="anxiety"?'<button class="btn small sage" data-open="'+s.id+'" data-mode="quest">'+(has?BF.L("Open Routine Quest","Открыть карточки распорядка"):BF.L("Start Routine Quest","Сделать карточки распорядка"))+'</button>':'')+'</div></article>';
           }).join("")+'</div><p class="center"><a class="btn ghost" href="#/library">'+BF.L("See all "+BF.SITUATIONS.length+" situations","Все "+BF.SITUATIONS.length+" ситуации")+'</a></p></section>':'')+
         '<section class="two-col">'+
-          '<div class="words paper"><span class="tape"></span><h3>'+BF.L("Words for this week","Слова на эту неделю")+'</h3><p class="muted small">'+BF.L("Acceptance first, then confidence.","Сначала принятие, потом уверенность.")+'</p><ul class="quote-list">'+words.map(function(w){ return '<li>“'+esc(w)+'”</li>'; }).join("")+'</ul></div>'+
-          '<div class="habits paper"><h3>'+BF.L("Gently drop → try instead","Мягко отказаться → попробовать вместо")+'</h3><ul class="swap-list">'+habits.map(function(h){ return '<li><span class="drop">'+T(h.drop)+'</span><span class="arrow">'+I('next',16)+'</span><span class="instead">'+T(h.instead)+'</span></li>'; }).join("")+'</ul></div>'+
+          '<div class="words paper"><span class="tape"></span><h3>'+BF.L("Words for this week","Слова на эту неделю")+'</h3><p class="muted small">'+BF.L("Acceptance first, then confidence.","Сначала понимание, потом уверенность.")+'</p><ul class="quote-list">'+words.map(function(w){ return '<li>“'+esc(w)+'”</li>'; }).join("")+'</ul></div>'+
+          '<div class="habits paper"><h3>'+BF.L("What to drop, and what to try instead","Чего избегать и что делать вместо этого")+'</h3><ul class="swap-list">'+habits.map(function(h){ return '<li><span class="drop">'+T(h.drop)+'</span><span class="arrow">'+I('next',16)+'</span><span class="instead">'+T(h.instead)+'</span></li>'; }).join("")+'</ul></div>'+
         '</section>'+
         '<section class="rhythm"><h2>'+BF.L("Ten minutes a day","Десять минут в день")+'</h2><div class="rhythm-row">'+
-          '<div class="rh paper"><span class="rh-ico">'+I('sun',26)+'</span><b>'+BF.L("Morning · 3 min","Утро · 3 мин")+'</b><p>'+BF.L("One Routine Quest card with the slow timer.","Одна карточка Routine Quest с медленным таймером.")+'</p></div>'+
+          '<div class="rh paper"><span class="rh-ico">'+I('sun',26)+'</span><b>'+BF.L("Morning · 3 min","Утро · 3 мин")+'</b><p>'+BF.L("One Routine Quest card with the slow timer.","Одна карточка распорядка с медленным таймером.")+'</p></div>'+
           '<div class="rh paper"><span class="rh-ico">'+I('hand',26)+'</span><b>'+BF.L("After school · 3 min","После школы · 3 мин")+'</b><p>'+BF.L("One calm game — stars go to the next brave step.","Одна спокойная игра — звёзды идут в следующий смелый шаг.")+'</p></div>'+
-          '<div class="rh paper"><span class="rh-ico">'+I('moon',26)+'</span><b>'+BF.L("Evening · 4 min","Вечер · 4 мин")+'</b><p>'+BF.L("Read the story, a mood sticker and a 10-second check-in.","Сказка, наклейка настроения и чек-ин на 10 секунд.")+'</p></div>'+
+          '<div class="rh paper"><span class="rh-ico">'+I('moon',26)+'</span><b>'+BF.L("Evening · 4 min","Вечер · 4 мин")+'</b><p>'+BF.L("Read the story, add a mood sticker, and do a 10-second check-in.","Сказка, наклейка настроения и вечерняя отметка за 10 секунд.")+'</p></div>'+
         '</div></section>'+
       '</div>';
     el.querySelectorAll("[data-open]").forEach(function(b){ b.onclick = function(){ BF.plans.open(b.getAttribute("data-open"), b.getAttribute("data-mode")); }; });
@@ -3491,7 +3529,7 @@ BF.screens.library = {
         '<div class="lib-legend paper"><b>'+BF.L("Three starting points","Три отправные точки")+'</b>'+["anxiety","adhd","both"].map(function(t){ return '<span>'+BF.ui.tagChip(t)+' '+T(BF.TAGS[t].note)+'</span>'; }).join("")+'</div></div>'+
         '<div class="lib-tools">'+
           '<div class="filter-tabs" role="tablist">'+["all","anxiety","adhd","both"].map(function(t){ return '<button data-tag="'+t+'" class="ft ft-'+t+'" aria-pressed="'+(t===tag)+'">'+(t==="all"?BF.L("All","Все"):T(BF.TAGS[t].label))+' <small>'+counts[t]+'</small></button>'; }).join("")+'</div>'+
-          '<label class="search"><span class="sr">'+BF.L("Search situations","Поиск ситуаций")+'</span>'+I('search',18)+'<input class="input" id="libQ" placeholder="'+BF.L("Search: dentist, homework, noise…","Поиск: стоматолог, домашка, шум…")+'" autocomplete="off"></label>'+
+          '<label class="search"><span class="sr">'+BF.L("Search situations","Поиск ситуаций")+'</span>'+I('search',18)+'<input class="input" id="libQ" placeholder="'+BF.L("Search: dentist, homework, noise…","Поиск: стоматолог, уроки, шум…")+'" autocomplete="off"></label>'+
           '<div class="cat-row">'+['all'].concat(Object.keys(BF.CATS)).map(function(k){ return '<button data-cat="'+k+'" aria-pressed="'+(k===cat)+'">'+(k==="all"?BF.L("Everywhere","Везде"):T(BF.CATS[k]))+'</button>'; }).join("")+'</div>'+
         '</div>'+
         '<p class="lib-count muted small" id="libCount"></p>'+
@@ -3533,7 +3571,7 @@ BF.screens.library = {
   openSheet:function(id){
     var I = BF.icon, T = BF.ui.T, esc = BF.ui.esc, c = BF.store.s, s = BF.engine.find(id); if(!s) return;
     var has = !!c.plans[id], blocked = BF.store.planBlocked(c), g = BF.games[s.game];
-    var ladderTitle = s.tag==="adhd" ? BF.L("Routine steps","Шаги рутины") : (s.tag==="both" ? BF.L("Brave ladder · one timed card at a time","Лесенка · по одной карточке с таймером") : BF.L("Brave ladder","Лесенка смелых шагов"));
+    var ladderTitle = s.tag==="adhd" ? BF.L("Routine steps","Шаги распорядка") : (s.tag==="both" ? BF.L("Brave ladder · one timed card at a time","Лесенка · по одной карточке с таймером") : BF.L("Brave ladder","Лесенка смелых шагов"));
     var left = BF.store.plansLeft();
     var sh = BF.ui.sheet('<div class="sh-scene">'+BF.scene.render(s.scene,{avatar:c.avatar, label:T(s.title)})+'</div>'+
       '<div class="sh-top">'+BF.ui.tagChip(s.tag)+'<span class="chip">'+I(BF.CAT_ICON[s.cat],14)+' '+T(BF.CATS[s.cat])+'</span></div>'+
@@ -3541,11 +3579,11 @@ BF.screens.library = {
       '<div class="sh-grid"><div><h4>'+BF.L("Why it's hard","Почему это трудно")+'</h4><p>'+T(s.why)+'</p><h4>'+BF.L("Try saying","Попробуйте сказать")+'</h4><ul class="quote-list">'+BF.engine.phrases(s).map(function(p){ return '<li>“'+esc(p)+'”</li>'; }).join("")+'</ul></div>'+
       '<div><h4>'+ladderTitle+'</h4><ol class="mini-ladder">'+s.steps.map(function(t,i){ return '<li><span>'+(i+1)+'</span><div>'+T(t)+(s.tag!=="anxiety"?' <small>· '+s.mins[i]+'&nbsp;'+BF.L("min","мин")+'</small>':'')+'</div></li>'; }).join("")+'</ol></div></div>'+
       '<div class="sh-actions">'+(blocked?'<a class="btn clay" href="#/safety?from=plan">'+I('heart',18)+' '+BF.L("Talk to a specialist first","Сначала к специалисту")+'</a>':
-        (s.tag!=="adhd"?'<button class="btn clay" data-mode="brave">'+I('book',18)+' '+(has?BF.L("Open","Открыть"):BF.L("Make","Создать"))+' Brave Plan</button>':'')+
-        (s.tag!=="anxiety"?'<button class="btn sage" data-mode="quest">'+I('clock',18)+' '+(has?BF.L("Open","Открыть"):BF.L("Start","Начать"))+' Routine Quest</button>':''))+
+        (s.tag!=="adhd"?'<button class="btn clay" data-mode="brave">'+I('book',18)+' '+(has?BF.L("Open Brave Plan","Открыть план смелых шагов"):BF.L("Make Brave Plan","Составить план смелых шагов"))+'</button>':'')+
+        (s.tag!=="anxiety"?'<button class="btn sage" data-mode="quest">'+I('clock',18)+' '+(has?BF.L("Open Routine Quest","Открыть карточки распорядка"):BF.L("Start Routine Quest","Сделать карточки распорядка"))+'</button>':''))+
         (g?'<a class="btn ghost" href="#/game/'+s.game+'">'+I('hand',18)+' '+T(g.title)+'</a>':'')+
         '<a class="btn ghost" href="#/diary?tab=outcomes&add=1&sit='+s.id+'">'+I('target',18)+' '+BF.L("Log how it went","Записать, как прошло")+'</a></div>'+
-      (has||blocked?'':'<p class="fine">'+(left===Infinity?BF.L("Unlimited plans","Безлимитные планы"):BF.L(left+" free plans left",'Осталось бесплатных планов: '+left))+' · '+BF.L("plans use "+esc(BF.ui.heroName())+"'s name, buddy and hero — only in this browser.","в планах используются имя, друг и герой ребёнка — только в этом браузере.")+'</p>'), "wide");
+      (has||blocked?'':'<p class="fine">'+(left===Infinity?BF.L("Unlimited plans","Сколько угодно планов"):BF.L(left+" free plans left",'Осталось бесплатных планов: '+left))+' · '+BF.L("plans use "+esc(BF.ui.heroName())+"'s name, buddy and hero — only in this browser.","в планах используются имя, друг и герой ребёнка — только в этом браузере.")+'</p>'), "wide");
     sh.querySelectorAll("[data-mode]").forEach(function(b){ b.onclick = function(){ sh.close(); BF.plans.open(id, b.getAttribute("data-mode")); }; });
     sh.querySelectorAll("a").forEach(function(a){ a.addEventListener("click", function(){ sh.close(); }); });
   }
@@ -3555,7 +3593,7 @@ BF.screens.library = {
 <script data-src="js/screens/brave.js">
 var BF = window.BF = window.BF || {};
 BF.screens.brave = {
-  title:{en:"Brave Plan",ru:"Смелый план"},
+  title:{en:"Brave Plan",ru:"План смелых шагов"},
   render:function(el, id){
     var st = BF.store, c = st.s, I = BF.icon, A = BF.avatar, esc = BF.ui.esc, T = BF.ui.T;
     var plan = c.plans[id], sit = BF.engine.find(id);
@@ -3565,7 +3603,7 @@ BF.screens.brave = {
     var POSES = ["wave","shy","idle","walk","jump","walk","cheer"], parts = BF.scene.parse(sit.scene);
     el.innerHTML =
       '<div class="brave wrap">'+
-        '<div class="crumbs"><a href="#/library">'+I('back',16)+' '+BF.L("Library","Библиотека")+'</a>'+BF.ui.tagChip(plan.tag)+(plan.tag==="both"?'<a class="chip" href="#/quest/'+id+'">'+I('clock',14)+' '+BF.L("Also as Routine Quest","Также как Routine Quest")+'</a>':'')+'</div>'+
+        '<div class="crumbs"><a href="#/library">'+I('back',16)+' '+BF.L("Library","Библиотека")+'</a>'+BF.ui.tagChip(plan.tag)+(plan.tag==="both"?'<a class="chip" href="#/quest/'+id+'">'+I('clock',14)+' '+BF.L("Also as Routine Quest","Есть и карточки распорядка")+'</a>':'')+'</div>'+
         '<h1>'+BF.L(hero+" and the "+T(sit.title).toLowerCase(), hero+": "+T(sit.title).toLowerCase())+'</h1>'+
         '<div class="brave-grid">'+
           '<div class="book paper">'+
@@ -3581,9 +3619,9 @@ BF.screens.brave = {
           '</aside>'+
         '</div>'+
         '<section class="tips">'+
-          '<div class="tip paper"><span class="tape"></span><h3>'+BF.L("Say this","Скажите так")+'</h3><p class="muted small">'+BF.L("Acceptance + confidence — say it once, calmly.","Принятие + уверенность — скажите один раз, спокойно.")+'</p><ul class="quote-list">'+BF.engine.phrases(sit).map(function(p){ return '<li>“'+esc(p)+'”</li>'; }).join("")+'</ul></div>'+
+          '<div class="tip paper"><span class="tape"></span><h3>'+BF.L("Say this","Скажите так")+'</h3><p class="muted small">'+BF.L("First show you understand, then show you believe in them. Say it once, calmly.","Сначала покажите, что понимаете, потом — что верите в ребёнка. Скажите это один раз и спокойно.")+'</p><ul class="quote-list">'+BF.engine.phrases(sit).map(function(p){ return '<li>“'+esc(p)+'”</li>'; }).join("")+'</ul></div>'+
           '<div class="tip paper"><h3>'+BF.L("Gently drop","Мягко откажитесь")+'</h3><ul class="swap-list">'+BF.engine.habitsFor(c).map(function(h){ return '<li><span class="drop">'+T(h.drop)+'</span><span class="arrow">'+I('next',16)+'</span><span class="instead">'+T(h.instead)+'</span></li>'; }).join("")+'</ul></div>'+
-          '<div class="tip paper"><h3>'+BF.L("How to climb","Как подниматься")+'</h3><ul class="plain"><li>'+BF.L("One rung at a time. Repeat a rung until it feels <i>boring</i>.","По одной ступеньке. Повторяйте, пока не станет <i>скучно</i>.")+'</li><li>'+BF.L("Stay nearby, but let "+hero+" do the step. Never force — you set the pace.","Будьте рядом, но шаг делает ребёнок. Никогда не заставляйте — темп решаете вы.")+'</li><li>'+BF.L("Too hard tonight? The evening check-in on the home screen splits the step in two.","Слишком трудно? Вечерний чек-ин на главной разделит шаг на два.")+'</li><li>'+BF.L("If worry stops daily life for weeks,","Если тревога неделями мешает жить,")+' <a href="#/safety">'+BF.L("talk to a specialist","обратитесь к специалисту")+'</a>.</li></ul></div>'+
+          '<div class="tip paper"><h3>'+BF.L("How to climb","Как подниматься")+'</h3><ul class="plain"><li>'+BF.L("One rung at a time. Repeat a rung until it feels <i>boring</i>.","По одной ступеньке. Повторяйте, пока не станет <i>скучно</i>.")+'</li><li>'+BF.L("Stay nearby, but let "+hero+" do the step. Never force — you set the pace.","Будьте рядом, но шаг делает ребёнок. Никогда не заставляйте — темп решаете вы.")+'</li><li>'+BF.L("Too hard tonight? The evening check-in on the home screen splits the step in two.","Слишком трудно? Отметьте это вечером на главной — и шаг разделится на два попроще.")+'</li><li>'+BF.L("If worry stops daily life for weeks,","Если тревога неделями мешает жить,")+' <a href="#/safety">'+BF.L("talk to a specialist","обратитесь к специалисту")+'</a>.</li></ul></div>'+
         '</section>'+
       '</div>'+
       '<div class="celebrate" id="celebrate" hidden><div class="cel-card paper"><div class="cel-kid">'+A.svg(c.avatar,{size:170,pose:"cheer"})+'</div><h2>'+BF.L("The whole ladder — done!","Вся лесенка пройдена!")+'</h2><p>'+BF.L(hero+" climbed every step. That's real courage, not luck.","Каждая ступенька пройдена. Это настоящая смелость, а не везение.")+'</p><div class="cel-actions"><a class="btn clay" href="#/library">'+BF.L("Pick a new situation","Выбрать новую ситуацию")+'</a><button class="btn ghost" id="celClose">'+BF.L("Stay here","Остаться")+'</button></div></div></div>';
@@ -3618,7 +3656,7 @@ BF.screens.brave = {
         BF.store.addStars(1, "brave step");
         drawLadder();
         if(BF.store.s.plans[id].current >= BF.store.s.plans[id].ladder.length) setTimeout(function(){ el.querySelector("#celebrate").hidden=false; }, 500);
-        else BF.ui.toast(BF.L("Brave step saved. Tonight, do a quick check-in.","Смелый шаг сохранён. Вечером — короткий чек-ин."));
+        else BF.ui.toast(BF.L("Brave step saved. Tonight, do a quick check-in.","Смелый шаг сохранён. Вечером отметьте, как он прошёл."));
       };
     }
     el.querySelector("#bkPrev").onclick = function(){ if(page>0){ page--; BF.voice.stop(); drawPage(); BF.sound.soft(); } };
@@ -3637,19 +3675,19 @@ BF.screens.brave = {
 <script data-src="js/screens/quest.js">
 var BF = window.BF = window.BF || {};
 BF.screens.quest = {
-  title:{en:"Routine Quest",ru:"Квест-рутина"},
+  title:{en:"Routine Quest",ru:"Карточки распорядка"},
   render:function(el, id){
     var st = BF.store, c = st.s, I = BF.icon, A = BF.avatar, esc = BF.ui.esc, T = BF.ui.T;
     var plan = c.plans[id], sit = BF.engine.find(id);
-    if(!plan || !sit){ el.innerHTML = '<div class="wrap empty paper"><h2>'+BF.L("Pick a routine first","Сначала выберите рутину")+'</h2><p class="muted">'+BF.L("Routine Quests come from the library — mornings, homework, bedtime and more.","Квесты-рутины — в библиотеке: утро, домашка, отбой и другое.")+'</p><a class="btn sage" href="#/library?tag=adhd">'+BF.L("Open focus situations","Ситуации про внимание")+'</a></div>'; return; }
+    if(!plan || !sit){ el.innerHTML = '<div class="wrap empty paper"><h2>'+BF.L("Pick a routine first","Сначала выберите распорядок")+'</h2><p class="muted">'+BF.L("Routine Quests are made from the library — mornings, homework, bedtime and more.","Карточки распорядка создаются в библиотеке: утро, уроки, отход ко сну и другое.")+'</p><a class="btn sage" href="#/library?tag=adhd">'+BF.L("Open focus situations","Ситуации про внимание")+'</a></div>'; return; }
     st.update(function(x){ x.activePlan = id; });
     var steps = plan.ladder.map(function(r){ return {text:T(r.text), min:r.min}; });
     var i = 0, total = steps[0].min*60000, remain = total, running = false, last = 0, raf = 0, breakTimer = 0, earned = 0, chimed = false;
     var hero = esc(BF.ui.heroName());
     el.innerHTML =
       '<div class="quest wrap">'+
-        '<div class="crumbs"><a href="#/library">'+I('back',16)+' '+BF.L("Library","Библиотека")+'</a>'+BF.ui.tagChip(plan.tag)+(plan.tag!=="adhd"?'<a class="chip" href="#/brave/'+id+'">'+I('book',14)+' '+BF.L("Brave Plan &amp; story","Смелый план и история")+'</a>':'')+'</div>'+
-        '<div class="q-top"><h1>'+BF.L(hero+"'s quest: "+T(sit.title).toLowerCase(),"Квест: "+T(sit.title).toLowerCase())+'</h1><div class="pebbles" id="qPeb"></div></div>'+
+        '<div class="crumbs"><a href="#/library">'+I('back',16)+' '+BF.L("Library","Библиотека")+'</a>'+BF.ui.tagChip(plan.tag)+(plan.tag!=="adhd"?'<a class="chip" href="#/brave/'+id+'">'+I('book',14)+' '+BF.L("Brave Plan &amp; story","План смелых шагов и сказка")+'</a>':'')+'</div>'+
+        '<div class="q-top"><h1>'+BF.L(hero+"'s quest: "+T(sit.title).toLowerCase(),"Распорядок: "+T(sit.title).toLowerCase())+'</h1><div class="pebbles" id="qPeb"></div></div>'+
         '<div class="q-grid">'+
           '<div class="q-card paper" id="qCard"></div>'+
           '<div class="q-timer paper"><div class="timer" id="qTimer"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="92" fill="#FBF7EF" stroke="#E2D6C3" stroke-width="3"/>'+
@@ -3658,7 +3696,7 @@ BF.screens.quest = {
             '<div class="t-ctrl"><button class="btn small dusty" id="qPlay"></button><button class="btn small ghost" id="qMore">'+BF.L("+1 min","+1 мин")+'</button><button class="btn small ghost" id="qWiggle">'+BF.L("Wiggle break","Минутка движения")+'</button><button class="btn small ghost" id="qSay">'+I('speaker',16)+'</button></div></div>'+
         '</div>'+
       '</div>'+
-      '<div class="move" id="qMove" hidden><div class="move-card paper"><p class="eyebrow">'+BF.L("60-second movement break","Минута движения")+'</p><h2 id="mvT"></h2><p id="mvD"></p><div class="move-stage"><div class="mv-kid" id="mvKid">'+A.svg(c.avatar,{size:150,pose:"cheer"})+'</div></div><div class="mv-count"><span id="mvN">60</span>'+BF.L("s","с")+'</div><button class="btn clay" id="mvDone">'+BF.L("Back to the quest","Вернуться к квесту")+'</button></div></div>';
+      '<div class="move" id="qMove" hidden><div class="move-card paper"><p class="eyebrow">'+BF.L("60-second movement break","Минута движения")+'</p><h2 id="mvT"></h2><p id="mvD"></p><div class="move-stage"><div class="mv-kid" id="mvKid">'+A.svg(c.avatar,{size:150,pose:"cheer"})+'</div></div><div class="mv-count"><span id="mvN">60</span>'+BF.L("s","с")+'</div><button class="btn clay" id="mvDone">'+BF.L("Back to the quest","Вернуться к карточкам")+'</button></div></div>';
     var card = el.querySelector("#qCard"), wedge = el.querySelector("#qWedge"), read = el.querySelector("#qRead"), playB = el.querySelector("#qPlay");
     function wedgePath(frac){
       if(frac<=0) return "";
@@ -3689,7 +3727,7 @@ BF.screens.quest = {
     }
     function done(e){
       BF.ui.burst(e.currentTarget, 1); earned++;
-      BF.store.update(function(x){ x.done.push({date:BF.store.today(), plan:id, text:{en:"Quest card: "+plan.ladder[i].text.en, ru:"Карточка квеста: "+plan.ladder[i].text.ru}}); });
+      BF.store.update(function(x){ x.done.push({date:BF.store.today(), plan:id, text:{en:"Quest card: "+plan.ladder[i].text.en, ru:"Карточка распорядка: "+plan.ladder[i].text.ru}}); });
       BF.store.addStars(1, "quest card");
       i++;
       if(i>=steps.length){ finish(); return; }
@@ -3699,7 +3737,7 @@ BF.screens.quest = {
     function finish(){
       stop();
       el.querySelector("#qPeb").innerHTML = steps.map(function(){ return '<span class="peb done">'+BF.starSVG(18,true)+'</span>'; }).join("");
-      card.innerHTML = '<div class="q-finish"><div>'+A.svg(c.avatar,{size:170,pose:"cheer"})+'</div><h2>'+BF.L("Quest complete!","Квест пройден!")+'</h2><p>'+BF.L(hero+" finished every card and earned","Все карточки выполнены, заработано:")+' '+BF.ui.stars(earned, earned, 24)+'</p><div class="cel-actions"><button class="btn sage" id="qAgain">'+BF.L("Run it again","Пройти ещё раз")+'</button><a class="btn ghost" href="#/">'+BF.L("Evening check-in","Вечерний чек-ин")+'</a></div></div>';
+      card.innerHTML = '<div class="q-finish"><div>'+A.svg(c.avatar,{size:170,pose:"cheer"})+'</div><h2>'+BF.L("Quest complete!","Все карточки пройдены!")+'</h2><p>'+BF.L(hero+" finished every card and earned","Все карточки выполнены, заработано:")+' '+BF.ui.stars(earned, earned, 24)+'</p><div class="cel-actions"><button class="btn sage" id="qAgain">'+BF.L("Run it again","Пройти ещё раз")+'</button><a class="btn ghost" href="#/">'+BF.L("Evening check-in","Вечерняя отметка")+'</a></div></div>';
       card.querySelector("#qAgain").onclick = function(){ i=0; earned=0; drawCard(); };
       BF.sound.done();
     }
@@ -3753,7 +3791,7 @@ BF.screens.games = {
     var cat = (q && q.cat) || "all", cats = BF.GAME_CATS.map(function(x){ return {t:T(x.t), d:T(x.d), k:x.k, ids:x.ids.filter(function(id){ return BF.games[id]; })}; });
     var shelves = cat==="all" ? cats : cats.filter(function(x){ return x.k===cat; });
     var chips = '<div class="g-filter seg" role="group" aria-label="'+BF.L("Game type","Тип игр")+'">'+[{k:"all",t:BF.L("All","Все")}].concat(cats).map(function(x){ var n = x.k==="all" ? BF.GAME_ORDER.filter(function(id){ return BF.games[id]; }).length : x.ids.length; return '<a href="#/games'+(x.k==="all"?"":"?cat="+x.k)+'" aria-pressed="'+(x.k===cat)+'" data-cat="'+x.k+'">'+x.t+' <small>'+n+'</small></a>'; }).join("")+'</div>';
-    el.innerHTML = '<div class="games wrap"><div class="g-head"><div><p class="eyebrow">'+BF.L("Games for ","Игры для ")+BF.ui.esc(BF.ui.heroName(c))+'</p><h1>'+BF.L("Pick a calm game","Выберите спокойную игру")+'</h1><p class="muted">'+BF.L("Each takes 1–3 minutes and has three levels. Two stars or more opens the next level.","Каждая занимает 1–3 минуты, в каждой три уровня. Две звезды и больше открывают следующий уровень.")+'</p></div>'+
+    el.innerHTML = '<div class="games wrap"><div class="g-head"><div><p class="eyebrow">'+BF.L("Games for ","Игры для ")+BF.ui.esc(BF.ui.heroName(c))+'</p><h1>'+BF.L("Pick a calm game","Выберите спокойную игру")+'</h1><p class="muted">'+BF.L("Each takes 1–3 minutes and has three levels. Two or more stars unlock the next level.","Каждая занимает 1–3 минуты, в каждой три уровня. Две звезды и больше открывают следующий уровень.")+'</p></div>'+
       '<div class="g-stars paper">'+BF.starSVG(40,true)+'<div><b>'+c.stars+'</b><small>'+BF.L("stars so far","звёзд собрано")+'</small></div></div></div>'+chips+
       shelves.map(function(sh){
         return '<section class="shelf"><div class="shelf-label"><h2>'+sh.t+'</h2><p class="muted">'+sh.d+'</p></div><div class="shelf-row">'+sh.ids.map(function(id, k){
@@ -3882,7 +3920,7 @@ var BF = window.BF = window.BF || {};
     render:function(el, p, query){
       var st = BF.store, c = st.s, I = BF.icon, T = BF.ui.T, esc = BF.ui.esc;
       var tab = (query && query.tab) || "today";
-      var tabs = [ ["today",BF.L("Daily log","День"),"bed"], ["diary",BF.L("Diary","Дневник"),"pencil"], ["outcomes",BF.L("Triggers","Триггеры"),"target"], ["moods",BF.L("Moods","Настроение"),"smile"], ["progress",BF.L("Progress","Прогресс"),"ladder"] ];
+      var tabs = [ ["today",BF.L("Daily log","День"),"bed"], ["diary",BF.L("Diary","Дневник"),"pencil"], ["outcomes",BF.L("Triggers","Трудные моменты"),"target"], ["moods",BF.L("Moods","Настроение"),"smile"], ["progress",BF.L("Progress","Прогресс"),"ladder"] ];
       el.innerHTML = '<div class="diary wrap">'+
         '<div class="d-head"><div><p class="eyebrow">'+BF.L("Parent dashboard","Кабинет родителя")+' · '+BF.ui.childChip(c,26)+'</p><h1>'+BF.L("Diary for "+esc(BF.ui.heroName()),"Дневник: "+esc(BF.ui.heroName()))+'</h1></div><a class="btn ghost small" href="#/specialist">'+I('chart',16)+' '+BF.L("Specialist view","Для специалиста")+'</a></div>'+
         '<div class="d-tabs" role="tablist">'+tabs.map(function(t){ return '<a role="tab" href="#/diary?tab='+t[0]+'" aria-selected="'+(t[0]===tab)+'">'+I(t[2],18)+'<span>'+t[1]+'</span></a>'; }).join("")+'</div>'+
@@ -3916,7 +3954,7 @@ var BF = window.BF = window.BF || {};
           BF.MEALS.map(function(m){ var md = d.food[m.v]||{items:[],text:""}; return '<details class="meal"'+(m.v==="breakfast"?' open':'')+'><summary><b>'+T(m.t)+'</b><span class="meal-sum">'+md.items.map(function(v){ return BF.ui.lbl(BF.FOODS,v); }).join(", ")+'</span></summary>'+chips("food."+m.v, BF.FOODS, md.items, true)+'<input class="input small" data-text="food.'+m.v+'" placeholder="'+BF.L("What exactly (optional)","Что именно (необязательно)")+'" value="'+esc(md.text||"")+'"></details>'; }).join("")+
           '<p class="lbl">'+BF.L("Appetite","Аппетит")+'</p>'+chips("food.appetite", BF.APPETITE, d.food.appetite, false)+
           '<p class="lbl">'+BF.L("Sugar / sweets today","Сахар / сладкое сегодня")+'</p>'+chips("food.sugar", BF.SUGAR, d.food.sugar, false)+
-          '<label class="toggle-row"><input type="checkbox" id="newFood" '+(d.food.newFood?'checked':'')+'> '+BF.L("Tried a new food","Пробовал(а) новую еду")+'</label>'+
+          '<label class="toggle-row"><input type="checkbox" id="newFood" '+(d.food.newFood?'checked':'')+'> '+BF.L("Tried a new food","Была новая еда")+'</label>'+
           '<input class="input small" data-text="food.note" placeholder="'+BF.L("Food notes: sugar, new foods, reactions…","Заметки: сахар, новая еда, реакции…")+'" value="'+esc(d.food.note||"")+'">'+
         '</section>'+
         '<section class="log-card paper"><h3>'+I('run',20)+' '+BF.L("Day factors","Факторы дня")+'</h3>'+
@@ -3990,8 +4028,8 @@ var BF = window.BF = window.BF || {};
   BF.outcomeForm = function(entry, presetSit, done){
     var T = BF.ui.T, esc = BF.ui.esc, e = entry || { at:localISO(), sit:presetSit||"", reaction:[], result:null, intensity:3, helped:[], comment:"" };
     var opts = Object.keys(BF.CATS).map(function(cat){ return '<optgroup label="'+T(BF.CATS[cat])+'">'+BF.SITUATIONS.filter(function(s){ return s.cat===cat; }).map(function(s){ return '<option value="'+s.id+'" '+(s.id===e.sit?'selected':'')+'>'+esc(T(s.title))+'</option>'; }).join("")+'</optgroup>'; }).join("");
-    var sh = BF.ui.sheet('<h2>'+(entry?BF.L("Edit trigger outcome","Изменить запись о триггере"):BF.L("How did it go?","Как всё прошло?"))+'</h2>'+
-      '<div class="field"><label>'+BF.L("Triggering situation","Ситуация-триггер")+'</label><select class="input" id="ofSit"><option value="">'+BF.L("Choose…","Выберите…")+'</option>'+opts+'</select></div>'+
+    var sh = BF.ui.sheet('<h2>'+(entry?BF.L("Edit trigger outcome","Изменить запись"):BF.L("How did it go?","Как всё прошло?"))+'</h2>'+
+      '<div class="field"><label>'+BF.L("Triggering situation","Что произошло")+'</label><select class="input" id="ofSit"><option value="">'+BF.L("Choose…","Выберите…")+'</option>'+opts+'</select></div>'+
       '<div class="field"><label>'+BF.L("When","Когда")+'</label><input type="datetime-local" class="input" id="ofAt" value="'+e.at+'"></div>'+
       '<div class="field"><label>'+BF.L("How did the child react?","Как ребёнок отреагировал?")+'</label>'+chips("reaction", BF.REACTIONS, e.reaction, true)+'</div>'+
       '<div class="field"><label>'+BF.L("Result","Итог")+'</label>'+chips("result", BF.RESULTS, e.result, false)+'</div>'+
@@ -4017,8 +4055,8 @@ var BF = window.BF = window.BF || {};
     var c = BF.store.s, I = BF.icon, esc = BF.ui.esc, T = BF.ui.T;
     var list = (c.outcomes||[]).slice().sort(function(a,b){ return a.at<b.at?1:-1; });
     var adapt = BF.engine.adaptive(c);
-    body.innerHTML = '<div class="d-actions"><button class="btn clay" id="ofAdd">'+I('plus',18)+' '+BF.L("Log a trigger outcome","Записать исход триггера")+'</button></div>'+
-      (adapt.length?'<div class="adapt paper"><h3>'+I('sparkle',18)+' '+BF.L("Adaptive next steps","Адаптивные следующие шаги")+'</h3><ul class="plain">'+adapt.slice(0,4).map(function(a){ return '<li class="ad-'+a.kind+'">'+esc(T(a.text))+'</li>'; }).join("")+'</ul></div>':'')+
+    body.innerHTML = '<div class="d-actions"><button class="btn clay" id="ofAdd">'+I('plus',18)+' '+BF.L("Log a trigger outcome","Записать, как всё прошло")+'</button></div>'+
+      (adapt.length?'<div class="adapt paper"><h3>'+I('sparkle',18)+' '+BF.L("Adaptive next steps","Что попробовать дальше")+'</h3><ul class="plain">'+adapt.slice(0,4).map(function(a){ return '<li class="ad-'+a.kind+'">'+esc(T(a.text))+'</li>'; }).join("")+'</ul></div>':'')+
       (list.length ? '<div class="oc-list">'+list.map(function(o){
         var r = BF.RESULTS.find(function(x){ return x.v===o.result; });
         return '<article class="oc paper oc-'+o.result+'"><div class="oc-top"><b>'+esc(BF.ui.sitTitle(o.sit))+'</b><span class="chip oc-res">'+(r?T(r.t):"")+'</span><span class="muted small">'+BF.dateFmt(o.at,true)+' · '+BF.L("intensity","интенсивность")+' '+o.intensity+'/5</span><span class="tl-tools"><button class="btn small ghost" data-edit="'+o.id+'">'+I('pencil',16)+'</button><button class="btn small ghost" data-del="'+o.id+'">'+I('trash',16)+'</button></span></div>'+
@@ -4058,11 +4096,11 @@ var BF = window.BF = window.BF || {};
     var plans = c.planOrder.map(function(id){ return c.plans[id]; }).filter(Boolean);
     var week = []; for(var i=6;i>=0;i--){ var d = new Date(); d.setDate(d.getDate()-i); week.push(st.dayKey(d)); }
     body.innerHTML = '<div class="stats-row">'+
-      [[c.stars,BF.L("stars","звёзд"),"star"],[st.streak(),BF.L("days in a row","дней подряд"),"sun"],[c.done.length,BF.L("steps done","шагов пройдено"),"ladder"],[(c.outcomes||[]).filter(function(o){ return o.result==="managed"; }).length,BF.L("triggers managed","триггеров преодолено"),"target"]].map(function(s){ return '<div class="stat paper">'+I(s[2],22)+'<b>'+s[0]+'</b><small>'+s[1]+'</small></div>'; }).join("")+'</div>'+
+      [[c.stars,BF.L("stars","звёзд"),"star"],[st.streak(),BF.L("days in a row","дней подряд"),"sun"],[c.done.length,BF.L("steps done","шагов пройдено"),"ladder"],[(c.outcomes||[]).filter(function(o){ return o.result==="managed"; }).length,BF.L("triggers managed","трудных моментов пройдено"),"target"]].map(function(s){ return '<div class="stat paper">'+I(s[2],22)+'<b>'+s[0]+'</b><small>'+s[1]+'</small></div>'; }).join("")+'</div>'+
       '<div class="week-strip paper"><h3>'+BF.L("This week","Эта неделя")+'</h3><div class="ws-row">'+week.map(function(d){ var on = c.days.indexOf(d)>=0, n = c.starLog.filter(function(x){ return x.date===d; }).reduce(function(a,x){ return a+x.n; },0); return '<span class="ws '+(on?'on':'')+'"><small>'+BF.weekday(new Date(d+"T12:00:00"))+'</small>'+(on?BF.starSVG(24,true):'<i></i>')+'<b>'+(n||"")+'</b></span>'; }).join("")+'</div></div>'+
       '<h2>'+BF.L("Plans","Планы")+'</h2>'+(plans.length?'<div class="pl-list">'+plans.map(function(p){ var done = p.ladder.filter(function(r){ return r.done; }).length; return '<a class="pl paper" href="#/'+(p.tag==="adhd"?"quest":"brave")+'/'+p.id+'">'+BF.ui.tagChip(p.tag)+'<b>'+esc(BF.ui.sitTitle(p.id))+'</b><span class="bar"><i style="width:'+Math.round(done/p.ladder.length*100)+'%"></i></span><small>'+done+'/'+p.ladder.length+'</small></a>'; }).join("")+'</div>':'<p class="muted">'+BF.L("No plans yet.","Планов пока нет.")+' <a href="#/library">'+BF.L("Open the library","Открыть библиотеку")+'</a></p>')+
       '<h2>'+BF.L("Game levels","Уровни в играх")+'</h2><div class="gl-list">'+BF.GAME_ORDER.map(function(id){ var g = BF.games[id]; if(!g) return ""; var lv = (c.gameLevels||{})[id]||"easy"; return '<span class="gl paper"><b>'+T(g.title)+'</b>'+BF.ui.stars((c.games||{})[id]||0,3,14)+'<small>'+BF.levelName(lv)+'</small></span>'; }).join("")+'</div>'+
-      '<h2>'+BF.L("Evening check-ins","Вечерние чек-ины")+'</h2>'+((c.checkins||[]).length?'<ul class="plain">'+c.checkins.slice(-8).reverse().map(function(x){ return '<li>'+BF.dateFmt(x.date)+': <b>'+({easy:BF.L("easy","легко"),ok:BF.L("okay","нормально"),hard:BF.L("too hard","слишком трудно")}[x.mood])+'</b> — '+esc(BF.stepText(x.step))+'</li>'; }).join("")+'</ul>':'<p class="muted">'+BF.L("None yet.","Пока нет.")+'</p>');
+      '<h2>'+BF.L("Evening check-ins","Вечерние отметки")+'</h2>'+((c.checkins||[]).length?'<ul class="plain">'+c.checkins.slice(-8).reverse().map(function(x){ return '<li>'+BF.dateFmt(x.date)+': <b>'+({easy:BF.L("easy","легко"),ok:BF.L("okay","нормально"),hard:BF.L("too hard","слишком трудно")}[x.mood])+'</b> — '+esc(BF.stepText(x.step))+'</li>'; }).join("")+'</ul>':'<p class="muted">'+BF.L("None yet.","Пока нет.")+'</p>');
   };
 })();
 
@@ -4118,15 +4156,15 @@ var BF = window.BF = window.BF || {};
     var b = {};
     b.summary = '<div class="stats-row">'+[
       [aSleep!=null?BF.ui.num(aSleep,1):"—", BF.L("avg sleep, h","средний сон, ч")],[aMood!=null?BF.ui.num(aMood,1):"—", BF.L("avg mood (1–5)","среднее настроение (1–5)")],
-      [melt, BF.L("meltdowns / crying","срывов / слёз")],[outs.length?Math.round(managed/outs.length*100)+"%":"—", BF.L("triggers managed","триггеров преодолено")],
+      [melt, BF.L("meltdowns / crying","срывов / слёз")],[outs.length?Math.round(managed/outs.length*100)+"%":"—", BF.L("triggers managed","трудных моментов пройдено")],
       [steps, BF.L("brave steps done","смелых шагов")],[active+"/"+S.days.length, BF.L("active days","активных дней")]].map(function(s){ return '<div class="stat paper"><b>'+s[0]+'</b><small>'+s[1]+'</small></div>'; }).join("")+'</div>';
-    b.sleepMood = '<h3>'+BF.L("Sleep hours vs mood","Часы сна и настроение")+'</h3>'+CH.barsLine({ w:860, h:250, labels:S.labels, bars:S.sleep, bMin:6, bMax:11, line:S.mood, lMin:1, lMax:5, markers:markers, label:BF.L("Sleep hours (bars) and mood (line)","Сон (столбцы) и настроение (линия)") })+
+    b.sleepMood = '<h3>'+BF.L("Sleep hours vs mood","Часы сна и настроение")+'</h3>'+CH.barsLine({ w:860, h:250, labels:S.labels, bars:S.sleep, bMin:6, bMax:11, line:S.mood, lMin:1, lMax:5, markers:markers, label:BF.L("Hours of sleep (bars) and mood (line)","Сон (столбцы) и настроение (линия)") })+
       CH.legend([{color:COL.dusty,t:BF.L("Sleep, hours (left)","Сон, часы (слева)")},{color:COL.clay,t:BF.L("Mood 1–5 (right)","Настроение 1–5 (справа)")},{color:COL.clay,t:BF.L("▼ meltdown / crying","▼ срыв / слёзы")}]);
     var pts = S.sleep.map(function(h,i){ return { x:h, y:S.mood[i], big:S.meltdowns[i]>0, color:S.meltdowns[i]?COL.clay:COL.sage, t:S.labels[i] }; });
     var rSM = CH.pearson(S.sleep, S.mood), rSMe = CH.pearson(S.sleep, S.meltdowns);
-    b.scatter = '<h3>'+BF.L("Sleep and mood, each dot is a day","Сон и настроение, точка — один день")+'</h3>'+CH.scatter({ w:420, h:250, points:pts, xMin:6, xMax:11, yMin:1, yMax:5, xLabel:BF.L("sleep, hours","сон, часы"), yLabel:BF.L("mood","настроение"), label:BF.L("Sleep and mood","Сон и настроение") })+
+    b.scatter = '<h3>'+BF.L("Sleep and mood (each dot is one day)","Сон и настроение, точка — один день")+'</h3>'+CH.scatter({ w:420, h:250, points:pts, xMin:6, xMax:11, yMin:1, yMax:5, xLabel:BF.L("sleep, hours","сон, часы"), yLabel:BF.L("mood","настроение"), label:BF.L("Sleep and mood","Сон и настроение") })+
       '<p class="small muted">r = '+(rSM==null?"—":BF.ui.num(rSM,2))+' · '+strength(rSM)+'</p>';
-    b.outcomes = '<h3>'+BF.L("Trigger outcomes by day","Исходы триггеров по дням")+'</h3>'+CH.stacked({ w:440, h:230, labels:S.labels, series:[{name:T(BF.RESULTS[0].t),color:COL.sage,values:S.managed},{name:T(BF.RESULTS[1].t),color:COL.sand,values:S.partly},{name:T(BF.RESULTS[2].t),color:COL.clay,values:S.not}], label:BF.L("Trigger outcomes by day","Исходы триггеров по дням") })+
+    b.outcomes = '<h3>'+BF.L("Trigger outcomes by day","Трудные моменты по дням")+'</h3>'+CH.stacked({ w:440, h:230, labels:S.labels, series:[{name:T(BF.RESULTS[0].t),color:COL.sage,values:S.managed},{name:T(BF.RESULTS[1].t),color:COL.sand,values:S.partly},{name:T(BF.RESULTS[2].t),color:COL.clay,values:S.not}], label:BF.L("Trigger outcomes by day","Трудные моменты по дням") })+
       CH.legend([{color:COL.sage,t:T(BF.RESULTS[0].t)},{color:COL.sand,t:T(BF.RESULTS[1].t)},{color:COL.clay,t:T(BF.RESULTS[2].t)}]);
     b.screen = '<h3>'+BF.L("Screen time vs mood","Экранное время и настроение")+'</h3>'+CH.barsLine({ w:440, h:230, labels:S.labels, bars:S.screen, bMin:0, bMax:Math.max(120, Math.max.apply(null, S.screen.map(function(x){ return x||0; }))), bColor:COL.sand, line:S.mood, lMin:1, lMax:5, label:BF.L("Screen time vs mood","Экранное время и настроение") })+
       CH.legend([{color:COL.sand,t:BF.L("Screen, min (left)","Экраны, мин (слева)")},{color:COL.clay,t:BF.L("Mood (right)","Настроение (справа)")}]);
@@ -4136,8 +4174,8 @@ var BF = window.BF = window.BF || {};
       '<p class="fine">'+BF.L("Pearson r over the selected days. Small samples can mislead — use as conversation starters, not conclusions.","Коэффициент Пирсона за выбранные дни. На малых выборках возможны случайности — это повод для разговора, а не вывод.")+'</p>';
     var bySit = {}; outs.forEach(function(o){ var x = bySit[o.sit] = bySit[o.sit] || {n:0, managed:0, partly:0, not:0, int:[], react:{}, helped:{}}; x.n++; x[o.result]++; x.int.push(o.intensity); (o.reaction||[]).forEach(function(r){ x.react[r]=(x.react[r]||0)+1; }); (o.helped||[]).forEach(function(h){ x.helped[h]=(x.helped[h]||0)+1; }); });
     function top(obj, list){ return Object.keys(obj).sort(function(a,b){ return obj[b]-obj[a]; }).slice(0,3).map(function(k){ return BF.ui.lbl(list,k); }).join(", "); }
-    b.triggers = '<h3>'+BF.L("Triggered situations, reactions and outcomes","Ситуации-триггеры, реакции и исходы")+'</h3>'+(Object.keys(bySit).length?'<table class="ctable"><thead><tr><th>'+BF.L("Situation","Ситуация")+'</th><th>'+BF.L("Times","Раз")+'</th><th>'+BF.L("Managed / partly / not","Справился / частично / нет")+'</th><th>'+BF.L("Avg intensity","Ср. интенсивность")+'</th><th>'+BF.L("Typical reactions","Типичные реакции")+'</th><th>'+BF.L("What helped","Что помогло")+'</th></tr></thead><tbody>'+
-      Object.keys(bySit).sort(function(a,b){ return bySit[b].n-bySit[a].n; }).map(function(id){ var x = bySit[id]; return '<tr><td>'+esc(BF.ui.sitTitle(id))+'</td><td>'+x.n+'</td><td>'+x.managed+' / '+x.partly+' / '+x.not+'</td><td>'+BF.ui.num(avg(x.int),1)+'</td><td>'+top(x.react, BF.REACTIONS)+'</td><td>'+top(x.helped, BF.HELPERS)+'</td></tr>'; }).join("")+'</tbody></table>':'<p class="muted">'+BF.L("No trigger outcomes in this period.","За этот период нет записей о триггерах.")+'</p>');
+    b.triggers = '<h3>'+BF.L("Hard moments: reactions and outcomes","Трудные ситуации: реакции и итоги")+'</h3>'+(Object.keys(bySit).length?'<table class="ctable"><thead><tr><th>'+BF.L("Situation","Ситуация")+'</th><th>'+BF.L("Times","Раз")+'</th><th>'+BF.L("Managed / partly / not","Справился / частично / нет")+'</th><th>'+BF.L("Avg intensity","Ср. интенсивность")+'</th><th>'+BF.L("Typical reactions","Типичные реакции")+'</th><th>'+BF.L("What helped","Что помогло")+'</th></tr></thead><tbody>'+
+      Object.keys(bySit).sort(function(a,b){ return bySit[b].n-bySit[a].n; }).map(function(id){ var x = bySit[id]; return '<tr><td>'+esc(BF.ui.sitTitle(id))+'</td><td>'+x.n+'</td><td>'+x.managed+' / '+x.partly+' / '+x.not+'</td><td>'+BF.ui.num(avg(x.int),1)+'</td><td>'+top(x.react, BF.REACTIONS)+'</td><td>'+top(x.helped, BF.HELPERS)+'</td></tr>'; }).join("")+'</tbody></table>':'<p class="muted">'+BF.L("No trigger outcomes in this period.","За этот период нет записей о трудных моментах.")+'</p>');
     var byPart = {}; moods.forEach(function(m){ byPart[m.part] = byPart[m.part]||{}; byPart[m.part][m.mood] = (byPart[m.part][m.mood]||0)+1; });
     b.moodParts = '<h3>'+BF.L("Mood stickers by time of day","Наклейки настроения по времени суток")+'</h3><div class="mp-table">'+BF.DAYPARTS.map(function(p){ var x = byPart[p.v]||{}; return '<div class="mpt-row"><b>'+T(p.t)+'</b><span>'+BF.MOODS.filter(function(m){ return x[m.v]; }).map(function(m){ return '<span class="ms">'+(print?'':BF.moodFace(m.v,22))+'<small>'+T(m.t)+' ×'+x[m.v]+'</small></span>'; }).join("")+'</span></div>'; }).join("")+'</div>';
     var sleepRows = S.days.map(function(d,i){ var L=(c.daily||{})[d]; if(!L) return ""; var f=L.food; var meds=(L.meds||[]).filter(function(m){ return m.name; }).map(function(m){ return esc(m.name)+(m.time?" "+m.time:""); }).join(", ");
@@ -4146,7 +4184,7 @@ var BF = window.BF = window.BF || {};
     b.daily = '<h3>'+BF.L("Daily log: sleep, food and factors","Дневник дня: сон, питание и факторы")+'</h3>'+(sleepRows?'<div class="tscroll"><table class="ctable small"><thead><tr><th>'+BF.L("Date","Дата")+'</th><th>'+BF.L("Sleep (h)","Сон (ч)")+'</th><th>'+BF.L("Wakings","Пробужд.")+'</th><th>'+BF.L("Quality","Кач-во")+'</th><th>'+BF.L("Appetite","Аппетит")+'</th><th>'+BF.L("Sugar","Сахар")+'</th><th>'+BF.L("Screen/out/active, min","Экран/улица/актив., мин")+'</th><th>'+BF.L("School","Школа")+'</th><th>'+BF.L("Body, events, meds","Тело, события, лекарства")+'</th></tr></thead><tbody>'+sleepRows+'</tbody></table></div>':'<p class="muted">'+BF.L("No daily logs in this period.","За этот период нет записей дня.")+'</p>');
     b.diary = '<h3>'+BF.L("Diary entries","Записи дневника")+'</h3>'+(diary.length?'<ul class="plain diary-ex">'+diary.slice(0, print?40:8).map(function(e){ return '<li><b>'+BF.dateFmt(e.at,true)+' · '+e.mood+'/5</b> — '+esc(e.text||"")+'</li>'; }).join("")+'</ul>':'<p class="muted">'+BF.L("No diary entries in this period.","За этот период нет записей.")+'</p>');
     var plans = c.planOrder.map(function(id){ return c.plans[id]; }).filter(Boolean);
-    b.plans = '<h3>'+BF.L("Brave plans and routine quests","Смелые планы и квесты")+'</h3>'+(plans.length?plans.map(function(p){ return '<div class="pr-plan"><b>'+esc(BF.ui.sitTitle(p.id))+'</b> ('+T(BF.TAGS[p.tag].label)+')<ol>'+p.ladder.map(function(r){ return '<li>'+esc(T(r.text))+' — '+(r.done?BF.L("done ","сделано ")+BF.dateFmt(r.date):BF.L("not yet","ещё нет"))+'</li>'; }).join("")+'</ol></div>'; }).join(""):'<p class="muted">'+BF.L("No plans yet.","Планов пока нет.")+'</p>');
+    b.plans = '<h3>'+BF.L("Brave plans and routine quests","Планы смелых шагов и карточки распорядка")+'</h3>'+(plans.length?plans.map(function(p){ return '<div class="pr-plan"><b>'+esc(BF.ui.sitTitle(p.id))+'</b> ('+T(BF.TAGS[p.tag].label)+')<ol>'+p.ladder.map(function(r){ return '<li>'+esc(T(r.text))+' — '+(r.done?BF.L("done ","сделано ")+BF.dateFmt(r.date):BF.L("not yet","ещё нет"))+'</li>'; }).join("")+'</ol></div>'; }).join(""):'<p class="muted">'+BF.L("No plans yet.","Планов пока нет.")+'</p>');
     return b;
   };
 
@@ -4216,10 +4254,10 @@ BF.screens.family = {
   render:function(el){
     var st = BF.store, I = BF.icon, esc = BF.ui.esc, T = BF.ui.T, cur = st.f.active;
     var kids = st.children(), limit = st.childLimit(), real = st.realChildren().length;
-    el.innerHTML = '<div class="family wrap"><div class="d-head"><div><p class="eyebrow">'+BF.L("Family","Семья")+'</p><h1>'+BF.L("Your children","Ваши дети")+'</h1><p class="muted">'+BF.L("Each child has their own hero, quiz answers, plans, diary, moods and progress.","У каждого ребёнка свой герой, ответы квиза, планы, дневник, настроение и прогресс.")+' '+BF.L("On your plan: "+real+" of "+limit+".","На вашем тарифе: "+real+" из "+limit+".")+'</p></div><button class="btn clay" id="fAdd">'+I('plus',18)+' '+BF.L("Add a child","Добавить ребёнка")+'</button></div>'+
+    el.innerHTML = '<div class="family wrap"><div class="d-head"><div><p class="eyebrow">'+BF.L("Family","Семья")+'</p><h1>'+BF.L("Your children","Ваши дети")+'</h1><p class="muted">'+BF.L("Each child has their own hero, quiz answers, plans, diary, moods and progress.","У каждого ребёнка свой герой, ответы анкеты, планы, дневник, настроение и прогресс.")+' '+BF.L("On your plan: "+real+" of "+limit+".","На вашем тарифе: "+real+" из "+limit+".")+'</p></div><button class="btn clay" id="fAdd">'+I('plus',18)+' '+BF.L("Add a child","Добавить ребёнка")+'</button></div>'+
       '<div class="kid-cards">'+kids.map(function(c){
-        return '<article class="kid-card paper'+(c.id===cur?' on':'')+'">'+BF.avatar.svg(c.avatar,{size:96})+'<div class="kc-body"><h3>'+esc(BF.ui.heroName(c))+(c.isDemo?' <span class="demo-tag">'+BF.L("demo","демо")+'</span>':'')+'</h3><p class="muted small">'+(c.quizDone?BF.L("age","возраст")+' '+c.age+' · '+T((BF.PROFILE_OPTS.find(function(o){ return o.v===c.profile; })||BF.PROFILE_OPTS[3]).t)+' · '+c.planOrder.length+' '+BF.L("plans","планов")+' · '+(c.diary||[]).length+' '+BF.L("diary notes","записей"):BF.L("Quiz not finished yet","Квиз ещё не пройден"))+'</p>'+
-          '<div class="cel-actions"><button class="btn small clay" data-open="'+c.id+'">'+(c.id===cur?BF.L("Active","Активен"):BF.L("Switch to","Выбрать"))+'</button><button class="btn small ghost" data-quiz="'+c.id+'">'+I('refresh',14)+' '+BF.L("Quiz","Квиз")+'</button><button class="btn small ghost" data-hero="'+c.id+'">'+I('user',14)+' '+BF.L("Hero","Герой")+'</button><button class="btn small ghost" data-del="'+c.id+'">'+I('trash',14)+'</button></div></div></article>';
+        return '<article class="kid-card paper'+(c.id===cur?' on':'')+'">'+BF.avatar.svg(c.avatar,{size:96})+'<div class="kc-body"><h3>'+esc(BF.ui.heroName(c))+(c.isDemo?' <span class="demo-tag">'+BF.L("demo","демо")+'</span>':'')+'</h3><p class="muted small">'+(c.quizDone?BF.L("age","возраст")+' '+c.age+' · '+T((BF.PROFILE_OPTS.find(function(o){ return o.v===c.profile; })||BF.PROFILE_OPTS[3]).t)+' · '+c.planOrder.length+' '+BF.L("plans","планов")+' · '+(c.diary||[]).length+' '+BF.L("diary notes","записей"):BF.L("Quiz not finished yet","Анкета ещё не заполнена"))+'</p>'+
+          '<div class="cel-actions"><button class="btn small clay" data-open="'+c.id+'">'+(c.id===cur?BF.L("Active","Активен"):BF.L("Switch to","Выбрать"))+'</button><button class="btn small ghost" data-quiz="'+c.id+'">'+I('refresh',14)+' '+BF.L("Quiz","Анкета")+'</button><button class="btn small ghost" data-hero="'+c.id+'">'+I('user',14)+' '+BF.L("Hero","Герой")+'</button><button class="btn small ghost" data-del="'+c.id+'">'+I('trash',14)+'</button></div></div></article>';
       }).join("")+'</div>'+
       '<p class="fine">'+BF.L("Free: 1 child · Monthly ($12.99): 2 children · Yearly ($79.99): up to 3 children. Demo data doesn't count.","Бесплатно: 1 ребёнок · Месяц ($12.99): 2 ребёнка · Год ($79.99): до 3 детей. Демо-данные не считаются.")+' <a href="#/pricing">'+BF.L("Plans","Тарифы")+'</a></p></div>';
     el.querySelector("#fAdd").onclick = function(){ BF.addChildFlow(); };
@@ -4310,13 +4348,13 @@ BF.screens.pricing = {
       '<div class="pricing wrap">'+
         (locked?'<div class="lock-banner paper">'+I('lock',22)+'<div><b>'+BF.L("You've used your 3 free plans.","Вы использовали 3 бесплатных плана.")+'</b> '+BF.L("To make “"+T(locked.title)+"”, start a membership — or keep using your existing plans, the diary and all games for free.","Чтобы создать «"+T(locked.title)+"», оформите подписку — или продолжайте бесплатно пользоваться созданными планами, дневником и всеми играми.")+'</div></div>':'')+
         (q.children?'<div class="lock-banner paper">'+I('user',22)+'<div><b>'+BF.L("More children need a membership.","Для нескольких детей нужна подписка.")+'</b> '+BF.L("Monthly covers 2 children, yearly up to 3.","Месяц — 2 ребёнка, год — до 3 детей.")+'</div></div>':'')+
-        '<div class="pr-head"><p class="eyebrow">'+BF.L("Simple, honest pricing","Простые и честные цены")+'</p><h1>'+BF.L("Start free. Stay if it helps.","Начните бесплатно. Оставайтесь, если помогает.")+'</h1><p class="muted">'+BF.L("Quiz → 3 free plans → a membership at market price. Cancel in one click, reminder before every charge.","Квиз → 3 бесплатных плана → подписка по рыночной цене. Отмена в один клик и напоминание перед каждым списанием.")+'</p></div>'+
+        '<div class="pr-head"><p class="eyebrow">'+BF.L("Simple, honest pricing","Простые и честные цены")+'</p><h1>'+BF.L("Start free. Stay if it helps.","Начните бесплатно. Оставайтесь, если помогает.")+'</h1><p class="muted">'+BF.L("Take the quiz and get 3 free plans. If it helps, choose a membership. Cancel anytime; we remind you before every charge.","Заполните анкету и получите 3 плана бесплатно. Если поможет — оформите подписку. Отменить можно в любой момент, а перед каждым списанием мы напомним.")+'</p></div>'+
         '<div class="tickets">'+
-          '<div class="ticket free'+(plan==="free"?' current':'')+'"><div class="t-l"><p class="eyebrow">'+BF.L("Free","Бесплатно")+'</p><h2>$0</h2><ul><li>'+BF.L("3 plans (Brave Plan or Routine Quest)","3 плана (Brave Plan или Routine Quest)")+'</li><li>'+BF.L("1 child · all 16 games · diary","1 ребёнок · все 16 игр · дневник")+'</li></ul></div><div class="t-r"><b>'+(plan==="free"?Math.max(0,3-used)+' '+BF.L("left","осталось"):'✓')+'</b><small>'+(plan==="free"?BF.L("plans","планов"):BF.L("included","включено"))+'</small></div></div>'+
-          '<div class="ticket'+(plan==="monthly"?' current':'')+'"><div class="t-l"><p class="eyebrow">'+BF.L("Monthly","Месяц")+'</p><h2>$12.99<small>'+BF.L("/month","/мес")+'</small></h2><ul><li>'+BF.L("Unlimited plans &amp; quests","Безлимитные планы и квесты")+'</li><li>'+BF.L("Dashboard with dates, specialist report","Кабинет с датами, отчёт для врача")+'</li><li>'+BF.L("Up to 2 children","До 2 детей")+'</li></ul><button class="btn clay" data-plan="monthly">'+(plan==="monthly"?BF.L("Current plan","Текущий тариф"):BF.L("Choose monthly","Выбрать месяц"))+'</button></div><div class="t-r"><b>'+BF.L("Flexible","Гибко")+'</b><small>'+BF.L("cancel anytime","отмена в любой момент")+'</small></div></div>'+
+          '<div class="ticket free'+(plan==="free"?' current':'')+'"><div class="t-l"><p class="eyebrow">'+BF.L("Free","Бесплатно")+'</p><h2>$0</h2><ul><li>'+BF.L("3 plans (Brave Plan or Routine Quest)","3 плана (смелые шаги или карточки распорядка)")+'</li><li>'+BF.L("1 child · every game · diary","1 ребёнок · все игры · дневник")+'</li></ul></div><div class="t-r"><b>'+(plan==="free"?Math.max(0,3-used)+' '+BF.L("left","осталось"):'✓')+'</b><small>'+(plan==="free"?BF.L("plans","планов"):BF.L("included","включено"))+'</small></div></div>'+
+          '<div class="ticket'+(plan==="monthly"?' current':'')+'"><div class="t-l"><p class="eyebrow">'+BF.L("Monthly","Месяц")+'</p><h2>$12.99<small>'+BF.L("/month","/мес")+'</small></h2><ul><li>'+BF.L("Unlimited plans &amp; quests","Сколько угодно планов")+'</li><li>'+BF.L("Progress dashboard and specialist report","Наглядный прогресс и отчёт для специалиста")+'</li><li>'+BF.L("Up to 2 children","До 2 детей")+'</li></ul><button class="btn clay" data-plan="monthly">'+(plan==="monthly"?BF.L("Current plan","Текущий тариф"):BF.L("Choose monthly","Выбрать месяц"))+'</button></div><div class="t-r"><b>'+BF.L("Flexible","Гибко")+'</b><small>'+BF.L("cancel anytime","отмена в любой момент")+'</small></div></div>'+
           '<div class="ticket best'+(plan==="yearly"?' current':'')+'"><span class="ribbon">'+BF.L("Best value","Выгоднее")+'</span><div class="t-l"><p class="eyebrow">'+BF.L("Yearly","Год")+'</p><h2>$79.99<small>'+BF.L("/year","/год")+'</small></h2><p class="muted small">'+BF.L("About $6.67 a month, billed once a year.","Около $6.67 в месяц, оплата раз в год.")+'</p><ul><li>'+BF.L("Everything in monthly","Всё, что в месячном")+'</li><li>'+BF.L("Up to 3 children","До 3 детей")+'</li></ul><button class="btn sage" data-plan="yearly">'+(plan==="yearly"?BF.L("Current plan","Текущий тариф"):BF.L("Choose yearly","Выбрать год"))+'</button></div><div class="t-r"><b>'+BF.L("Save ~49%","Экономия ~49%")+'</b><small>'+BF.L("vs monthly","к месячному")+'</small></div></div>'+
         '</div>'+
-        '<div class="honest paper"><span class="tape"></span><h3>'+BF.L("Our cancel promise","Наше обещание об отмене")+'</h3><ul class="plain"><li>'+BF.L("Cancel in two taps from this page — no calls, no mazes.","Отмена в два нажатия на этой странице — без звонков и лабиринтов.")+'</li><li>'+BF.L("We email a reminder before every yearly renewal.","Перед каждым годовым продлением мы пришлём напоминание.")+'</li><li>'+BF.L("Payments run through Stripe. We never see your card.","Оплата через Stripe. Мы не видим данные вашей карты.")+'</li></ul>'+
+        '<div class="honest paper"><span class="tape"></span><h3>'+BF.L("Our cancel promise","Наше обещание об отмене")+'</h3><ul class="plain"><li>'+BF.L("Cancel anytime in two taps on this page — no calls, no hoops.","Отменить можно в два нажатия прямо здесь — без звонков и долгих объяснений.")+'</li><li>'+BF.L("We email a reminder before every yearly renewal.","Перед каждым годовым продлением мы пришлём напоминание.")+'</li><li>'+BF.L("Payments run through Stripe. We never see your card.","Оплата через Stripe. Мы не видим данные вашей карты.")+'</li></ul>'+
           '<p class="fine">'+BF.L("Prototype note: buttons open a Stripe test-mode placeholder. Checkout is simulated and unlocks on this device only.","Примечание: кнопки ведут на заглушку Stripe в тестовом режиме. Оплата имитируется и действует только на этом устройстве.")+'</p>'+
           (plan!=="free"?'<button class="btn ghost small" id="cancelSub">'+BF.L("Cancel membership (demo)","Отменить подписку (демо)")+'</button>':'')+'</div>'+
       '</div>';
@@ -4342,21 +4380,21 @@ BF.screens.safety = {
     var I = BF.icon, st = BF.store, c = st.s, from = query && query.from, red = st.hasRedFlag(c);
     el.innerHTML =
       '<div class="safety wrap">'+
-        (from && red ?'<div class="flag-banner paper">'+I('heart',28)+'<div><b>'+BF.L("Thank you for telling us.","Спасибо, что рассказали.")+'</b> '+BF.L("What you described is more than an app should handle alone, so we won't build a brave plan for now. Please reach out to your pediatrician or a licensed child mental-health professional soon. If your child is in danger or talks about not wanting to live, call or text <b>988</b> (US) or <b>911</b>.","То, что вы описали, больше, чем должно решать приложение, поэтому мы пока не будем строить смелый план. Пожалуйста, обратитесь к педиатру или детскому психологу/психиатру. Если ребёнок в опасности или говорит, что не хочет жить, — звоните <b>112</b> (Казахстан), <b>988</b> или <b>911</b> (США).")+
-          '<label class="toggle-row"><input type="checkbox" id="ack" '+(c.specialistAck?'checked':'')+'> '+BF.L("We are working with a specialist and they agree small brave steps are okay.","Мы работаем со специалистом, и он(а) согласен(на) с маленькими смелыми шагами.")+'</label>'+
+        (from && red ?'<div class="flag-banner paper">'+I('heart',28)+'<div><b>'+BF.L("Thank you for telling us.","Спасибо, что рассказали.")+'</b> '+BF.L("What you described is more than an app should handle alone, so we won't build a brave plan for now. Please reach out to your pediatrician or a licensed child mental-health professional soon. If your child is in danger or talks about not wanting to live, call or text <b>988</b> (US) or <b>911</b>.","То, что вы описали, больше, чем должно решать приложение, поэтому мы пока не будем составлять план смелых шагов. Пожалуйста, обратитесь к педиатру или детскому психологу/психиатру. Если ребёнок в опасности или говорит, что не хочет жить, — звоните <b>112</b> (Казахстан), <b>988</b> или <b>911</b> (США).")+
+          '<label class="toggle-row"><input type="checkbox" id="ack" '+(c.specialistAck?'checked':'')+'> '+BF.L("We are working with a specialist and they agree small brave steps are okay.","Мы занимаемся со специалистом, и он одобряет маленькие смелые шаги.")+'</label>'+
           '<div class="cel-actions"><a class="btn clay small" href="#/'+(c.avatarSaved?'':'hero?from=quiz')+'">'+BF.L("Continue to games and the diary","Перейти к играм и дневнику")+'</a></div></div></div>':'')+
         '<p class="eyebrow">'+BF.L("Safety &amp; disclaimer","Безопасность и оговорки")+'</p><h1>'+BF.L("What Balapan is — and isn't","Что такое Balapan — и чем он не является")+'</h1>'+
         '<div class="safe-grid">'+
-          '<div class="paper safe-card"><h3>'+I('check',20)+' '+BF.L("It is","Это")+'</h3><ul class="plain"><li>'+BF.L("Daily parent support with everyday ideas: stories, small steps, routines and calm games.","Ежедневная поддержка родителя: истории, маленькие шаги, рутины и спокойные игры.")+'</li><li>'+BF.L("A way to practice brave steps together, at your child's pace. The child is never forced.","Способ вместе тренировать смелые шаги в темпе ребёнка. Ребёнка никогда не заставляют.")+'</li><li>'+BF.L("A tidy record you can bring to a professional.","Аккуратные записи, которые можно показать специалисту.")+'</li></ul></div>'+
-          '<div class="paper safe-card"><h3>'+I('shield',20)+' '+BF.L("It is not","Это не")+'</h3><ul class="plain"><li>'+BF.L("Therapy, counseling, or a medical device.","Терапия, консультирование или медицинское изделие.")+'</li><li>'+BF.L("A diagnosis of anxiety, ADHD, or anything else.","Диагностика тревожности, СДВГ или чего-либо ещё.")+'</li><li>'+BF.L("A replacement for your pediatrician, a psychologist, or medication decisions.","Замена педиатра, психолога или решений о лекарствах.")+'</li><li>'+BF.L("Affiliated with any university program — only inspired by research on parent-based approaches.","Связан с какими-либо университетскими программами — лишь вдохновлён исследованиями подхода через родителя.")+'</li></ul></div>'+
+          '<div class="paper safe-card"><h3>'+I('check',20)+' '+BF.L("It is","Это")+'</h3><ul class="plain"><li>'+BF.L("Daily parent support with everyday ideas: stories, small steps, routines and calm games.","Ежедневная поддержка родителя: истории, маленькие шаги, распорядок дня и спокойные игры.")+'</li><li>'+BF.L("A way to practice brave steps together, at your child's pace. The child is never forced.","Способ вместе тренировать смелые шаги в темпе ребёнка. Ребёнка никогда не заставляют.")+'</li><li>'+BF.L("A tidy record you can bring to a professional.","Аккуратные записи, которые можно показать специалисту.")+'</li></ul></div>'+
+          '<div class="paper safe-card"><h3>'+I('shield',20)+' '+BF.L("It is not","Это не")+'</h3><ul class="plain"><li>'+BF.L("Therapy, counseling, or a medical device.","Терапия, консультирование или медицинское изделие.")+'</li><li>'+BF.L("A diagnosis of anxiety, ADHD, or anything else.","Диагностика тревожности, СДВГ или чего-либо ещё.")+'</li><li>'+BF.L("A replacement for your pediatrician, a psychologist, or medication decisions.","Замена педиатра, психолога или решений о лекарствах.")+'</li><li>'+BF.L("Affiliated with any university program — only inspired by research on parent-based approaches.","Связан с какими-либо университетскими программами — мы лишь опираемся на исследования методов, где главную роль играет родитель.")+'</li></ul></div>'+
         '</div>'+
         '<section class="paper red-flags"><span class="tape"></span><h2>'+BF.L("Talk to a specialist if…","Обратитесь к специалисту, если…")+'</h2><ul class="plain two">'+
-          [BF.L("Your child talks about hurting themselves or not wanting to live.","Ребёнок говорит о том, чтобы причинить себе вред или не жить."),BF.L("Worry or meltdowns stop school, sleep or eating for weeks.","Тревога или срывы неделями мешают школе, сну или еде."),BF.L("Panic attacks happen.","Случаются панические атаки."),BF.L("Your child refuses school for weeks.","Ребёнок неделями отказывается ходить в школу."),BF.L("Your child hurts others or is in danger.","Ребёнок причиняет вред другим или в опасности."),BF.L("You feel out of your depth — that alone is a good reason.","Вы чувствуете, что не справляетесь, — уже это хороший повод.")].map(function(t){ return '<li>'+t+'</li>'; }).join("")+'</ul>'+
+          [BF.L("Your child talks about hurting themselves or not wanting to live.","Ребёнок говорит, что хочет причинить себе вред или не хочет жить."),BF.L("Worry or meltdowns stop school, sleep or eating for weeks.","Тревога или срывы неделями мешают школе, сну или еде."),BF.L("Panic attacks happen.","Случаются панические атаки."),BF.L("Your child refuses school for weeks.","Ребёнок неделями отказывается ходить в школу."),BF.L("Your child hurts others or is in danger.","Ребёнок причиняет вред другим или сам в опасности."),BF.L("You feel out of your depth — that alone is a good reason.","Вы чувствуете, что не справляетесь, — уже это хороший повод.")].map(function(t){ return '<li>'+t+'</li>'; }).join("")+'</ul>'+
           '<p>'+BF.L("Start with your pediatrician. They can refer you to a child psychologist or psychiatrist.","Начните с педиатра — он направит к детскому психологу или психиатру.")+'</p></section>'+
         '<section class="crisis"><div class="crisis-n"><b>988</b><span>'+BF.L("Call or text — Suicide &amp; Crisis Lifeline (US), 24/7","Звонок или SMS — кризисная линия (США), 24/7")+'</span></div><div class="crisis-n"><b>911</b><span>'+BF.L("If anyone is in immediate danger (US)","Если кто-то в непосредственной опасности (США)")+'</span></div><div class="crisis-n"><b>741741</b><span>'+BF.L("Text HOME — Crisis Text Line (US), 24/7","SMS со словом HOME — Crisis Text Line (США), 24/7")+'</span></div><div class="crisis-n"><b>112</b><span>'+BF.L("Emergency (Kazakhstan, EU)","Экстренные службы (Казахстан, ЕС)")+'</span></div><div class="crisis-n"><b>150</b><span>'+BF.L("Children's helpline (Kazakhstan), free","Телефон доверия для детей (Казахстан), бесплатно")+'</span></div></section>'+
         '<section class="paper privacy"><h3>'+I('lock',20)+' '+BF.L("Privacy","Конфиденциальность")+'</h3><p>'+BF.L("No account, no server. Names, heroes, diary and progress are saved only in this browser's local storage. If an AI story service is connected later, only the situation description is sent — never the child's name.","Без аккаунта и сервера. Имена, герои, дневник и прогресс хранятся только в localStorage этого браузера. Если позже подключить ИИ для историй, туда уйдёт только описание ситуации — никогда имя ребёнка.")+'</p></section>'+
       '</div>';
-    var ack = el.querySelector("#ack"); if(ack) ack.onchange = function(e){ st.update(function(x){ x.specialistAck = e.target.checked; }); BF.ui.toast(e.target.checked ? BF.L("Brave plans unlocked. Go gently.","Смелые планы доступны. Двигайтесь мягко.") : BF.L("Brave plans paused.","Смелые планы приостановлены.")); };
+    var ack = el.querySelector("#ack"); if(ack) ack.onchange = function(e){ st.update(function(x){ x.specialistAck = e.target.checked; }); BF.ui.toast(e.target.checked ? BF.L("Brave plans unlocked. Go gently.","Планы смелых шагов снова доступны. Двигайтесь бережно.") : BF.L("Brave plans paused.","Планы смелых шагов на паузе.")); };
   }
 };
 
@@ -4367,7 +4405,7 @@ var BF = window.BF = window.BF || {};
 BF.games = BF.games || {};
 BF.games.trail = {
   title:{en:"Trail Tracer",ru:"Тропинка"}, skill:{en:"Fine motor",ru:"Мелкая моторика"}, motor:true, time:{en:"2 min",ru:"2 мин"},
-  howto:{en:"Put a finger on the hero and slowly follow the trail home. If you slip off, just come back — nothing resets.",ru:"Поставьте палец на героя и медленно ведите его по тропинке домой. Соскользнули — просто вернитесь, ничего не сбрасывается."},
+  howto:{en:"Put a finger on the hero and slowly follow the trail home. If you slip off, just come back — nothing resets.",ru:"Поставь палец на героя и медленно веди его по тропинке домой. Палец соскользнул — просто вернись, ничего не сбрасывается."},
   why:{en:"Slow, controlled finger movement builds pencil control and teaches the body that slowing down feels good.",ru:"Медленные точные движения пальцем развивают контроль карандаша и учат тело, что замедляться приятно."},
   art:function(){ return '<svg viewBox="0 0 120 90"><path d="M12 70 C30 20 50 80 70 34 S104 20 110 54" fill="none" stroke="#E7D7BC" stroke-width="16" stroke-linecap="round"/><path d="M12 70 C30 20 50 80 70 34" fill="none" stroke="#C98E70" stroke-width="5" stroke-linecap="round"/><circle cx="70" cy="34" r="8" fill="#FBF7EF" stroke="#A96C51" stroke-width="3"/><path d="M104 46 l6 -12 l6 12z" fill="#A3B59C"/></svg>'; },
   mount:function(stage, api){
@@ -4406,7 +4444,7 @@ BF.games.trail = {
     function down(e){
       var pt = U.svgPoint(svg, e);
       if(U.dist(pt, samples[idx]) < 48){ tracing = true; try{ svg.setPointerCapture(e.pointerId); }catch(_){} token.classList.add("held"); api.say(BF.L("Slow and steady… follow the dotted line.","Медленно и спокойно… по пунктирной линии.")); }
-      else api.say(BF.L("Start from the hero — put your finger on them.","Начните с героя — поставьте на него палец."));
+      else api.say(BF.L("Start from the hero — put your finger on them.","Начни с героя — поставь на него палец."));
     }
     function move(e){
       if(!tracing) return;
@@ -4416,7 +4454,7 @@ BF.games.trail = {
         if(n.i > idx){ idx = n.i; paint(); if(idx % 40 === 0) BF.sound.pop(); }
         if(idx >= N-14 || (idx > N*0.85 && U.dist(pt, samples[N-1]) < tol)){ idx = N-1; paint(); levelDone(); }
       } else if(n.d > tol + 6){
-        if(!stage.classList.contains("off")){ slips++; stage.classList.add("off"); api.say(BF.L("Oops — back to the trail. Your progress is safe.","Ой — вернитесь на тропинку. Прогресс сохранён.")); BF.sound.soft(); }
+        if(!stage.classList.contains("off")){ slips++; stage.classList.add("off"); api.say(BF.L("Oops — back to the trail. Your progress is safe.","Ой — вернись на тропинку. Прогресс сохранён.")); BF.sound.soft(); }
         clearTimeout(offT);
       }
     }
@@ -4442,7 +4480,7 @@ var BF = window.BF = window.BF || {};
 BF.games = BF.games || {};
 BF.games.jars = {
   title:{en:"Button Jars",ru:"Баночки с пуговицами"}, skill:{en:"Fine motor",ru:"Мелкая моторика"}, motor:true, time:{en:"2 min",ru:"2 мин"},
-  howto:{en:"Drag each button into the jar that matches its color.",ru:"Перетащите каждую пуговицу в баночку того же цвета."},
+  howto:{en:"Drag each button into the jar that matches its color.",ru:"Перетащи каждую пуговицу в баночку того же цвета."},
   why:{en:"Pinch-and-drag works the small hand muscles, and sorting by one rule, then switching rules, trains flexible attention.",ru:"Перетаскивание тренирует мелкие мышцы руки, а смена правила сортировки — гибкость внимания."},
   art:function(){ return '<svg viewBox="0 0 120 90"><rect x="14" y="34" width="30" height="44" rx="8" fill="#D8E1E7" stroke="#93A9BA" stroke-width="3"/><rect x="48" y="34" width="30" height="44" rx="8" fill="#DCE4D5" stroke="#A3B59C" stroke-width="3"/><rect x="82" y="34" width="30" height="44" rx="8" fill="#F1DED3" stroke="#C98E70" stroke-width="3"/><circle cx="63" cy="16" r="11" fill="#A3B59C"/><circle cx="60" cy="14" r="1.8" fill="#FBF7EF"/><circle cx="66" cy="14" r="1.8" fill="#FBF7EF"/><circle cx="60" cy="19" r="1.8" fill="#FBF7EF"/><circle cx="66" cy="19" r="1.8" fill="#FBF7EF"/><circle cx="28" cy="64" r="7" fill="#93A9BA"/><circle cx="97" cy="66" r="7" fill="#C98E70"/></svg>'; },
   mount:function(stage, api){
@@ -4461,7 +4499,7 @@ BF.games.jars = {
     function build(){
       var byColor = round===0;
       var keys = byColor ? ["sage","dusty","clay"] : ["round","square","flower"];
-      api.say(byColor ? BF.L("Drag each button into the jar that matches its color.","Перетащите каждую пуговицу в баночку того же цвета.") : BF.L("New rule! Now sort by SHAPE — color doesn't matter.","Новое правило! Теперь по ФОРМЕ — цвет не важен."));
+      api.say(byColor ? BF.L("Drag each button into the jar that matches its color.","Перетащи каждую пуговицу в баночку того же цвета.") : BF.L("New rule! Now sort by SHAPE — color doesn't matter.","Новое правило! Теперь по ФОРМЕ — цвет не важен."));
       stage.innerHTML = '<div class="lvl-tag">'+(byColor?BF.L("Round 1 · by color","Раунд 1 · по цвету"):BF.L("Round 2 · by shape","Раунд 2 · по форме"))+'</div><div class="jar-field" id="jf"></div><div class="jars">'+keys.map(function(k,i){
         var stroke = byColor ? COLORS[k] : "#B9A48A", fill = byColor ? SOFT[k] : "#F1E9DB";
         return '<div class="jar" data-k="'+k+'"><svg viewBox="0 0 120 140" class="jar-svg"><rect x="30" y="4" width="60" height="16" rx="6" fill="'+stroke+'"/><path d="M22 26 h76 q8 0 8 10 v88 q0 12 -12 12 h-68 q-12 0 -12 -12 v-88 q0 -10 8 -10z" fill="'+fill+'" stroke="'+stroke+'" stroke-width="4"/><path d="M30 40 v70" stroke="#fff" stroke-opacity=".55" stroke-width="6" stroke-linecap="round"/></svg>'+(byColor?'':'<span class="jar-label">'+shapeIcon(k)+'</span>')+'<span class="jar-in"></span></div>';
@@ -4514,7 +4552,7 @@ var BF = window.BF = window.BF || {};
 BF.games = BF.games || {};
 BF.games.balloon = {
   title:{en:"Balloon Breath",ru:"Дыхание-шарик"}, skill:{en:"Calm body",ru:"Спокойное тело"}, motor:false, time:{en:"1–2 min",ru:"1–2 мин"},
-  howto:{en:"Press and hold to breathe in while the balloon fills. Let go and breathe out slowly.",ru:"Нажмите и держите — вдох, пока шарик надувается. Отпустите — медленный выдох."},
+  howto:{en:"Press and hold to breathe in while the balloon fills. Let go and breathe out slowly.",ru:"Нажми и держи — делай вдох, пока шарик надувается. Отпусти — медленный выдох."},
   why:{en:"A longer out-breath is a simple, gentle way to help the body settle before a brave step.",ru:"Длинный выдох — простой и мягкий способ успокоить тело перед смелым шагом."},
   art:function(){ return '<svg viewBox="0 0 120 90"><path d="M60 64 q-3 10 4 22" stroke="#B9A48A" stroke-width="2" fill="none"/><ellipse cx="60" cy="36" rx="24" ry="28" fill="#D9B5A7"/><path d="M55 63 h10 l-5 6z" fill="#C79E8F"/><path d="M48 22 q5 -8 12 -8" stroke="#fff" stroke-opacity=".6" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="60" cy="36" r="40" fill="none" stroke="#A3B59C" stroke-width="2" stroke-dasharray="3 6"/></svg>'; },
   mount:function(stage, api){
@@ -4944,7 +4982,7 @@ BF.games = BF.games || {};
 BF.games.diff = {
   title:{en:"Spot the Difference",ru:"Найди отличия"}, skill:{en:"Careful looking",ru:"Внимательный взгляд"}, motor:false, time:{en:"2–3 min",ru:"2–3 мин"},
   howto:{en:"Look at both pictures. Tap anything that is different in the bottom one.",ru:"Посмотри на обе картинки. Нажми на всё, что отличается на нижней."},
-  why:{en:"Comparing slowly, part by part, builds sustained attention and a habit of checking — useful for homework and getting ready.",ru:"Медленное сравнение по частям развивает устойчивое внимание и привычку проверять — пригодится для домашки и сборов."},
+  why:{en:"Comparing slowly, part by part, builds sustained attention and a habit of checking — useful for homework and getting ready.",ru:"Медленное сравнение по частям развивает устойчивое внимание и привычку проверять — пригодится для уроков и сборов."},
   art:function(){ return '<svg viewBox="0 0 120 90"><rect x="6" y="10" width="50" height="70" rx="8" fill="#DCE4D5"/><rect x="64" y="10" width="50" height="70" rx="8" fill="#DCE4D5"/><circle cx="22" cy="28" r="7" fill="#E4CC8F"/><circle cx="80" cy="28" r="7" fill="#C98E70"/><rect x="26" y="50" width="20" height="20" fill="#93A9BA"/><rect x="84" y="50" width="20" height="20" fill="#93A9BA"/><circle cx="80" cy="28" r="12" fill="none" stroke="#A96C51" stroke-width="2.5" stroke-dasharray="3 3"/></svg>'; },
   mount:function(stage, api){
     var U = BF.gameUtil, ND = api.pick([3,5,7]), found = 0, wrong = 0;
@@ -5339,7 +5377,7 @@ BF.games.pictrace = {
       done.insertAdjacentHTML("beforeend", '<path d="'+P.s[s]+'" fill="'+(s===0?P.fill:"none")+'" fill-opacity=".55" stroke="#A96C51" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>');
       if(s < P.s.length-1){ s++; stroke(); api.say(BF.L("Next line — find the new dot.","Следующая линия — найди новую точку.")); return; }
       tok.style.display = "none"; prog.style.display = "none"; BF.sound.star(); paintMeter();
-      api.say(BF.L("You traced a ","Ты обвёл(а): ")+T(P.n)+"!");
+      api.say(BF.L("You traced the "+T(P.n)+"!","Готово: "+T(P.n)+"!"));
       if(k < LIST.length-1){ k++; setTimeout(build, 1000); }
       else { var v = pct(); api.win(v>=85?3:v>=65?2:1, BF.L("Accuracy ","Точность ")+v+"% — "+BF.L("lovely pictures!","чудесные картинки!")); }
     }
@@ -5434,6 +5472,146 @@ BF.games.color = {
 };
 
 </script>
+<script data-src="js/games/schulte.js">
+/* Number Hunt (Schulte table) — find the numbers in order 1…N on a mixed-up grid. Calm: no countdown. */
+var BF = window.BF = window.BF || {};
+BF.games = BF.games || {};
+BF.games.schulte = {
+  title:{en:"Number Hunt",ru:"Найди числа по порядку"}, skill:{en:"Focus & visual search",ru:"Концентрация и поиск"}, cat:"attention", time:{en:"1–3 min",ru:"1–3 мин"},
+  howto:{en:"Find and tap the numbers in order: 1, 2, 3… Keep your eyes in the middle and look around calmly.",ru:"Находи и нажимай числа по порядку: 1, 2, 3… Смотри в центр и спокойно оглядывай таблицу."},
+  why:{en:"Schulte-style tables train steady focus and wide, calm visual search — useful for reading and copying from the board.",ru:"Таблицы в стиле Шульте тренируют устойчивое внимание и широкий спокойный обзор — это помогает читать и списывать с доски."},
+  art:function(){ var n=[7,2,9,4,1,6,3,8,5]; return '<svg viewBox="0 0 120 90"><rect x="24" y="6" width="72" height="78" rx="8" fill="#FBF7EF" stroke="#D6C09C" stroke-width="2"/>'+n.map(function(v,i){ var x=38+(i%3)*22, y=26+Math.floor(i/3)*24; return '<text x="'+x+'" y="'+y+'" font-size="14" font-weight="800" text-anchor="middle" fill="'+(v===1?'#B27A62':'#6b5a4c')+'">'+v+'</text>'; }).join("")+'<circle cx="82" cy="50" r="10" fill="none" stroke="#B27A62" stroke-width="2.5"/></svg>'; },
+  mount:function(stage, api){
+    var U = BF.gameUtil, n = api.pick([3,4,5]), N = n*n, next = 1, miss = 0, t0 = Date.now(), timer;
+    var nums = U.shuffle(Array.apply(null,{length:N}).map(function(_,i){ return i+1; }));
+    var tints = ["#FBF7EF","#F3EADB","#EEF2E8","#F5E8E3"];
+    stage.innerHTML = '<div class="sc-wrap"><div class="sc-top"><span class="lvl-tag sc-next">'+BF.L("Find","Найди")+' <b id="scN">1</b></span><span class="sc-time" id="scT">0:00</span></div>'+
+      '<div class="sc-grid" style="--n:'+n+'">'+nums.map(function(v){ return '<button class="sc-cell" data-v="'+v+'" style="background:'+(api.lv===2?tints[(v*7)%4]:tints[0])+'">'+v+'</button>'; }).join("")+'</div></div>';
+    function tick(){ var s = Math.floor((Date.now()-t0)/1000); var el = stage.querySelector("#scT"); if(el) el.textContent = Math.floor(s/60)+":"+("0"+s%60).slice(-2); }
+    timer = setInterval(tick, 500);
+    stage.querySelector(".sc-grid").addEventListener("click", function(e){
+      var b = e.target.closest(".sc-cell"); if(!b || b.classList.contains("ok")) return;
+      if(+b.getAttribute("data-v") === next){
+        b.classList.add("ok"); BF.sound.pop(); next++;
+        if(next > N){ clearInterval(timer); tick(); var s = Math.round((Date.now()-t0)/1000); api.win(miss<=1?3:miss<=4?2:1, BF.L("All "+N+" numbers in "+s+" s!","Все "+N+" чисел за "+s+" с!")); return; }
+        stage.querySelector("#scN").textContent = next;
+      } else { miss++; b.classList.remove("no"); void b.offsetWidth; b.classList.add("no"); api.say(BF.L("Not this one — look for ","Не это — ищи ")+next+"."); }
+    });
+    return function(){ clearInterval(timer); };
+  }
+};
+
+</script>
+<script data-src="js/games/robot.js">
+/* Follow the Robot — watch the arrows and move the robot in your head (no finger!), then tap where it stopped. */
+var BF = window.BF = window.BF || {};
+BF.games = BF.games || {};
+BF.games.robot = {
+  title:{en:"Follow the Robot",ru:"Догони робота"}, skill:{en:"Attention & spatial memory",ru:"Внимание и пространство"}, cat:"attention", time:{en:"2 min",ru:"2 мин"},
+  howto:{en:"Remember where the robot starts. Watch the arrows one by one and move it in your head. Then tap the square where it stopped.",ru:"Запомни, где стоит робот. Смотри на стрелки по одной и двигай его в уме. Потом нажми клетку, где он остановился."},
+  why:{en:"Following moves without pointing holds attention on a task and trains working memory and spatial thinking.",ru:"Следить за ходами без пальца — значит удерживать внимание на задаче и тренировать рабочую память и пространственное мышление."},
+  art:function(){ return '<svg viewBox="0 0 120 90"><rect x="20" y="8" width="74" height="74" rx="6" fill="#FBF7EF" stroke="#D6C09C" stroke-width="2"/><path d="M38.5 8 V82 M57 8 V82 M75.5 8 V82 M20 26.5 H94 M20 45 H94 M20 63.5 H94" stroke="#E7D7BC" stroke-width="1.5"/>'+BF.robotSVG(29,17,14)+'<path d="M102 30 V58 M96 50 L102 58 L108 50" fill="none" stroke="#B27A62" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'; },
+  mount:function(stage, api){
+    var n = api.pick([4,5,5]), MOVES = api.pick([3,5,7]), ROUNDS = 3, SPEED = api.pick([1300,1150,1000]);
+    var round = 0, good = 0, pos, end, path, timers = [], busy = true;
+    var DIRS = {u:[0,-1,"↑"], d:[0,1,"↓"], l:[-1,0,"←"], r:[1,0,"→"]};
+    var AR = {u:'M0 10 V-10 M-7 -3 L0 -10 L7 -3', d:'M0 -10 V10 M-7 3 L0 10 L7 3', l:'M10 0 H-10 M-3 -7 L-10 0 L-3 7', r:'M-10 0 H10 M3 -7 L10 0 L3 7'};
+    function later(f, t){ timers.push(setTimeout(f, t)); }
+    function plan(){
+      pos = [Math.floor(Math.random()*n), Math.floor(Math.random()*n)]; var p = pos.slice(); path = [];
+      while(path.length < MOVES){ var ks = Object.keys(DIRS).filter(function(k){ var x=p[0]+DIRS[k][0], y=p[1]+DIRS[k][1]; return x>=0&&y>=0&&x<n&&y<n; }); var k = ks[Math.floor(Math.random()*ks.length)]; p = [p[0]+DIRS[k][0], p[1]+DIRS[k][1]]; path.push(k); }
+      end = p;
+    }
+    function board(showRobot){
+      var cells = ""; for(var y=0;y<n;y++) for(var x=0;x<n;x++) cells += '<button class="rb-cell" data-x="'+x+'" data-y="'+y+'" aria-label="'+(y+1)+'-'+(x+1)+'">'+(showRobot && x===pos[0] && y===pos[1] ? '<svg viewBox="0 0 40 40">'+BF.robotSVG(20,20,15)+'</svg>' : '')+'</button>';
+      return cells;
+    }
+    function start(){
+      plan(); busy = true;
+      stage.innerHTML = '<div class="rb-wrap"><div class="lvl-tag">'+BF.L("Round ","Раунд ")+(round+1)+' / '+ROUNDS+'</div><div class="rb-grid" style="--n:'+n+'">'+board(true)+'</div>'+
+        '<div class="rb-side"><div class="rb-arrow paper" id="rbA" aria-live="polite"><span>'+BF.L("Ready?","Готов?")+'</span></div><div class="rb-trail" id="rbT"></div></div></div>';
+      api.say(BF.L("Remember where the robot is…","Запомни, где робот…"));
+      later(function(){
+        stage.querySelectorAll(".rb-cell svg").forEach(function(s){ s.remove(); });
+        stage.querySelector('.rb-cell[data-x="'+pos[0]+'"][data-y="'+pos[1]+'"]').classList.add("start");
+        api.say(BF.L("Watch the arrows. Move it in your head!","Смотри на стрелки. Двигай робота в уме!"));
+        path.forEach(function(k, i){ later(function(){
+          stage.querySelector("#rbA").innerHTML = '<svg viewBox="-16 -16 32 32" width="64" height="64"><path d="'+AR[k]+'" fill="none" stroke="#B27A62" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg><small>'+(i+1)+' / '+MOVES+'</small>';
+          stage.querySelector("#rbT").insertAdjacentHTML("beforeend", '<i>'+DIRS[k][2]+'</i>'); BF.sound.pop();
+          if(api.lv===2) later(function(){ var t = stage.querySelector("#rbT"); if(t) t.innerHTML = ""; }, SPEED-200);
+        }, 1600 + i*SPEED); });
+        later(function(){ stage.querySelector("#rbA").innerHTML = '<span>'+BF.L("Where is it now?","Где он теперь?")+'</span>'; api.say(BF.L("Tap the square where the robot stopped.","Нажми клетку, где остановился робот.")); busy = false; }, 1600 + MOVES*SPEED);
+      }, 1700);
+    }
+    stage.addEventListener("click", function(e){
+      var c = e.target.closest && e.target.closest(".rb-cell"); if(!c) return;
+      if(busy){ api.say(BF.L("Wait for the arrows to finish.","Дождись, пока закончатся стрелки.")); return; }
+      busy = true; var x = +c.getAttribute("data-x"), y = +c.getAttribute("data-y"), ok = x===end[0] && y===end[1];
+      var right = stage.querySelector('.rb-cell[data-x="'+end[0]+'"][data-y="'+end[1]+'"]'); right.innerHTML = '<svg viewBox="0 0 40 40">'+BF.robotSVG(20,20,15)+'</svg>'; right.classList.add("end");
+      if(ok){ good++; BF.sound.star(); api.say(BF.L("Yes! You caught the robot.","Да! Робот пойман.")); }
+      else { c.classList.add("miss"); api.say(BF.L("It went here — let's try another one.","Он был здесь — давай ещё раз.")); }
+      round++;
+      later(function(){ if(round < ROUNDS) start(); else api.win(good===3?3:good===2?2:1, BF.L("Robot caught ","Поймано: ")+good+" / "+ROUNDS); }, 1400);
+    });
+    start();
+    return function(){ timers.forEach(clearTimeout); };
+  }
+};
+BF.robotSVG = function(cx, cy, s){ var k = s/15;
+  return '<g transform="translate('+cx+' '+cy+') scale('+k+')"><line x1="0" y1="-15" x2="0" y2="-20" stroke="#6b5a4c" stroke-width="2"/><circle cx="0" cy="-21" r="2.5" fill="#D79A7E"/><rect x="-12" y="-14" width="24" height="18" rx="5" fill="#A9C3D6" stroke="#6b5a4c" stroke-width="2"/><circle cx="-5" cy="-6" r="2.6" fill="#3b3632"/><circle cx="5" cy="-6" r="2.6" fill="#3b3632"/><rect x="-9" y="5" width="18" height="11" rx="3" fill="#D79A7E" stroke="#6b5a4c" stroke-width="2"/></g>'; };
+
+</script>
+<script data-src="js/games/changed.js">
+/* What Changed? — look at the shelf, it hides behind a curtain, then find the one thing that changed. */
+var BF = window.BF = window.BF || {};
+BF.games = BF.games || {};
+BF.games.changed = {
+  title:{en:"What Changed?",ru:"Что изменилось?"}, skill:{en:"Attention & memory",ru:"Внимание и память"}, cat:"attention", time:{en:"2 min",ru:"2 мин"},
+  howto:{en:"Look at the shelf and remember the things. The curtain closes… then tap the thing that changed.",ru:"Рассмотри полку и запомни предметы. Шторка закроется… потом нажми на то, что изменилось."},
+  why:{en:"Noticing a change needs a clear picture in memory and calm, careful comparison — attention span in action.",ru:"Чтобы заметить перемену, нужна чёткая картинка в памяти и спокойное сравнение — это и есть объём внимания."},
+  art:function(){ return '<svg viewBox="0 0 120 90"><rect x="10" y="58" width="100" height="6" rx="3" fill="#C9A882"/><circle cx="28" cy="46" r="10" fill="#D79A7E"/><rect x="48" y="34" width="18" height="22" rx="3" fill="#A9C3D6"/><path d="M84 56 L92 34 L100 56Z" fill="#A9C29B"/><text x="93" y="28" font-size="14" font-weight="800" fill="#B27A62" text-anchor="middle">?</text></svg>'; },
+  mount:function(stage, api){
+    var U = BF.gameUtil, K = api.pick([4,6,8]), LOOK = api.pick([5000,5000,6000]), ROUNDS = 3, MODE = api.pick(["swap","swap","mix"]);
+    var ICONS = ["star","heart","leaf","moon","sun","home","book","pencil","tree","puzzle","clock","bed","food","smile","school","target"];
+    var COLS = ["#D79A7E","#A9C29B","#A9C3D6","#E8CF8F","#B8AACB","#E2B3B5","#A27C62"];
+    var round = 0, good = 0, items, changedIdx, timers = [], busy = true;
+    function later(f, t){ timers.push(setTimeout(f, t)); }
+    function itemHTML(it, i){ return '<button class="wc-item" data-i="'+i+'" style="--c:'+it.c+'" aria-label="'+it.k+'">'+BF.icon(it.k, 34)+'</button>'; }
+    function shelf(list){ return '<div class="wc-shelf" style="--k:'+Math.min(K,4)+'">'+list.map(itemHTML).join("")+'</div>'; }
+    function start(){
+      var pool = U.shuffle(ICONS.slice()); items = pool.slice(0, K).map(function(k, i){ return {k:k, c:COLS[(i*3+round)%COLS.length]}; });
+      busy = true;
+      stage.innerHTML = '<div class="wc-wrap"><div class="lvl-tag">'+BF.L("Round ","Раунд ")+(round+1)+' / '+ROUNDS+'</div><div class="wc-room" id="wcR">'+shelf(items)+'<div class="wc-curtain" id="wcC" hidden></div></div>'+
+        '<button class="btn small ghost wc-ready" id="wcGo">'+BF.L("I remember — close","Всё, закрываем шторку")+'</button></div>';
+      api.say(BF.L("Look carefully and remember…","Смотри внимательно и запоминай…"));
+      stage.querySelector("#wcGo").onclick = hide;
+      later(hide, LOOK);
+    }
+    function hide(){
+      if(!busy || stage.querySelector("#wcC").hidden === false) return;
+      timers.forEach(clearTimeout); timers = [];
+      var go = stage.querySelector("#wcGo"); if(go) go.remove();
+      stage.querySelector("#wcC").hidden = false; api.say(BF.L("The curtain is closed…","Шторка закрыта…"));
+      changedIdx = Math.floor(Math.random()*K);
+      var kind = MODE==="mix" && Math.random()<.5 ? "color" : "swap", now = items.slice();
+      if(kind === "color"){ var it = now[changedIdx], c2 = COLS.filter(function(c){ return c!==it.c; })[Math.floor(Math.random()*6)]; now[changedIdx] = {k:it.k, c:c2}; }
+      else { var spare = ICONS.filter(function(k){ return !items.some(function(x){ return x.k===k; }); }); now[changedIdx] = {k:spare[Math.floor(Math.random()*spare.length)], c:items[changedIdx].c}; }
+      later(function(){ stage.querySelector("#wcR").innerHTML = shelf(now); busy = false; api.say(kind==="color" ? BF.L("Something changed color or shape. What is it?","Что-то поменяло цвет или форму. Что это?") : BF.L("One thing is different. Which one?","Один предмет другой. Какой?")); }, 1500);
+    }
+    stage.addEventListener("click", function(e){
+      var b = e.target.closest && e.target.closest(".wc-item"); if(!b) return;
+      if(busy){ if(stage.querySelector("#wcGo")) api.say(BF.L("Remember them first — the curtain will close.","Сначала запомни — шторка скоро закроется.")); return; }
+      busy = true; var i = +b.getAttribute("data-i");
+      stage.querySelector('.wc-item[data-i="'+changedIdx+'"]').classList.add("is");
+      if(i === changedIdx){ good++; BF.sound.star(); api.say(BF.L("Yes, that one changed!","Да, именно он изменился!")); } else { b.classList.add("miss"); api.say(BF.L("It was this one — next round!","Изменился вот этот — следующий раунд!")); }
+      round++; later(function(){ if(round < ROUNDS) start(); else api.win(good===3?3:good===2?2:1, BF.L("Found ","Найдено: ")+good+" / "+ROUNDS); }, 1500);
+    });
+    start();
+    return function(){ timers.forEach(clearTimeout); };
+  }
+};
+
+</script>
 <script data-src="js/app.js">
 /* Boot + app shell (header, footer, mobile tab bar) */
 var BF = window.BF = window.BF || {};
@@ -5476,7 +5654,7 @@ var BF = window.BF = window.BF || {};
       '</div>';
     document.getElementById("tabbar").innerHTML = navItems().map(function(n){ return '<a href="'+n.href+'" data-nav="'+n.k+'">'+I(n.ico,22)+'<span>'+n.t+'</span></a>'; }).join("");
     document.getElementById("foot").innerHTML =
-      '<p><b>Balapan Focus &amp; Calm</b> — '+BF.L("daily parent support, inspired by research on parent-based approaches. Not therapy and not a medical device; it does not diagnose or treat any condition.","ежедневная поддержка родителя, вдохновлённая исследованиями подхода через родителя. Это не терапия и не медицинское изделие; сервис не ставит диагнозы и не лечит.")+
+      '<p><b>Balapan Focus &amp; Calm</b> — '+BF.L("daily parent support, inspired by research on parent-based approaches. Not therapy and not a medical device; it does not diagnose or treat any condition.","ежедневная поддержка родителя, основанная на исследованиях методов, где главную роль играет родитель. Это не терапия и не медицинское изделие; сервис не ставит диагнозы и не лечит.")+
       ' <a href="#/safety">'+BF.L("Safety &amp; when to talk to a specialist","Безопасность и когда обратиться к специалисту")+'</a> · '+BF.L("In the US, call or text <b>988</b> in a crisis · <b>911</b> for emergencies.","В США в кризисной ситуации — звонок или SMS на <b>988</b> · <b>911</b> — экстренные службы. В Казахстане — <b>112</b>, телефон доверия для детей <b>150</b>.")+'</p>'+
       '<p class="foot-small">'+BF.L("Prototype for Zimran Business Cup 2.0 · all data stays in this browser (localStorage)","Прототип для Zimran Business Cup 2.0 · все данные хранятся только в этом браузере (localStorage)")+' · <a href="#/about">'+BF.L("About Balapan","О Balapan")+'</a> · <button class="linkbtn" id="resetAll">'+BF.L("Reset all data","Сбросить все данные")+'</button></p>';
     bind(); applySettings();
@@ -5504,7 +5682,7 @@ var BF = window.BF = window.BF || {};
   function openSwitcher(){
     var st = BF.store, kids = st.children(), cur = st.f.active;
     var sh = BF.ui.sheet('<h2>'+BF.L("Whose plan are we looking at?","Чей план открываем?")+'</h2><div class="kid-list">'+kids.map(function(c){
-      return '<button class="kid-row'+(c.id===cur?' on':'')+'" data-id="'+c.id+'">'+BF.avatar.svg(c.avatar,{size:52, headOnly:true})+'<span><b>'+esc(BF.ui.heroName(c))+'</b><small>'+(c.quizDone ? BF.L("age","возраст")+' '+c.age+' · '+BF.ui.T(BF.TAGS[c.profile]?BF.TAGS[c.profile].label:{en:"profile not set",ru:"профиль не задан"}) : BF.L("quiz not finished","квиз не пройден"))+'</small></span>'+(c.isDemo?'<span class="demo-tag">'+BF.L("demo data","демо-данные")+'</span>':'')+'</button>';
+      return '<button class="kid-row'+(c.id===cur?' on':'')+'" data-id="'+c.id+'">'+BF.avatar.svg(c.avatar,{size:52, headOnly:true})+'<span><b>'+esc(BF.ui.heroName(c))+'</b><small>'+(c.quizDone ? BF.L("age","возраст")+' '+c.age+' · '+BF.ui.T(BF.TAGS[c.profile]?BF.TAGS[c.profile].label:{en:"profile not set",ru:"профиль не задан"}) : BF.L("quiz not finished","анкета не заполнена"))+'</small></span>'+(c.isDemo?'<span class="demo-tag">'+BF.L("demo data","демо-данные")+'</span>':'')+'</button>';
     }).join("")+'</div><div class="cel-actions"><button class="btn clay" id="ksAdd">'+I("plus",18)+' '+BF.L("Add a child","Добавить ребёнка")+'</button><a class="btn ghost" href="#/family">'+BF.L("Manage children","Управление детьми")+'</a></div><p class="fine">'+BF.L("Free: 1 child · Monthly: 2 children · Yearly: up to 3 children.","Бесплатно: 1 ребёнок · Месяц: 2 ребёнка · Год: до 3 детей.")+'</p>', "narrow");
     sh.querySelectorAll(".kid-row").forEach(function(b){ b.onclick = function(){ st.setActive(b.getAttribute("data-id")); sh.close(); BF.renderShell(); BF.router.go("/"); BF.router.refresh(); }; });
     sh.querySelector("#ksAdd").onclick = function(){ sh.close(); BF.addChildFlow(); };

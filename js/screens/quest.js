@@ -1,18 +1,18 @@
 var BF = window.BF = window.BF || {};
 BF.screens.quest = {
-  title:{en:"Routine Quest",ru:"Квест-рутина"},
+  title:{en:"Routine Quest",ru:"Карточки распорядка"},
   render:function(el, id){
     var st = BF.store, c = st.s, I = BF.icon, A = BF.avatar, esc = BF.ui.esc, T = BF.ui.T;
     var plan = c.plans[id], sit = BF.engine.find(id);
-    if(!plan || !sit){ el.innerHTML = '<div class="wrap empty paper"><h2>'+BF.L("Pick a routine first","Сначала выберите рутину")+'</h2><p class="muted">'+BF.L("Routine Quests come from the library — mornings, homework, bedtime and more.","Квесты-рутины — в библиотеке: утро, домашка, отбой и другое.")+'</p><a class="btn sage" href="#/library?tag=adhd">'+BF.L("Open focus situations","Ситуации про внимание")+'</a></div>'; return; }
+    if(!plan || !sit){ el.innerHTML = '<div class="wrap empty paper"><h2>'+BF.L("Pick a routine first","Сначала выберите распорядок")+'</h2><p class="muted">'+BF.L("Routine Quests are made from the library — mornings, homework, bedtime and more.","Карточки распорядка создаются в библиотеке: утро, уроки, отход ко сну и другое.")+'</p><a class="btn sage" href="#/library?tag=adhd">'+BF.L("Open focus situations","Ситуации про внимание")+'</a></div>'; return; }
     st.update(function(x){ x.activePlan = id; });
     var steps = plan.ladder.map(function(r){ return {text:T(r.text), min:r.min}; });
     var i = 0, total = steps[0].min*60000, remain = total, running = false, last = 0, raf = 0, breakTimer = 0, earned = 0, chimed = false;
     var hero = esc(BF.ui.heroName());
     el.innerHTML =
       '<div class="quest wrap">'+
-        '<div class="crumbs"><a href="#/library">'+I('back',16)+' '+BF.L("Library","Библиотека")+'</a>'+BF.ui.tagChip(plan.tag)+(plan.tag!=="adhd"?'<a class="chip" href="#/brave/'+id+'">'+I('book',14)+' '+BF.L("Brave Plan &amp; story","Смелый план и история")+'</a>':'')+'</div>'+
-        '<div class="q-top"><h1>'+BF.L(hero+"'s quest: "+T(sit.title).toLowerCase(),"Квест: "+T(sit.title).toLowerCase())+'</h1><div class="pebbles" id="qPeb"></div></div>'+
+        '<div class="crumbs"><a href="#/library">'+I('back',16)+' '+BF.L("Library","Библиотека")+'</a>'+BF.ui.tagChip(plan.tag)+(plan.tag!=="adhd"?'<a class="chip" href="#/brave/'+id+'">'+I('book',14)+' '+BF.L("Brave Plan &amp; story","План смелых шагов и сказка")+'</a>':'')+'</div>'+
+        '<div class="q-top"><h1>'+BF.L(hero+"'s quest: "+T(sit.title).toLowerCase(),"Распорядок: "+T(sit.title).toLowerCase())+'</h1><div class="pebbles" id="qPeb"></div></div>'+
         '<div class="q-grid">'+
           '<div class="q-card paper" id="qCard"></div>'+
           '<div class="q-timer paper"><div class="timer" id="qTimer"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="92" fill="#FBF7EF" stroke="#E2D6C3" stroke-width="3"/>'+
@@ -21,7 +21,7 @@ BF.screens.quest = {
             '<div class="t-ctrl"><button class="btn small dusty" id="qPlay"></button><button class="btn small ghost" id="qMore">'+BF.L("+1 min","+1 мин")+'</button><button class="btn small ghost" id="qWiggle">'+BF.L("Wiggle break","Минутка движения")+'</button><button class="btn small ghost" id="qSay">'+I('speaker',16)+'</button></div></div>'+
         '</div>'+
       '</div>'+
-      '<div class="move" id="qMove" hidden><div class="move-card paper"><p class="eyebrow">'+BF.L("60-second movement break","Минута движения")+'</p><h2 id="mvT"></h2><p id="mvD"></p><div class="move-stage"><div class="mv-kid" id="mvKid">'+A.svg(c.avatar,{size:150,pose:"cheer"})+'</div></div><div class="mv-count"><span id="mvN">60</span>'+BF.L("s","с")+'</div><button class="btn clay" id="mvDone">'+BF.L("Back to the quest","Вернуться к квесту")+'</button></div></div>';
+      '<div class="move" id="qMove" hidden><div class="move-card paper"><p class="eyebrow">'+BF.L("60-second movement break","Минута движения")+'</p><h2 id="mvT"></h2><p id="mvD"></p><div class="move-stage"><div class="mv-kid" id="mvKid">'+A.svg(c.avatar,{size:150,pose:"cheer"})+'</div></div><div class="mv-count"><span id="mvN">60</span>'+BF.L("s","с")+'</div><button class="btn clay" id="mvDone">'+BF.L("Back to the quest","Вернуться к карточкам")+'</button></div></div>';
     var card = el.querySelector("#qCard"), wedge = el.querySelector("#qWedge"), read = el.querySelector("#qRead"), playB = el.querySelector("#qPlay");
     function wedgePath(frac){
       if(frac<=0) return "";
@@ -52,7 +52,7 @@ BF.screens.quest = {
     }
     function done(e){
       BF.ui.burst(e.currentTarget, 1); earned++;
-      BF.store.update(function(x){ x.done.push({date:BF.store.today(), plan:id, text:{en:"Quest card: "+plan.ladder[i].text.en, ru:"Карточка квеста: "+plan.ladder[i].text.ru}}); });
+      BF.store.update(function(x){ x.done.push({date:BF.store.today(), plan:id, text:{en:"Quest card: "+plan.ladder[i].text.en, ru:"Карточка распорядка: "+plan.ladder[i].text.ru}}); });
       BF.store.addStars(1, "quest card");
       i++;
       if(i>=steps.length){ finish(); return; }
@@ -62,7 +62,7 @@ BF.screens.quest = {
     function finish(){
       stop();
       el.querySelector("#qPeb").innerHTML = steps.map(function(){ return '<span class="peb done">'+BF.starSVG(18,true)+'</span>'; }).join("");
-      card.innerHTML = '<div class="q-finish"><div>'+A.svg(c.avatar,{size:170,pose:"cheer"})+'</div><h2>'+BF.L("Quest complete!","Квест пройден!")+'</h2><p>'+BF.L(hero+" finished every card and earned","Все карточки выполнены, заработано:")+' '+BF.ui.stars(earned, earned, 24)+'</p><div class="cel-actions"><button class="btn sage" id="qAgain">'+BF.L("Run it again","Пройти ещё раз")+'</button><a class="btn ghost" href="#/">'+BF.L("Evening check-in","Вечерний чек-ин")+'</a></div></div>';
+      card.innerHTML = '<div class="q-finish"><div>'+A.svg(c.avatar,{size:170,pose:"cheer"})+'</div><h2>'+BF.L("Quest complete!","Все карточки пройдены!")+'</h2><p>'+BF.L(hero+" finished every card and earned","Все карточки выполнены, заработано:")+' '+BF.ui.stars(earned, earned, 24)+'</p><div class="cel-actions"><button class="btn sage" id="qAgain">'+BF.L("Run it again","Пройти ещё раз")+'</button><a class="btn ghost" href="#/">'+BF.L("Evening check-in","Вечерняя отметка")+'</a></div></div>';
       card.querySelector("#qAgain").onclick = function(){ i=0; earned=0; drawCard(); };
       BF.sound.done();
     }

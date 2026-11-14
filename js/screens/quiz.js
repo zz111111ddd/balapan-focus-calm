@@ -84,10 +84,10 @@ BF.quiz = {
   }
 };
 BF.screens.quiz = {
-  title:{en:"Parent quiz",ru:"Квиз для родителя"},
+  title:{en:"Parent quiz",ru:"Анкета для родителя"},
   render:function(el, p, query){
     var isNew = query && query.new;
-    el.innerHTML = '<div class="quiz wrap"><div class="quiz-intro"><p class="eyebrow">'+(isNew?BF.L("New child","Новый ребёнок"):BF.L("Edit answers","Изменить ответы"))+'</p><h1>'+(isNew?BF.L("Let's get to know your child","Давайте познакомимся с вашим ребёнком"):BF.L("Retake the parent quiz","Пройти квиз заново"))+'</h1></div><div id="quizHost"></div></div>';
+    el.innerHTML = '<div class="quiz wrap"><div class="quiz-intro"><p class="eyebrow">'+(isNew?BF.L("New child","Новый ребёнок"):BF.L("Edit answers","Изменить ответы"))+'</p><h1>'+(isNew?BF.L("Let's get to know your child","Давайте познакомимся с вашим ребёнком"):BF.L("Retake the parent quiz","Заполнить анкету заново"))+'</h1></div><div id="quizHost"></div></div>';
     BF.quiz.mount(el.querySelector("#quizHost"), {});
   }
 };

@@ -72,23 +72,23 @@ BF.PHRASES = {
     confident:[ {en:"One breath, one step, one card.",ru:"Один вдох, один шаг, одна карточка."},{en:"You can feel wobbly and still be the one in charge.",ru:"Можно волноваться и всё равно быть главным."},{en:"Let's slow down together — and then you try.",ru:"Давай вместе замедлимся — а потом попробуешь ты."},{en:"Take a break, then come back. I know you can.",ru:"Отдохни и возвращайся. Я знаю, ты сможешь."},{en:"You handled hard things before.",ru:"Ты уже справлялся с трудным."},{en:"I'm proud of you for trying.",ru:"Я горжусь, что ты пробуешь."} ] }
 };
 
-BF.FEELINGS = { en:["wobbly","fluttery","tight","buzzy","fizzy"], ru:["как желе","будто там бабочки","тугим узелком","жужжащим","как газировка"] };
+BF.FEELINGS = { en:["wobbly","fluttery","tight","buzzy","fizzy"], ru:["всё дрожит, как желе","будто порхают бабочки","всё сжалось в комочек","что-то тихонько жужжит","щекочет, как газировка"] };
 
 /* Story templates. Russian keeps the name in nominative; {g:masc|fem} picks gender. */
 BF.STORY = {
   en:{
     open:[ "This is {name}. {name} lives near {world} and loves it there. {Their} best buddy is {buddy}.", "Every hero has a home base. {name}'s is {world}, where {buddy} is always nearby." ],
-    anxiety:[ "One day {name} found out that soon {they} would {event}. {Their} tummy went {feel}. That's the brave feeling — it shows up when something new is coming.", "{Buddy} said: “Worry is like a wave. It rises… and then it goes down again. You don't have to make it go away.”", "So they made a ladder. Not one giant jump — five small steps. The first one was: {step1}.", "When the feeling got big, {name} remembered {their} trick: {power}. And {they} took the next step anyway.", "Step by step, {name} climbed. Maybe it wasn't perfect. But it was brave — and brave is what counts." ],
+    anxiety:[ "One day {name} found out that soon {they} would {event}. {Their} tummy went {feel}. That's the nervous feeling that shows up when something new is coming.", "{Buddy} said: “Worry is like a wave. It rises… and then it goes down again. You don't have to make it go away.”", "So they made a ladder. Not one giant jump — five small steps. The first one was: {step1}.", "When the feeling got big, {name} remembered {their} trick: {power}. And {they} took the next step anyway.", "Step by step, {name} climbed. Maybe it wasn't perfect. But it was brave — and brave is what counts." ],
     adhd:[ "{name} has a busy, bright brain — full of ideas, like {world} on a sunny day. Sometimes it zooms right past the thing {they} need to do.", "Today the mission was to {event}. {Buddy} had a plan: “We don't do it all at once. We do ONE card, then tap Done.”", "First card: {step1}. The timer was a slow little circle. {name} watched it and kept going.", "Halfway there, it was time to move! {name} did a quick wiggle break, then came right back.", "Card by card, the mission was done. {Buddy} cheered: “You did each step — that's how big things get done!”" ],
     both:[ "{name} has a big heart and a busy brain. Sometimes worry and wiggles show up at the same time — and that's okay.", "Soon {name} would {event}. {Their} tummy went {feel}, and {their} thoughts started zooming in every direction.", "{Buddy} said: “Let's slow it all down. One breath. One step. One card at a time.” The first step was: {step1}.", "When it got loud inside, {name} used {their} trick: {power}. Then {they} looked at the next card — just one.", "Step by step, breath by breath, {name} did it. Worry came along for the ride, but {name} was the one driving." ],
     close:"The end — and the beginning of {name}'s brave ladder."
   },
   ru:{
-    open:[ "Это {name}. {name} {g:живёт|живёт} рядом с местом под названием {world} и очень его любит. Лучший друг — {buddy}.", "У каждого героя есть свой дом. У героя по имени {name} это {world}, а рядом всегда {buddy}." ],
-    anxiety:[ "Однажды {name} {g:узнал|узнала}, что скоро нужно будет {event}. В животике стало {feel}. Это смелое чувство — оно приходит, когда впереди что-то новое.", "{Buddy} шепчет: «Тревога — как волна. Она поднимается… а потом снова опускается. Не нужно её прогонять»." , "И они построили лесенку. Не один огромный прыжок, а пять маленьких шагов. Первый шаг: {step1}.", "Когда чувство становилось большим, {name} {g:вспоминал|вспоминала} свой приём: {power}. И всё равно {g:делал|делала} следующий шаг.", "Шаг за шагом {name} {g:поднимался|поднималась} всё выше. Может, не идеально. Зато смело — а это главное." ],
-    adhd:[ "У героя по имени {name} быстрая, яркая голова, полная идей — как {world} в солнечный день. Иногда мысли проносятся мимо того, что нужно сделать.", "Сегодня задание было такое: {event}. {Buddy} предлагает план: «Не всё сразу. Делаем ОДНУ карточку и жмём „Готово“»." , "Первая карточка: {step1}. Таймер был медленным кружочком. {name} {g:смотрел|смотрела} на него и {g:продолжал|продолжала}.", "На середине пора было подвигаться! {name} быстро {g:размялся|размялась} и сразу {g:вернулся|вернулась} к делу.", "Карточка за карточкой — и задание выполнено. {Buddy} радуется: «Ты сделал каждый шаг — так и делаются большие дела!»" ],
-    both:[ "У героя по имени {name} большое сердце и очень занятая голова. Иногда тревога и непоседливость приходят одновременно — и это нормально.", "Скоро нужно было {event}. В животике стало {feel}, а мысли разбежались во все стороны.", "{Buddy} шепчет: «Давай всё замедлим. Один вдох. Один шаг. Одна карточка». Первый шаг: {step1}.", "Когда внутри становилось шумно, {name} {g:вспоминал|вспоминала} свой приём: {power}. А потом {g:смотрел|смотрела} только на следующую карточку.", "Шаг за шагом, вдох за вдохом — {name} {g:справился|справилась}. Тревога ехала рядом, но за рулём был сам герой." ],
-    close:"Конец — и начало смелой лесенки."
+    open:[ "Это {name}. {g:Его|Её} любимое место — {world}, а лучший друг — {buddy}.", "{name} знает: самое уютное место на свете — {world}. А рядом всегда {buddy}." ],
+    anxiety:[ "Однажды {name} {g:узнал|узнала}, что скоро предстоит {event}. В животике {feel}. Так бывает, когда впереди что-то новое: это волнение, и оно не опасно.", "{Buddy} тихонько говорит: «Волнение — как волна. Оно поднимается, а потом снова опускается. Его не нужно прогонять».", "Тогда они придумали лесенку: не один огромный прыжок, а пять маленьких шагов. Первый шаг — {step1}.", "Когда волнение становилось сильным, {name} {g:вспоминал|вспоминала} свой приём — {power}. И всё равно {g:делал|делала} следующий шаг.", "Шаг за шагом {name} {g:поднимался|поднималась} всё выше. Может быть, не идеально. Зато смело — а это главное." ],
+    adhd:[ "{name} — {g:весёлый и быстрый|весёлая и быстрая}. В голове столько идей, что мысли иногда проносятся мимо самого нужного дела.", "Сегодня нужно было {event}. {Buddy} предлагает план: «Не всё сразу. Делаем одну карточку — и нажимаем „Готово“».", "Первая карточка — {step1}. Таймер медленно таял, а {name} {g:смотрел|смотрела} на него и не {g:отвлекался|отвлекалась}.", "На середине пришло время подвигаться! {name} быстро {g:размялся|размялась} и сразу {g:вернулся|вернулась} к делу.", "Карточка за карточкой — и всё готово. {Buddy} радуется: «Ты {g:сделал|сделала} каждый шаг — так и получаются большие дела!»" ],
+    both:[ "{name} — {g:добрый и очень подвижный|добрая и очень подвижная}. Иногда волнение и непоседливость приходят одновременно, и это нормально.", "Скоро нужно было {event}. В животике {feel}, а мысли разбежались в разные стороны.", "{Buddy} говорит: «Давай всё замедлим. Один вдох. Один шаг. Одна карточка». Первый шаг — {step1}.", "Когда внутри становилось шумно, {name} {g:вспоминал|вспоминала} свой приём — {power}, а потом {g:смотрел|смотрела} только на следующую карточку.", "Шаг за шагом, вдох за вдохом — и {name} {g:справился|справилась}. Волнение было рядом, но {g:главным остался|главной осталась} {name}." ],
+    close:"Вот и сказке конец, а смелая лесенка только начинается."
   }
 };
 
@@ -108,14 +108,14 @@ BF.SCALE = [
   {v:5, t:{en:"Great day",ru:"Отличный день"}, c:"#6F8A6E"}
 ];
 BF.MOODS = [
-  {v:"happy", t:{en:"Happy",ru:"Радостно"}, val:5},
-  {v:"calm", t:{en:"Calm",ru:"Спокойно"}, val:4},
-  {v:"proud", t:{en:"Proud",ru:"Гордится"}, val:5},
-  {v:"tired", t:{en:"Tired",ru:"Устал(а)"}, val:3},
-  {v:"worried", t:{en:"Worried",ru:"Тревожно"}, val:2},
-  {v:"sad", t:{en:"Sad",ru:"Грустно"}, val:2},
-  {v:"angry", t:{en:"Angry",ru:"Злится"}, val:1},
-  {v:"overwhelmed", t:{en:"Overwhelmed",ru:"Перегружен(а)"}, val:1}
+  {v:"happy", t:{en:"Happy",ru:"Радость"}, val:5},
+  {v:"calm", t:{en:"Calm",ru:"Спокойствие"}, val:4},
+  {v:"proud", t:{en:"Proud",ru:"Гордость"}, val:5},
+  {v:"tired", t:{en:"Tired",ru:"Усталость"}, val:3},
+  {v:"worried", t:{en:"Worried",ru:"Тревога"}, val:2},
+  {v:"sad", t:{en:"Sad",ru:"Грусть"}, val:2},
+  {v:"angry", t:{en:"Angry",ru:"Злость"}, val:1},
+  {v:"overwhelmed", t:{en:"Overwhelmed",ru:"Перегрузка"}, val:1}
 ];
 BF.DAYPARTS = [ {v:"morning",t:{en:"Morning",ru:"Утро"}}, {v:"midday",t:{en:"Midday",ru:"День"}}, {v:"afternoon",t:{en:"After school",ru:"После школы"}}, {v:"evening",t:{en:"Evening",ru:"Вечер"}} ];
 BF.REACTIONS = [
@@ -155,7 +155,7 @@ BF.FOODS = [
   {v:"porridge",t:{en:"Porridge",ru:"Каша"}},{v:"eggs",t:{en:"Eggs",ru:"Яйца"}},{v:"bread",t:{en:"Bread",ru:"Хлеб"}},{v:"dairy",t:{en:"Dairy",ru:"Молочное"}},
   {v:"fruit",t:{en:"Fruit",ru:"Фрукты"}},{v:"veg",t:{en:"Vegetables",ru:"Овощи"}},{v:"soup",t:{en:"Soup",ru:"Суп"}},{v:"meat",t:{en:"Meat",ru:"Мясо"}},
   {v:"fish",t:{en:"Fish",ru:"Рыба"}},{v:"pasta",t:{en:"Pasta / rice",ru:"Макароны / рис"}},{v:"sweets",t:{en:"Sweets",ru:"Сладкое"}},{v:"juice",t:{en:"Juice / soda",ru:"Сок / газировка"}},
-  {v:"fastfood",t:{en:"Fast food",ru:"Фастфуд"}},{v:"nothing",t:{en:"Skipped",ru:"Не ел(а)"}}
+  {v:"fastfood",t:{en:"Fast food",ru:"Фастфуд"}},{v:"nothing",t:{en:"Skipped",ru:"Без еды"}}
 ];
 BF.APPETITE = [ {v:1,t:{en:"Very poor",ru:"Очень плохой"}},{v:2,t:{en:"Poor",ru:"Плохой"}},{v:3,t:{en:"Normal",ru:"Обычный"}},{v:4,t:{en:"Good",ru:"Хороший"}},{v:5,t:{en:"Very hungry",ru:"Очень голодный"}} ];
 BF.SUGAR = [ {v:0,t:{en:"None",ru:"Нет"}},{v:1,t:{en:"A little",ru:"Немного"}},{v:2,t:{en:"Some",ru:"Средне"}},{v:3,t:{en:"A lot",ru:"Много"}} ];

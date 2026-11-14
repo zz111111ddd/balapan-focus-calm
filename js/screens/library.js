@@ -12,7 +12,7 @@ BF.screens.library = {
         '<div class="lib-legend paper"><b>'+BF.L("Three starting points","Три отправные точки")+'</b>'+["anxiety","adhd","both"].map(function(t){ return '<span>'+BF.ui.tagChip(t)+' '+T(BF.TAGS[t].note)+'</span>'; }).join("")+'</div></div>'+
         '<div class="lib-tools">'+
           '<div class="filter-tabs" role="tablist">'+["all","anxiety","adhd","both"].map(function(t){ return '<button data-tag="'+t+'" class="ft ft-'+t+'" aria-pressed="'+(t===tag)+'">'+(t==="all"?BF.L("All","Все"):T(BF.TAGS[t].label))+' <small>'+counts[t]+'</small></button>'; }).join("")+'</div>'+
-          '<label class="search"><span class="sr">'+BF.L("Search situations","Поиск ситуаций")+'</span>'+I('search',18)+'<input class="input" id="libQ" placeholder="'+BF.L("Search: dentist, homework, noise…","Поиск: стоматолог, домашка, шум…")+'" autocomplete="off"></label>'+
+          '<label class="search"><span class="sr">'+BF.L("Search situations","Поиск ситуаций")+'</span>'+I('search',18)+'<input class="input" id="libQ" placeholder="'+BF.L("Search: dentist, homework, noise…","Поиск: стоматолог, уроки, шум…")+'" autocomplete="off"></label>'+
           '<div class="cat-row">'+['all'].concat(Object.keys(BF.CATS)).map(function(k){ return '<button data-cat="'+k+'" aria-pressed="'+(k===cat)+'">'+(k==="all"?BF.L("Everywhere","Везде"):T(BF.CATS[k]))+'</button>'; }).join("")+'</div>'+
         '</div>'+
         '<p class="lib-count muted small" id="libCount"></p>'+
@@ -54,7 +54,7 @@ BF.screens.library = {
   openSheet:function(id){
     var I = BF.icon, T = BF.ui.T, esc = BF.ui.esc, c = BF.store.s, s = BF.engine.find(id); if(!s) return;
     var has = !!c.plans[id], blocked = BF.store.planBlocked(c), g = BF.games[s.game];
-    var ladderTitle = s.tag==="adhd" ? BF.L("Routine steps","Шаги рутины") : (s.tag==="both" ? BF.L("Brave ladder · one timed card at a time","Лесенка · по одной карточке с таймером") : BF.L("Brave ladder","Лесенка смелых шагов"));
+    var ladderTitle = s.tag==="adhd" ? BF.L("Routine steps","Шаги распорядка") : (s.tag==="both" ? BF.L("Brave ladder · one timed card at a time","Лесенка · по одной карточке с таймером") : BF.L("Brave ladder","Лесенка смелых шагов"));
     var left = BF.store.plansLeft();
     var sh = BF.ui.sheet('<div class="sh-scene">'+BF.scene.render(s.scene,{avatar:c.avatar, label:T(s.title)})+'</div>'+
       '<div class="sh-top">'+BF.ui.tagChip(s.tag)+'<span class="chip">'+I(BF.CAT_ICON[s.cat],14)+' '+T(BF.CATS[s.cat])+'</span></div>'+
@@ -62,11 +62,11 @@ BF.screens.library = {
       '<div class="sh-grid"><div><h4>'+BF.L("Why it's hard","Почему это трудно")+'</h4><p>'+T(s.why)+'</p><h4>'+BF.L("Try saying","Попробуйте сказать")+'</h4><ul class="quote-list">'+BF.engine.phrases(s).map(function(p){ return '<li>“'+esc(p)+'”</li>'; }).join("")+'</ul></div>'+
       '<div><h4>'+ladderTitle+'</h4><ol class="mini-ladder">'+s.steps.map(function(t,i){ return '<li><span>'+(i+1)+'</span><div>'+T(t)+(s.tag!=="anxiety"?' <small>· '+s.mins[i]+'&nbsp;'+BF.L("min","мин")+'</small>':'')+'</div></li>'; }).join("")+'</ol></div></div>'+
       '<div class="sh-actions">'+(blocked?'<a class="btn clay" href="#/safety?from=plan">'+I('heart',18)+' '+BF.L("Talk to a specialist first","Сначала к специалисту")+'</a>':
-        (s.tag!=="adhd"?'<button class="btn clay" data-mode="brave">'+I('book',18)+' '+(has?BF.L("Open","Открыть"):BF.L("Make","Создать"))+' Brave Plan</button>':'')+
-        (s.tag!=="anxiety"?'<button class="btn sage" data-mode="quest">'+I('clock',18)+' '+(has?BF.L("Open","Открыть"):BF.L("Start","Начать"))+' Routine Quest</button>':''))+
+        (s.tag!=="adhd"?'<button class="btn clay" data-mode="brave">'+I('book',18)+' '+(has?BF.L("Open Brave Plan","Открыть план смелых шагов"):BF.L("Make Brave Plan","Составить план смелых шагов"))+'</button>':'')+
+        (s.tag!=="anxiety"?'<button class="btn sage" data-mode="quest">'+I('clock',18)+' '+(has?BF.L("Open Routine Quest","Открыть карточки распорядка"):BF.L("Start Routine Quest","Сделать карточки распорядка"))+'</button>':''))+
         (g?'<a class="btn ghost" href="#/game/'+s.game+'">'+I('hand',18)+' '+T(g.title)+'</a>':'')+
         '<a class="btn ghost" href="#/diary?tab=outcomes&add=1&sit='+s.id+'">'+I('target',18)+' '+BF.L("Log how it went","Записать, как прошло")+'</a></div>'+
-      (has||blocked?'':'<p class="fine">'+(left===Infinity?BF.L("Unlimited plans","Безлимитные планы"):BF.L(left+" free plans left",'Осталось бесплатных планов: '+left))+' · '+BF.L("plans use "+esc(BF.ui.heroName())+"'s name, buddy and hero — only in this browser.","в планах используются имя, друг и герой ребёнка — только в этом браузере.")+'</p>'), "wide");
+      (has||blocked?'':'<p class="fine">'+(left===Infinity?BF.L("Unlimited plans","Сколько угодно планов"):BF.L(left+" free plans left",'Осталось бесплатных планов: '+left))+' · '+BF.L("plans use "+esc(BF.ui.heroName())+"'s name, buddy and hero — only in this browser.","в планах используются имя, друг и герой ребёнка — только в этом браузере.")+'</p>'), "wide");
     sh.querySelectorAll("[data-mode]").forEach(function(b){ b.onclick = function(){ sh.close(); BF.plans.open(id, b.getAttribute("data-mode")); }; });
     sh.querySelectorAll("a").forEach(function(a){ a.addEventListener("click", function(){ sh.close(); }); });
   }
