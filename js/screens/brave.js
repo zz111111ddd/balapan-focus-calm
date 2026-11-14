@@ -59,7 +59,7 @@ BF.screens.brave = {
       if(b) b.onclick = function(){
         var ix = +b.getAttribute("data-did");
         BF.ui.burst(b, 2);
-        BF.store.update(function(x){ var p=x.plans[id], r=p.ladder[ix]; r.done=true; r.date=BF.store.today(); p.current=ix+1; x.done.push({date:BF.store.today(), plan:id, text:r.text.en}); });
+        BF.store.update(function(x){ var p=x.plans[id], r=p.ladder[ix]; r.done=true; r.date=BF.store.today(); p.current=ix+1; x.done.push({date:BF.store.today(), plan:id, text:r.text}); });
         BF.store.addStars(1, "brave step");
         drawLadder();
         if(BF.store.s.plans[id].current >= BF.store.s.plans[id].ladder.length) setTimeout(function(){ el.querySelector("#celebrate").hidden=false; }, 500);

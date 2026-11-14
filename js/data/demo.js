@@ -23,7 +23,7 @@ var BF = window.BF = window.BF || {};
     plans.forEach(function(id, k){
       var p = BF.engine.buildPlan(BF.engine.find(id), c);
       var doneN = [3,4,2][k];
-      for(var j=0;j<doneN;j++){ p.ladder[j].done = true; p.ladder[j].date = st.dayKey(days[2+j*3+k]); c.done.push({date:p.ladder[j].date, plan:p.id, text:p.ladder[j].text.en}); }
+      for(var j=0;j<doneN;j++){ p.ladder[j].done = true; p.ladder[j].date = st.dayKey(days[2+j*3+k]); c.done.push({date:p.ladder[j].date, plan:p.id, text:p.ladder[j].text}); }
       p.current = doneN; p.created = st.dayKey(days[k]);
       if(k===2){ var parts = BF.engine.splitStep(p.ladder[2]); p.ladder.splice(2,1,parts[0],parts[1]); }
       c.plans[id] = p; c.planOrder.push(id);
@@ -63,7 +63,7 @@ var BF = window.BF = window.BF || {};
       c.diary.push({ id:st.uid(), at:key+"T"+(20+(i%2))+":"+pad((i*7)%60), mood:mood, text:t[BF.lang()==="ru"?1:0] });
       c.days.push(key);
       c.stars += 1 + (i%3); c.starLog.push({date:key, n:1+(i%3), src:i%2?"game:trail":"brave step"});
-      if(i%3===0) c.checkins.push({date:key, plan:"dropoff", mood:mood>=4?"easy":(mood===3?"ok":"hard"), step:"Walk the last 20 steps on your own while I watch"});
+      if(i%3===0) c.checkins.push({date:key, plan:"dropoff", mood:mood>=4?"easy":(mood===3?"ok":"hard"), step:c.plans.dropoff.ladder[c.plans.dropoff.current].text});
     });
     outcomesPlan.forEach(function(o, k){
       var d = days[o[0]], key = st.dayKey(d), lowSleep = c.daily[key].sleep.quality<=2;

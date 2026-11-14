@@ -866,7 +866,7 @@ html.calm .mc-in{transition:none}
 <style data-src="css/v2.css">
 /* ==========================================================
    Balapan v2 — new screens, scenes, charts, mobile tab bar,
-   game levels and the dark (midnight navy) theme.
+   game levels and the dark (deep olive) theme.
    ========================================================== */
 .hidden{display:none !important}
 .small{font-size:.88rem}
@@ -1261,43 +1261,43 @@ input[type=range]{accent-color:var(--clay-deep); width:100%}
 .fact-row{display:flex; gap:10px}
 
 /* ==========================================================
-   DARK THEME — deep midnight navy (not charcoal).
-   Muted accents: dusty clay, soft sage, oat text. No neon.
+   DARK THEME — deep olive / dark moss (not navy, not black).
+   Muted accents: soft clay, sage, warm oat text. No neon.
    ========================================================== */
 html.dark{
   color-scheme:dark;
-  --oat:#141c2e;          /* page background */
-  --paper:#1e2840;        /* surfaces: slightly lighter navy */
-  --sand:#2a3654;
-  --sand-deep:#3a4868;
-  --line:#2e3a58;
-  --ink:#EDE4D3;          /* oat text */
-  --ink-soft:#C2B8A7;
-  --ink-faint:#8D92A6;
-  --clay:#C9917A; --clay-deep:#B27A62; --clay-soft:#3a3044;
-  --sage:#9CB297; --sage-deep:#7C9878; --sage-soft:#22363a;
-  --dusty:#8EA5BF; --dusty-deep:#6C86A3; --dusty-soft:#233150;
+  --oat:#1f2318;          /* page background: deep olive */
+  --paper:#2a2f20;        /* surfaces: slightly lighter moss */
+  --sand:#353b28;
+  --sand-deep:#4a5238;
+  --line:#3b412f;
+  --ink:#EDE6D3;          /* warm oat text */
+  --ink-soft:#C9C1AA;
+  --ink-faint:#9C9C85;
+  --clay:#C9937A; --clay-deep:#B47C63; --clay-soft:#3c3426;
+  --sage:#A3B48F; --sage-deep:#83976F; --sage-soft:#2f3a25;
+  --dusty:#9FB0A8; --dusty-deep:#7E918A; --dusty-soft:#2b3430;
   --butter:#D8C08A; --butter-deep:#B99C5C;
   --rose:#C7A296;
-  --shadow-paper:0 1px 0 rgba(0,0,0,.25), 0 10px 28px -16px rgba(0,0,0,.65);
-  --shadow-soft:0 10px 30px -16px rgba(0,0,0,.7);
+  --shadow-paper:0 1px 0 rgba(10,12,6,.3), 0 10px 28px -16px rgba(8,10,4,.7);
+  --shadow-soft:0 10px 30px -16px rgba(8,10,4,.75);
 }
-html.dark body{background:#141c2e; background:linear-gradient(180deg,#141c2e 0%, #1b2540 100%) fixed}
+html.dark body{background:#1f2318; background:linear-gradient(180deg,#1f2318 0%, #262b1d 100%) fixed}
 html.dark body::before{opacity:.10; mix-blend-mode:screen}
-html.dark body::after{background:radial-gradient(1100px 600px at 85% -10%, rgba(142,165,191,.10), transparent 60%), radial-gradient(900px 500px at -10% 110%, rgba(156,178,151,.08), transparent 60%)}
-html.dark .topbar{background:rgba(20,28,46,.92) !important; border-color:var(--line) !important}
-html.dark .btn{--fg:#F4ECDD}
+html.dark body::after{background:radial-gradient(1100px 600px at 85% -10%, rgba(201,147,122,.07), transparent 60%), radial-gradient(900px 500px at -10% 110%, rgba(163,180,143,.08), transparent 60%)}
+html.dark .topbar{background:rgba(31,35,24,.93) !important; border-color:var(--line) !important}
+html.dark .btn{--fg:#F4EEDD}
 html.dark .btn.ghost{--fg:var(--ink)}
-html.dark .btn:not(.ghost):not(.clay):not(.sage):not(.dusty):not(.paper){--bg:#EDE4D3; --fg:#141c2e}
-html.dark .seg button[aria-pressed="true"], html.dark .langsw button[aria-pressed="true"], html.dark .d-tabs [aria-selected="true"]{background:var(--ink); color:#141c2e}
-html.dark .chip-both{background:#2a2a42}
-html.dark .stage{background:linear-gradient(#1e2840,#1a233a)}
-html.dark .stage-memory{background:linear-gradient(#1e2840,#1a233a)}
-html.dark .kb-k{box-shadow:0 3px 0 #0f1626}
+html.dark .btn:not(.ghost):not(.clay):not(.sage):not(.dusty):not(.paper){--bg:#EDE6D3; --fg:#1f2318}
+html.dark .seg button[aria-pressed="true"], html.dark .langsw button[aria-pressed="true"], html.dark .d-tabs [aria-selected="true"]{background:var(--ink); color:#1f2318}
+html.dark .chip-both{background:#343a27}
+html.dark .stage{background:linear-gradient(#2a2f20,#252a1c)}
+html.dark .stage-memory{background:linear-gradient(#2a2f20,#252a1c)}
+html.dark .kb-k{box-shadow:0 3px 0 #15180f}
 html.dark .kb-k.hint{color:#2b2414}
-html.dark .sheet-bg{background:rgba(8,12,22,.6)}
-html.dark .toast{background:#EDE4D3; color:#141c2e}
-html.dark .tabbar{background:#18213a; box-shadow:0 -8px 24px -18px rgba(0,0,0,.8)}
+html.dark .sheet-bg{background:rgba(12,14,8,.6)}
+html.dark .toast{background:#EDE6D3; color:#1f2318}
+html.dark .tabbar{background:#23281b; box-shadow:0 -8px 24px -18px rgba(5,6,3,.85)}
 html.dark .df-pic{filter:brightness(.88)}
 html.dark .scene{filter:brightness(.9) saturate(.9)}
 html.dark .demo-tag{background:#D8C08A; color:#2b2414}
@@ -2621,7 +2621,7 @@ var BF = window.BF = window.BF || {};
     wind:function(){ return '<g class="fx-wind">'+[60,110,150].map(function(y,i){ return p("M0 "+y+" q40 -10 80 0 t80 0",null,st(C.paper,3)+' opacity=".8" style="animation-delay:'+(i*0.5)+'s"'); }).join("")+'</g>'; },
     hearts:function(){ return '<g class="fx-rise">'+[0,1,2].map(function(i){ return p("M"+(150+i*40)+" 120 q-10 -12 0 -18 q10 6 0 18 q-10 -6 0 0z".replace("q-10 -6 0 0z","")+" q10 -12 20 0 q0 10 -20 20 q-20 -10 -20 -20 q10 -12 20 0z",C.rose,'style="animation-delay:'+(i*0.8)+'s"'); }).join("")+'</g>'; },
     sparkle:function(){ return '<g class="fx-twinkle">'+[[60,50],[340,40],[200,30],[300,110],[100,120]].map(function(q,i){ return p("M"+q[0]+" "+(q[1]-8)+" q2 6 8 8 q-6 2 -8 8 q-2 -6 -8 -8 q6 -2 8 -8z",C.sand,'style="animation-delay:-'+i*0.5+'s"'); }).join("")+'</g>'; },
-    tick:function(){ return '<g class="fx-tick">'+[0,1,2].map(function(i){ return '<text x="'+(300+i*24)+'" y="'+(60+i*8)+'" font-size="12" fill="'+C.woodD+'" style="animation-delay:'+(i*0.5)+'s">tick</text>'; }).join("")+'</g>'; },
+    tick:function(){ return '<g class="fx-tick">'+[0,1,2].map(function(i){ return '<text x="'+(300+i*24)+'" y="'+(60+i*8)+'" font-size="12" fill="'+C.woodD+'" style="animation-delay:'+(i*0.5)+'s">'+BF.L("tick","тик")+'</text>'; }).join("")+'</g>'; },
     steam:function(){ return '<g class="fx-rise">'+[0,1,2].map(function(i){ return p("M"+(240+i*12)+" 130 q-6 -10 0 -20 t0 -20",null,st(C.paper,3)+' style="animation-delay:'+(i*0.5)+'s"'); }).join("")+'</g>'; },
     sun:function(){ return '<g class="sc-spin-slow" style="transform-origin:60px 40px">'+c(60,40,18,"#EFD9A0")+seq(8,function(i){ var a=i*Math.PI/4; return p("M"+(60+Math.cos(a)*24)+" "+(40+Math.sin(a)*24)+" L"+(60+Math.cos(a)*32)+" "+(40+Math.sin(a)*32),null,st("#E4CC8F",3)); })+'</g>'; },
     leaves:function(){ return '<g class="fx-fall">'+seq(10,function(i){ return p("M"+((i*43)%400)+" "+(-(i*20)%80)+" q6 -6 10 2 q-6 5 -10 -2z",[C.clay,C.sand,C.clayD][i%3],'style="animation-delay:-'+i*0.6+'s"'); })+'</g>'; },
@@ -2777,6 +2777,26 @@ BF.config.llmEndpoint = BF.config.llmEndpoint || null;
     });
     return out.sort(function(a,b){ return a.at<b.at?1:-1; });
   }
+  /* Step texts are stored as {en,ru}. Older saves (and the old demo seed) stored plain English strings:
+     map them back to the situation's bilingual text so Russian never shows English steps. */
+  var stepMap = null;
+  function stepObj(v){
+    if(!v || typeof v === "object") return v;
+    if(!stepMap){ stepMap = {}; BF.SITUATIONS.forEach(function(s){ (s.steps||[]).forEach(function(t){ stepMap[t.en.trim()] = {en:t.en, ru:t.ru}; }); }); }
+    var str = String(v).trim(), m;
+    if(stepMap[str]) return stepMap[str];
+    if((m = str.match(/^Quest card: (.*)$/))){ var q = stepObj(m[1]); return typeof q==="object" ? {en:"Quest card: "+q.en, ru:"Карточка квеста: "+q.ru} : v; }
+    if((m = str.match(/^Mini step: just the first part of “(.*)” — for one minute, with you right beside them$/))){ var b = stepObj(m[1]) || stepObj(m[1]+"."); if(typeof b==="object") return splitStep({text:b, min:2})[0].text; }
+    return v;
+  }
+  function stepText(v){ var o = stepObj(v); return o && typeof o === "object" ? BF.L(o) : (o||""); }
+  BF.stepText = stepText;
+  BF.migrateSteps = function(c){
+    var ch = false;
+    (c.done||[]).forEach(function(d){ var o = stepObj(d.text); if(o !== d.text){ d.text = o; ch = true; } });
+    (c.checkins||[]).forEach(function(d){ var o = stepObj(d.step); if(o !== d.step){ d.step = o; ch = true; } });
+    return ch;
+  };
   BF.engine = { fill:fill, ctxFor:ctxFor, story:story, planStory:planStory, phrases:phrases, habitsFor:habitsFor, buildPlan:buildPlan, splitStep:splitStep, generate:generate, generateWithLLM:generateWithLLM, recommend:recommend, adaptive:adaptive, pron:pron, find:find, hash:hash };
 })();
 
@@ -2871,7 +2891,7 @@ var BF = window.BF = window.BF || {};
     plans.forEach(function(id, k){
       var p = BF.engine.buildPlan(BF.engine.find(id), c);
       var doneN = [3,4,2][k];
-      for(var j=0;j<doneN;j++){ p.ladder[j].done = true; p.ladder[j].date = st.dayKey(days[2+j*3+k]); c.done.push({date:p.ladder[j].date, plan:p.id, text:p.ladder[j].text.en}); }
+      for(var j=0;j<doneN;j++){ p.ladder[j].done = true; p.ladder[j].date = st.dayKey(days[2+j*3+k]); c.done.push({date:p.ladder[j].date, plan:p.id, text:p.ladder[j].text}); }
       p.current = doneN; p.created = st.dayKey(days[k]);
       if(k===2){ var parts = BF.engine.splitStep(p.ladder[2]); p.ladder.splice(2,1,parts[0],parts[1]); }
       c.plans[id] = p; c.planOrder.push(id);
@@ -2911,7 +2931,7 @@ var BF = window.BF = window.BF || {};
       c.diary.push({ id:st.uid(), at:key+"T"+(20+(i%2))+":"+pad((i*7)%60), mood:mood, text:t[BF.lang()==="ru"?1:0] });
       c.days.push(key);
       c.stars += 1 + (i%3); c.starLog.push({date:key, n:1+(i%3), src:i%2?"game:trail":"brave step"});
-      if(i%3===0) c.checkins.push({date:key, plan:"dropoff", mood:mood>=4?"easy":(mood===3?"ok":"hard"), step:"Walk the last 20 steps on your own while I watch"});
+      if(i%3===0) c.checkins.push({date:key, plan:"dropoff", mood:mood>=4?"easy":(mood===3?"ok":"hard"), step:c.plans.dropoff.ladder[c.plans.dropoff.current].text});
     });
     outcomesPlan.forEach(function(o, k){
       var d = days[o[0]], key = st.dayKey(d), lowSleep = c.daily[key].sleep.quality<=2;
@@ -3358,7 +3378,7 @@ BF.plans = {
     var step = p.ladder[p.current]; if(!step) return;
     var wasMini = !!step.mini;
     st.update(function(x){
-      x.checkins.push({ date:st.today(), plan:p.id, mood:m, step:BF.L(step.text) });
+      x.checkins.push({ date:st.today(), plan:p.id, mood:m, step:step.text });
       if(m==="hard" && !wasMini){ var q = x.plans[x.activePlan], parts = BF.engine.splitStep(q.ladder[q.current]); q.ladder.splice(q.current, 1, parts[0], parts[1]); }
     });
     st.markActive();
@@ -3549,7 +3569,7 @@ BF.screens.brave = {
       if(b) b.onclick = function(){
         var ix = +b.getAttribute("data-did");
         BF.ui.burst(b, 2);
-        BF.store.update(function(x){ var p=x.plans[id], r=p.ladder[ix]; r.done=true; r.date=BF.store.today(); p.current=ix+1; x.done.push({date:BF.store.today(), plan:id, text:r.text.en}); });
+        BF.store.update(function(x){ var p=x.plans[id], r=p.ladder[ix]; r.done=true; r.date=BF.store.today(); p.current=ix+1; x.done.push({date:BF.store.today(), plan:id, text:r.text}); });
         BF.store.addStars(1, "brave step");
         drawLadder();
         if(BF.store.s.plans[id].current >= BF.store.s.plans[id].ladder.length) setTimeout(function(){ el.querySelector("#celebrate").hidden=false; }, 500);
@@ -3624,7 +3644,7 @@ BF.screens.quest = {
     }
     function done(e){
       BF.ui.burst(e.currentTarget, 1); earned++;
-      BF.store.update(function(x){ x.done.push({date:BF.store.today(), plan:id, text:"Quest card: "+plan.ladder[i].text.en}); });
+      BF.store.update(function(x){ x.done.push({date:BF.store.today(), plan:id, text:{en:"Quest card: "+plan.ladder[i].text.en, ru:"Карточка квеста: "+plan.ladder[i].text.ru}}); });
       BF.store.addStars(1, "quest card");
       i++;
       if(i>=steps.length){ finish(); return; }
@@ -3990,7 +4010,7 @@ var BF = window.BF = window.BF || {};
       '<div class="week-strip paper"><h3>'+BF.L("This week","Эта неделя")+'</h3><div class="ws-row">'+week.map(function(d){ var on = c.days.indexOf(d)>=0, n = c.starLog.filter(function(x){ return x.date===d; }).reduce(function(a,x){ return a+x.n; },0); return '<span class="ws '+(on?'on':'')+'"><small>'+BF.weekday(new Date(d+"T12:00:00"))+'</small>'+(on?BF.starSVG(24,true):'<i></i>')+'<b>'+(n||"")+'</b></span>'; }).join("")+'</div></div>'+
       '<h2>'+BF.L("Plans","Планы")+'</h2>'+(plans.length?'<div class="pl-list">'+plans.map(function(p){ var done = p.ladder.filter(function(r){ return r.done; }).length; return '<a class="pl paper" href="#/'+(p.tag==="adhd"?"quest":"brave")+'/'+p.id+'">'+BF.ui.tagChip(p.tag)+'<b>'+esc(BF.ui.sitTitle(p.id))+'</b><span class="bar"><i style="width:'+Math.round(done/p.ladder.length*100)+'%"></i></span><small>'+done+'/'+p.ladder.length+'</small></a>'; }).join("")+'</div>':'<p class="muted">'+BF.L("No plans yet.","Планов пока нет.")+' <a href="#/library">'+BF.L("Open the library","Открыть библиотеку")+'</a></p>')+
       '<h2>'+BF.L("Game levels","Уровни в играх")+'</h2><div class="gl-list">'+BF.GAME_ORDER.map(function(id){ var g = BF.games[id]; if(!g) return ""; var lv = (c.gameLevels||{})[id]||"easy"; return '<span class="gl paper"><b>'+T(g.title)+'</b>'+BF.ui.stars((c.games||{})[id]||0,3,14)+'<small>'+BF.levelName(lv)+'</small></span>'; }).join("")+'</div>'+
-      '<h2>'+BF.L("Evening check-ins","Вечерние чек-ины")+'</h2>'+((c.checkins||[]).length?'<ul class="plain">'+c.checkins.slice(-8).reverse().map(function(x){ return '<li>'+BF.dateFmt(x.date)+': <b>'+({easy:BF.L("easy","легко"),ok:BF.L("okay","нормально"),hard:BF.L("too hard","слишком трудно")}[x.mood])+'</b> — '+esc(x.step)+'</li>'; }).join("")+'</ul>':'<p class="muted">'+BF.L("None yet.","Пока нет.")+'</p>');
+      '<h2>'+BF.L("Evening check-ins","Вечерние чек-ины")+'</h2>'+((c.checkins||[]).length?'<ul class="plain">'+c.checkins.slice(-8).reverse().map(function(x){ return '<li>'+BF.dateFmt(x.date)+': <b>'+({easy:BF.L("easy","легко"),ok:BF.L("okay","нормально"),hard:BF.L("too hard","слишком трудно")}[x.mood])+'</b> — '+esc(BF.stepText(x.step))+'</li>'; }).join("")+'</ul>':'<p class="muted">'+BF.L("None yet.","Пока нет.")+'</p>');
   };
 })();
 
@@ -4052,11 +4072,11 @@ var BF = window.BF = window.BF || {};
       CH.legend([{color:COL.dusty,t:BF.L("Sleep, hours (left)","Сон, часы (слева)")},{color:COL.clay,t:BF.L("Mood 1–5 (right)","Настроение 1–5 (справа)")},{color:COL.clay,t:BF.L("▼ meltdown / crying","▼ срыв / слёзы")}]);
     var pts = S.sleep.map(function(h,i){ return { x:h, y:S.mood[i], big:S.meltdowns[i]>0, color:S.meltdowns[i]?COL.clay:COL.sage, t:S.labels[i] }; });
     var rSM = CH.pearson(S.sleep, S.mood), rSMe = CH.pearson(S.sleep, S.meltdowns);
-    b.scatter = '<h3>'+BF.L("Sleep and mood, each dot is a day","Сон и настроение, точка — один день")+'</h3>'+CH.scatter({ w:420, h:250, points:pts, xMin:6, xMax:11, yMin:1, yMax:5, xLabel:BF.L("sleep, hours","сон, часы"), yLabel:BF.L("mood","настроение"), label:"scatter" })+
+    b.scatter = '<h3>'+BF.L("Sleep and mood, each dot is a day","Сон и настроение, точка — один день")+'</h3>'+CH.scatter({ w:420, h:250, points:pts, xMin:6, xMax:11, yMin:1, yMax:5, xLabel:BF.L("sleep, hours","сон, часы"), yLabel:BF.L("mood","настроение"), label:BF.L("Sleep and mood","Сон и настроение") })+
       '<p class="small muted">r = '+(rSM==null?"—":BF.ui.num(rSM,2))+' · '+strength(rSM)+'</p>';
-    b.outcomes = '<h3>'+BF.L("Trigger outcomes by day","Исходы триггеров по дням")+'</h3>'+CH.stacked({ w:440, h:230, labels:S.labels, series:[{name:T(BF.RESULTS[0].t),color:COL.sage,values:S.managed},{name:T(BF.RESULTS[1].t),color:COL.sand,values:S.partly},{name:T(BF.RESULTS[2].t),color:COL.clay,values:S.not}], label:"outcomes" })+
+    b.outcomes = '<h3>'+BF.L("Trigger outcomes by day","Исходы триггеров по дням")+'</h3>'+CH.stacked({ w:440, h:230, labels:S.labels, series:[{name:T(BF.RESULTS[0].t),color:COL.sage,values:S.managed},{name:T(BF.RESULTS[1].t),color:COL.sand,values:S.partly},{name:T(BF.RESULTS[2].t),color:COL.clay,values:S.not}], label:BF.L("Trigger outcomes by day","Исходы триггеров по дням") })+
       CH.legend([{color:COL.sage,t:T(BF.RESULTS[0].t)},{color:COL.sand,t:T(BF.RESULTS[1].t)},{color:COL.clay,t:T(BF.RESULTS[2].t)}]);
-    b.screen = '<h3>'+BF.L("Screen time vs mood","Экранное время и настроение")+'</h3>'+CH.barsLine({ w:440, h:230, labels:S.labels, bars:S.screen, bMin:0, bMax:Math.max(120, Math.max.apply(null, S.screen.map(function(x){ return x||0; }))), bColor:COL.sand, line:S.mood, lMin:1, lMax:5, label:"screen" })+
+    b.screen = '<h3>'+BF.L("Screen time vs mood","Экранное время и настроение")+'</h3>'+CH.barsLine({ w:440, h:230, labels:S.labels, bars:S.screen, bMin:0, bMax:Math.max(120, Math.max.apply(null, S.screen.map(function(x){ return x||0; }))), bColor:COL.sand, line:S.mood, lMin:1, lMax:5, label:BF.L("Screen time vs mood","Экранное время и настроение") })+
       CH.legend([{color:COL.sand,t:BF.L("Screen, min (left)","Экраны, мин (слева)")},{color:COL.clay,t:BF.L("Mood (right)","Настроение (справа)")}]);
     var factors = [ [BF.L("Sleep hours","Часы сна"), S.sleep], [BF.L("Night wakings","Ночные пробуждения"), S.wakings], [BF.L("Screen time","Экранное время"), S.screen], [BF.L("Outdoor time","Время на улице"), S.outdoor], [BF.L("Physical activity","Физическая активность"), S.activity], [BF.L("Sugar","Сахар"), S.sugar], [BF.L("Tummy / illness signs","Живот / болезнь"), S.body] ];
     b.corr = '<h3>'+BF.L("Possible links (correlation, not cause)","Возможные связи (корреляция, а не причина)")+'</h3><table class="ctable"><thead><tr><th>'+BF.L("Factor","Фактор")+'</th><th>'+BF.L("vs mood","с настроением")+'</th><th>'+BF.L("vs meltdowns","со срывами")+'</th></tr></thead><tbody>'+
@@ -4308,7 +4328,7 @@ BF.games.trail = {
     var svg, path, prog, token, home, samples, N = 360, idx = 0, len = 0, tracing = false, offT = 0;
     function build(){
       var L = {d:LEVELS[level].d, tol:LEVELS[level].tol+TADJ};
-      stage.innerHTML = '<div class="lvl-tag">'+BF.L("Trail ","Тропинка ")+(level+1)+' / '+COUNT+'</div><svg class="g-svg" viewBox="0 0 600 360" aria-label="Tracing trail">'+
+      stage.innerHTML = '<div class="lvl-tag">'+BF.L("Trail ","Тропинка ")+(level+1)+' / '+COUNT+'</div><svg class="g-svg" viewBox="0 0 600 360" aria-label="'+BF.L("Tracing trail","Тропинка")+'">'+
         '<path d="M0 330 C150 300 300 340 600 310 V360 H0Z" fill="#E9DCC5"/>'+
         '<path id="trTrack" d="'+L.d+'" fill="none" stroke="#D6C09C" stroke-width="'+(L.tol*2+4)+'" stroke-linecap="round" stroke-linejoin="round"/>'+
         '<path d="'+L.d+'" fill="none" stroke="#F4ECDD" stroke-width="'+(L.tol*2-6)+'" stroke-linecap="round" stroke-linejoin="round"/>'+
@@ -5224,6 +5244,13 @@ var BF = window.BF = window.BF || {};
     ];
   }
   BF.renderShell = function(){
+    // demo child is "Mira" in English and "Мира" in Russian; old saves get bilingual step texts
+    var chg = false;
+    BF.store.children().forEach(function(k){
+      if(k.isDemo && /^(Mira|Мира)$/.test(k.name||"")){ var nm = BF.lang()==="ru" ? "Мира" : "Mira"; if(k.name !== nm){ k.name = nm; chg = true; } }
+      if(BF.migrateSteps(k)) chg = true;
+    });
+    if(chg) BF.store.save();
     var s = f().settings, c = BF.store.s;
     document.getElementById("skipLink").textContent = BF.L("Skip to content","Перейти к содержимому");
     document.getElementById("topbar").innerHTML =
@@ -5249,7 +5276,7 @@ var BF = window.BF = window.BF || {};
     var s = f().settings;
     html.classList.toggle("calm", !!s.calm);
     html.classList.toggle("dark", s.theme==="dark");
-    var m = document.querySelector('meta[name="theme-color"]'); if(m) m.setAttribute("content", s.theme==="dark" ? "#141c2e" : "#F3EBDD");
+    var m = document.querySelector('meta[name="theme-color"]'); if(m) m.setAttribute("content", s.theme==="dark" ? "#1f2318" : "#F3EBDD");
   }
   BF.applySettings = applySettings;
   function bind(){

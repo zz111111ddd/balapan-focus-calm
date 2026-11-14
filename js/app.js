@@ -16,6 +16,13 @@ var BF = window.BF = window.BF || {};
     ];
   }
   BF.renderShell = function(){
+    // demo child is "Mira" in English and "Мира" in Russian; old saves get bilingual step texts
+    var chg = false;
+    BF.store.children().forEach(function(k){
+      if(k.isDemo && /^(Mira|Мира)$/.test(k.name||"")){ var nm = BF.lang()==="ru" ? "Мира" : "Mira"; if(k.name !== nm){ k.name = nm; chg = true; } }
+      if(BF.migrateSteps(k)) chg = true;
+    });
+    if(chg) BF.store.save();
     var s = f().settings, c = BF.store.s;
     document.getElementById("skipLink").textContent = BF.L("Skip to content","Перейти к содержимому");
     document.getElementById("topbar").innerHTML =
@@ -41,7 +48,7 @@ var BF = window.BF = window.BF || {};
     var s = f().settings;
     html.classList.toggle("calm", !!s.calm);
     html.classList.toggle("dark", s.theme==="dark");
-    var m = document.querySelector('meta[name="theme-color"]'); if(m) m.setAttribute("content", s.theme==="dark" ? "#141c2e" : "#F3EBDD");
+    var m = document.querySelector('meta[name="theme-color"]'); if(m) m.setAttribute("content", s.theme==="dark" ? "#1f2318" : "#F3EBDD");
   }
   BF.applySettings = applySettings;
   function bind(){

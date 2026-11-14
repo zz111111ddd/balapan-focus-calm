@@ -19,7 +19,7 @@ BF.plans = {
     var step = p.ladder[p.current]; if(!step) return;
     var wasMini = !!step.mini;
     st.update(function(x){
-      x.checkins.push({ date:st.today(), plan:p.id, mood:m, step:BF.L(step.text) });
+      x.checkins.push({ date:st.today(), plan:p.id, mood:m, step:step.text });
       if(m==="hard" && !wasMini){ var q = x.plans[x.activePlan], parts = BF.engine.splitStep(q.ladder[q.current]); q.ladder.splice(q.current, 1, parts[0], parts[1]); }
     });
     st.markActive();

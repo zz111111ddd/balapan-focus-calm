@@ -123,5 +123,25 @@ BF.config.llmEndpoint = BF.config.llmEndpoint || null;
     });
     return out.sort(function(a,b){ return a.at<b.at?1:-1; });
   }
+  /* Step texts are stored as {en,ru}. Older saves (and the old demo seed) stored plain English strings:
+     map them back to the situation's bilingual text so Russian never shows English steps. */
+  var stepMap = null;
+  function stepObj(v){
+    if(!v || typeof v === "object") return v;
+    if(!stepMap){ stepMap = {}; BF.SITUATIONS.forEach(function(s){ (s.steps||[]).forEach(function(t){ stepMap[t.en.trim()] = {en:t.en, ru:t.ru}; }); }); }
+    var str = String(v).trim(), m;
+    if(stepMap[str]) return stepMap[str];
+    if((m = str.match(/^Quest card: (.*)$/))){ var q = stepObj(m[1]); return typeof q==="object" ? {en:"Quest card: "+q.en, ru:"Карточка квеста: "+q.ru} : v; }
+    if((m = str.match(/^Mini step: just the first part of “(.*)” — for one minute, with you right beside them$/))){ var b = stepObj(m[1]) || stepObj(m[1]+"."); if(typeof b==="object") return splitStep({text:b, min:2})[0].text; }
+    return v;
+  }
+  function stepText(v){ var o = stepObj(v); return o && typeof o === "object" ? BF.L(o) : (o||""); }
+  BF.stepText = stepText;
+  BF.migrateSteps = function(c){
+    var ch = false;
+    (c.done||[]).forEach(function(d){ var o = stepObj(d.text); if(o !== d.text){ d.text = o; ch = true; } });
+    (c.checkins||[]).forEach(function(d){ var o = stepObj(d.step); if(o !== d.step){ d.step = o; ch = true; } });
+    return ch;
+  };
   BF.engine = { fill:fill, ctxFor:ctxFor, story:story, planStory:planStory, phrases:phrases, habitsFor:habitsFor, buildPlan:buildPlan, splitStep:splitStep, generate:generate, generateWithLLM:generateWithLLM, recommend:recommend, adaptive:adaptive, pron:pron, find:find, hash:hash };
 })();

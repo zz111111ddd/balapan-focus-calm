@@ -52,7 +52,7 @@ BF.screens.quest = {
     }
     function done(e){
       BF.ui.burst(e.currentTarget, 1); earned++;
-      BF.store.update(function(x){ x.done.push({date:BF.store.today(), plan:id, text:"Quest card: "+plan.ladder[i].text.en}); });
+      BF.store.update(function(x){ x.done.push({date:BF.store.today(), plan:id, text:{en:"Quest card: "+plan.ladder[i].text.en, ru:"Карточка квеста: "+plan.ladder[i].text.ru}}); });
       BF.store.addStars(1, "quest card");
       i++;
       if(i>=steps.length){ finish(); return; }

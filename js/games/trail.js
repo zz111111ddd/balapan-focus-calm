@@ -16,7 +16,7 @@ BF.games.trail = {
     var svg, path, prog, token, home, samples, N = 360, idx = 0, len = 0, tracing = false, offT = 0;
     function build(){
       var L = {d:LEVELS[level].d, tol:LEVELS[level].tol+TADJ};
-      stage.innerHTML = '<div class="lvl-tag">'+BF.L("Trail ","Тропинка ")+(level+1)+' / '+COUNT+'</div><svg class="g-svg" viewBox="0 0 600 360" aria-label="Tracing trail">'+
+      stage.innerHTML = '<div class="lvl-tag">'+BF.L("Trail ","Тропинка ")+(level+1)+' / '+COUNT+'</div><svg class="g-svg" viewBox="0 0 600 360" aria-label="'+BF.L("Tracing trail","Тропинка")+'">'+
         '<path d="M0 330 C150 300 300 340 600 310 V360 H0Z" fill="#E9DCC5"/>'+
         '<path id="trTrack" d="'+L.d+'" fill="none" stroke="#D6C09C" stroke-width="'+(L.tol*2+4)+'" stroke-linecap="round" stroke-linejoin="round"/>'+
         '<path d="'+L.d+'" fill="none" stroke="#F4ECDD" stroke-width="'+(L.tol*2-6)+'" stroke-linecap="round" stroke-linejoin="round"/>'+
