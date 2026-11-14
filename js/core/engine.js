@@ -126,11 +126,18 @@ BF.config.llmEndpoint = BF.config.llmEndpoint || null;
   /* Step texts are stored as {en,ru}. Older saves (and the old demo seed) stored plain English strings:
      map them back to the situation's bilingual text so Russian never shows English steps. */
   var stepMap = null;
+  function legacy(str){
+    var ref = BF.LEGACY_STEPS && BF.LEGACY_STEPS[str]; if(!ref) return null;
+    var p = ref.split(":"), s = find(p[0]), t = s && s.steps[+p[1]];
+    return t ? {en:t.en, ru:t.ru} : null;
+  }
   function stepObj(v){
-    if(!v || typeof v === "object") return v;
+    if(!v) return v;
+    if(typeof v === "object"){ var L = typeof v.en === "string" && legacy(v.en.trim()); return L || v; }
     if(!stepMap){ stepMap = {}; BF.SITUATIONS.forEach(function(s){ (s.steps||[]).forEach(function(t){ stepMap[t.en.trim()] = {en:t.en, ru:t.ru}; }); }); }
     var str = String(v).trim(), m;
     if(stepMap[str]) return stepMap[str];
+    if(legacy(str)) return legacy(str);
     if((m = str.match(/^Quest card: (.*)$/))){ var q = stepObj(m[1]); return typeof q==="object" ? {en:"Quest card: "+q.en, ru:"Карточка распорядка: "+q.ru} : v; }
     if((m = str.match(/^Mini step: just the first part of “(.*)” — for one minute, with you right beside them$/))){ var b = stepObj(m[1]) || stepObj(m[1]+"."); if(typeof b==="object") return splitStep({text:b, min:2})[0].text; }
     return v;
@@ -141,6 +148,7 @@ BF.config.llmEndpoint = BF.config.llmEndpoint || null;
     var ch = false;
     (c.done||[]).forEach(function(d){ var o = stepObj(d.text); if(o !== d.text){ d.text = o; ch = true; } });
     (c.checkins||[]).forEach(function(d){ var o = stepObj(d.step); if(o !== d.step){ d.step = o; ch = true; } });
+    Object.keys(c.plans||{}).forEach(function(k){ ((c.plans[k]||{}).ladder||[]).forEach(function(r){ var o = stepObj(r.text); if(o !== r.text){ r.text = o; ch = true; } }); });
     return ch;
   };
   BF.engine = { fill:fill, ctxFor:ctxFor, story:story, planStory:planStory, phrases:phrases, habitsFor:habitsFor, buildPlan:buildPlan, splitStep:splitStep, generate:generate, generateWithLLM:generateWithLLM, recommend:recommend, adaptive:adaptive, pron:pron, find:find, hash:hash };
