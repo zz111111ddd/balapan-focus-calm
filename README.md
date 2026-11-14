@@ -6,6 +6,8 @@
 
 > Hackathon prototype for **Zimran Business Cup 2.0**. It's a static website: open it and start. No sign-up, no login, no server. All data stays in the browser's `localStorage`. Interface in **English and Russian**.
 
+**Team:** StarLight Team · Zimran Business Cup 2.0
+
 [English](#english) · [Русский](#русский)
 
 ![Home](docs/screenshots/desktop-00-home.jpg)
