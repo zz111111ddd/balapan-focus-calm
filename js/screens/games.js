@@ -10,18 +10,25 @@ BF.gameUtil = {
   calm:function(){ return document.documentElement.classList.contains("calm") || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches); }
 };
 BF.LEVELS = ["easy","medium","hard"];
-BF.GAME_ORDER = ["trail","lace","dots","shapes","jars","puzzle","sizes","backpack","balloon","bubbles","rhythm","memory","simon","spot","diff","keys"];
+BF.GAME_CATS = [
+  {k:"motor", t:{en:"Fine motor",ru:"Мелкая моторика"}, d:{en:"Slow fingers, careful eyes: tracing, colouring, threading.",ru:"Медленные пальцы, внимательные глаза: обводка, раскраска, шнуровка."}, ids:["pictrace","color","trail","shapes","lace","dots","jars","puzzle","sizes"]},
+  {k:"attention", t:{en:"Attention",ru:"Внимание"}, d:{en:"Look carefully, find, keep the order, ignore distractions.",ru:"Смотреть внимательно, находить, держать порядок, не отвлекаться."}, ids:["schulte","robot","changed","spot","diff","keys","backpack"]},
+  {k:"memory", t:{en:"Memory",ru:"Память"}, d:{en:"Hold pictures, places and sequences in mind.",ru:"Удерживать в голове картинки, места и последовательности."}, ids:["memory","simon","rhythm"]},
+  {k:"calm", t:{en:"Calm",ru:"Спокойствие"}, d:{en:"Breathe, wait, slow the body down.",ru:"Дышать, ждать, замедлять тело."}, ids:["balloon","bubbles"]}
+];
+BF.GAME_ORDER = [].concat.apply([], BF.GAME_CATS.map(function(c){ return c.ids; }));
 BF.levelName = function(lv){ return ({easy:BF.L("Easy","Легко"), medium:BF.L("Medium","Средне"), hard:BF.L("Hard","Сложно")})[lv] || BF.L("Easy","Легко"); };
 BF.gameUnlocked = function(c, id){ var u = (c.gameLevels||{})[id]||"easy"; return BF.LEVELS.indexOf(u); };
 
 BF.screens.games = {
   title:{en:"Calm games",ru:"Спокойные игры"},
-  render:function(el){
+  render:function(el, _p, q){
     var c = BF.store.s, T = BF.ui.T;
-    var shelves = [ {t:BF.L("Steady hands","Точные руки"), d:BF.L("Fine-motor practice — slow fingers, careful eyes.","Мелкая моторика — медленные пальцы, внимательные глаза."), ids:["trail","lace","dots","shapes","jars","puzzle","sizes"]},
-                    {t:BF.L("Focus & calm","Внимание и спокойствие"), d:BF.L("Hold attention, wait, breathe, remember.","Удерживать внимание, ждать, дышать, запоминать."), ids:["backpack","balloon","bubbles","rhythm","memory","simon","spot","diff","keys"]} ];
+    var cat = (q && q.cat) || "all", cats = BF.GAME_CATS.map(function(x){ return {t:T(x.t), d:T(x.d), k:x.k, ids:x.ids.filter(function(id){ return BF.games[id]; })}; });
+    var shelves = cat==="all" ? cats : cats.filter(function(x){ return x.k===cat; });
+    var chips = '<div class="g-filter seg" role="group" aria-label="'+BF.L("Game type","Тип игр")+'">'+[{k:"all",t:BF.L("All","Все")}].concat(cats).map(function(x){ var n = x.k==="all" ? BF.GAME_ORDER.filter(function(id){ return BF.games[id]; }).length : x.ids.length; return '<a href="#/games'+(x.k==="all"?"":"?cat="+x.k)+'" aria-pressed="'+(x.k===cat)+'" data-cat="'+x.k+'">'+x.t+' <small>'+n+'</small></a>'; }).join("")+'</div>';
     el.innerHTML = '<div class="games wrap"><div class="g-head"><div><p class="eyebrow">'+BF.L("Games for ","Игры для ")+BF.ui.esc(BF.ui.heroName(c))+'</p><h1>'+BF.L("Pick a calm game","Выберите спокойную игру")+'</h1><p class="muted">'+BF.L("Each takes 1–3 minutes and has three levels. Two stars or more opens the next level.","Каждая занимает 1–3 минуты, в каждой три уровня. Две звезды и больше открывают следующий уровень.")+'</p></div>'+
-      '<div class="g-stars paper">'+BF.starSVG(40,true)+'<div><b>'+c.stars+'</b><small>'+BF.L("stars so far","звёзд собрано")+'</small></div></div></div>'+
+      '<div class="g-stars paper">'+BF.starSVG(40,true)+'<div><b>'+c.stars+'</b><small>'+BF.L("stars so far","звёзд собрано")+'</small></div></div></div>'+chips+
       shelves.map(function(sh){
         return '<section class="shelf"><div class="shelf-label"><h2>'+sh.t+'</h2><p class="muted">'+sh.d+'</p></div><div class="shelf-row">'+sh.ids.map(function(id, k){
           var g = BF.games[id]; if(!g) return "";

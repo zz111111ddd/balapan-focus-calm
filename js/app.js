@@ -15,6 +15,7 @@ var BF = window.BF = window.BF || {};
       {k:"specialist", href:"#/specialist", ico:"chart", t:BF.L("Specialist","Специалист")}
     ];
   }
+  BF.GAME_ORDER = BF.GAME_ORDER.filter(function(id){ return BF.games[id]; });
   BF.renderShell = function(){
     // demo child is "Mira" in English and "Мира" in Russian; old saves get bilingual step texts
     var chg = false;
