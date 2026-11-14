@@ -34,7 +34,7 @@ BF.screens.plan = {
   title:{en:"Family plan",ru:"План для семьи"},
   render:function(el){
     var st = BF.store, c = st.s, I = BF.icon, esc = BF.ui.esc, A = BF.avatar, T = BF.ui.T;
-    if(!c.quizDone){ BF.router.go("/"); return; }
+    if(!c.quizDone){ BF.router.go("/welcome"); return; }
     var name = esc(BF.ui.heroName(c)), prof = c.profile, it = BF.INTERESTS[c.interest]||BF.INTERESTS.space;
     var blocked = st.planBlocked(c), recs = blocked ? [] : BF.engine.recommend(c, 3), habits = BF.engine.habitsFor(c), left = st.plansLeft();
     var profText = T((BF.PROFILE_OPTS.find(function(o){ return o.v===prof; })||BF.PROFILE_OPTS[3]).t);

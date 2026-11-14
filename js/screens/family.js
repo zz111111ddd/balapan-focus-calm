@@ -12,7 +12,7 @@ BF.screens.family = {
       '<p class="fine">'+BF.L("Free: 1 child · Monthly ($12.99): 2 children · Yearly ($79.99): up to 3 children. Demo data doesn't count.","Бесплатно: 1 ребёнок · Месяц ($12.99): 2 ребёнка · Год ($79.99): до 3 детей. Демо-данные не считаются.")+' <a href="#/pricing">'+BF.L("Plans","Тарифы")+'</a></p></div>';
     el.querySelector("#fAdd").onclick = function(){ BF.addChildFlow(); };
     function sw(id){ st.setActive(id); BF.renderShell(); }
-    el.querySelectorAll("[data-open]").forEach(function(b){ b.onclick = function(){ sw(b.getAttribute("data-open")); BF.router.go("/"); }; });
+    el.querySelectorAll("[data-open]").forEach(function(b){ b.onclick = function(){ sw(b.getAttribute("data-open")); BF.router.go("/parent"); }; });
     el.querySelectorAll("[data-quiz]").forEach(function(b){ b.onclick = function(){ sw(b.getAttribute("data-quiz")); BF.router.go("/quiz"); }; });
     el.querySelectorAll("[data-hero]").forEach(function(b){ b.onclick = function(){ sw(b.getAttribute("data-hero")); BF.router.go("/hero"); }; });
     el.querySelectorAll("[data-del]").forEach(function(b){ b.onclick = function(){

@@ -6,13 +6,23 @@ var BF = window.BF = window.BF || {};
   if(!f().demoSeeded && !f().demoCleared){ try{ BF.seedDemo(); }catch(e){ console.warn("demo seed failed", e); } }
   BF.store.child();
 
+  // header = the original v1 menu; mobile tab bar keeps Home + Diary within one tap
   function navItems(){
+    return [
+      {k:"library", href:"#/library", ico:"book", t:BF.L("Situations","Ситуации")},
+      {k:"games", href:"#/games", ico:"puzzle", t:BF.L("Games","Игры")},
+      {k:"hero", href:"#/hero", ico:"user", t:BF.L("Hero","Герой")},
+      {k:"parent", href:"#/parent", ico:"chart", t:BF.L("Parent","Родителям")},
+      {k:"pricing", href:"#/pricing", ico:"star", t:BF.L("Plans","Тарифы")}
+    ];
+  }
+  function tabItems(){
     return [
       {k:"home", href:"#/", ico:"home", t:BF.L("Home","Главная")},
       {k:"library", href:"#/library", ico:"book", t:BF.L("Situations","Ситуации")},
       {k:"games", href:"#/games", ico:"puzzle", t:BF.L("Games","Игры")},
       {k:"diary", href:"#/diary", ico:"pencil", t:BF.L("Diary","Дневник")},
-      {k:"specialist", href:"#/specialist", ico:"chart", t:BF.L("Specialist","Специалист")}
+      {k:"parent", href:"#/parent", ico:"chart", t:BF.L("Parent","Родителям")}
     ];
   }
   BF.GAME_ORDER = BF.GAME_ORDER.filter(function(id){ return BF.games[id]; });
@@ -28,16 +38,16 @@ var BF = window.BF = window.BF || {};
     document.getElementById("skipLink").textContent = BF.L("Skip to content","Перейти к содержимому");
     document.getElementById("topbar").innerHTML =
       '<a href="#/" class="brand" aria-label="Balapan Focus &amp; Calm"><span class="brand-mark">'+BF.avatar.chick(34)+'</span><span class="brand-text"><b>Balapan</b><small>Focus &amp; Calm</small></span></a>'+
-      '<nav class="mainnav" aria-label="'+BF.L("Main","Главное меню")+'">'+navItems().map(function(n){ return '<a href="'+n.href+'" data-nav="'+n.k+'">'+n.t+'</a>'; }).join("")+'<a href="#/pricing" data-nav="pricing">'+BF.L("Plans","Тарифы")+'</a></nav>'+
+      '<nav class="mainnav" aria-label="'+BF.L("Main","Главное меню")+'">'+navItems().map(function(n){ return '<a href="'+n.href+'" data-nav="'+n.k+'">'+n.t+'</a>'; }).join("")+'</nav>'+
       '<div class="toggles">'+
-        '<button class="kid-switch" id="kidSwitch" aria-haspopup="true" aria-expanded="false" title="'+BF.L("Switch child","Сменить ребёнка")+'">'+BF.avatar.svg(c.avatar,{size:30, headOnly:true})+'<span>'+esc(BF.ui.heroName(c))+'</span>'+(c.isDemo?'<small class="demo-tag">'+BF.L("demo","демо")+'</small>':'')+'</button>'+
+        '<button class="kid-switch compact" id="kidSwitch" aria-haspopup="true" aria-expanded="false" title="'+BF.L("Switch child","Сменить ребёнка")+': '+esc(BF.ui.heroName(c))+(c.isDemo?' ('+BF.L("demo","демо")+')':'')+'" aria-label="'+BF.L("Switch child","Сменить ребёнка")+'">'+BF.avatar.svg(c.avatar,{size:30, headOnly:true})+(c.isDemo?'<small class="demo-tag">'+BF.L("demo","демо")+'</small>':'')+'</button>'+
         '<div class="langsw" role="group" aria-label="Language / Язык"><button data-lang="en" aria-pressed="'+(BF.lang()==="en")+'">EN</button><button data-lang="ru" aria-pressed="'+(BF.lang()==="ru")+'">RU</button></div>'+
-        '<button class="tgl icon-only" id="themeToggle" aria-pressed="'+(s.theme==="dark")+'" title="'+BF.L("Dark theme","Тёмная тема")+'"><span class="tgl-ico">'+I(s.theme==="dark"?"sun":"moon",18)+'</span></button>'+
-        '<button class="tgl" id="calmToggle" aria-pressed="'+(!!s.calm)+'" title="'+BF.L("Calm mode: less motion, no sound","Спокойный режим: меньше движения, без звука")+'"><span class="tgl-ico">'+I("leaf",18)+'</span><span class="tgl-lbl">'+BF.L("Calm","Спокойно")+'</span></button>'+
-        '<button class="tgl icon-only" id="soundToggle" aria-pressed="'+(!!s.sound && !s.calm)+'" title="'+BF.L("Soft sounds (off by default)","Мягкие звуки (по умолчанию выкл.)")+'"><span class="tgl-ico">'+I(s.sound && !s.calm ? "soundOn" : "soundOff",18)+'</span></button>'+
-        '<a class="tgl icon-only" href="#/settings" data-nav="settings" title="'+BF.L("Settings","Настройки")+'"><span class="tgl-ico">'+I("gear",18)+'</span></a>'+
+        '<button class="tgl icon-only" id="themeToggle" aria-pressed="'+(s.theme==="dark")+'" title="'+BF.L("Dark theme","Тёмная тема")+'" aria-label="'+BF.L("Dark theme","Тёмная тема")+'"><span class="tgl-ico">'+I(s.theme==="dark"?"sun":"moon",18)+'</span></button>'+
+        '<button class="tgl" id="calmToggle" aria-pressed="'+(!!s.calm)+'" title="'+BF.L("Calm mode: less motion, no sound","Спокойный режим: меньше движения, без звука")+'"><span class="tgl-ico">'+I("leaf",18)+'</span><span class="tgl-lbl">'+BF.L("Calm mode","Спокойный режим")+'</span></button>'+
+        '<button class="tgl" id="soundToggle" aria-pressed="'+(!!s.sound && !s.calm)+'" title="'+BF.L("Soft sounds (off by default)","Мягкие звуки (по умолчанию выключены)")+'"><span class="tgl-ico">'+I(s.sound && !s.calm ? "soundOn" : "soundOff",18)+'</span><span class="tgl-lbl">'+BF.L("Sound","Звук")+'</span></button>'+
+        '<a class="tgl icon-only" href="#/settings" data-nav="settings" title="'+BF.L("More: settings, family, diary","Ещё: настройки, семья, дневник")+'" aria-label="'+BF.L("Settings","Настройки")+'"><span class="tgl-ico">'+I("gear",18)+'</span></a>'+
       '</div>';
-    document.getElementById("tabbar").innerHTML = navItems().map(function(n){ return '<a href="'+n.href+'" data-nav="'+n.k+'">'+I(n.ico,22)+'<span>'+n.t+'</span></a>'; }).join("");
+    document.getElementById("tabbar").innerHTML = tabItems().map(function(n){ return '<a href="'+n.href+'" data-nav="'+n.k+'">'+I(n.ico,22)+'<span>'+n.t+'</span></a>'; }).join("");
     document.getElementById("foot").innerHTML =
       '<p><b>Balapan Focus &amp; Calm</b> — '+BF.L("daily parent support, inspired by research on parent-based approaches. Not therapy and not a medical device; it does not diagnose or treat any condition.","ежедневная поддержка родителя, основанная на исследованиях методов, где главную роль играет родитель. Это не терапия и не медицинское изделие; сервис не ставит диагнозы и не лечит.")+
       ' <a href="#/safety">'+BF.L("Safety &amp; when to talk to a specialist","Безопасность и когда обратиться к специалисту")+'</a> · '+BF.L("In the US, call or text <b>988</b> in a crisis · <b>911</b> for emergencies.","В США в кризисной ситуации — звонок или SMS на <b>988</b> · <b>911</b> — экстренные службы. В Казахстане — <b>112</b>, телефон доверия для детей <b>150</b>.")+'</p>'+
@@ -69,7 +79,7 @@ var BF = window.BF = window.BF || {};
     var sh = BF.ui.sheet('<h2>'+BF.L("Whose plan are we looking at?","Чей план открываем?")+'</h2><div class="kid-list">'+kids.map(function(c){
       return '<button class="kid-row'+(c.id===cur?' on':'')+'" data-id="'+c.id+'">'+BF.avatar.svg(c.avatar,{size:52, headOnly:true})+'<span><b>'+esc(BF.ui.heroName(c))+'</b><small>'+(c.quizDone ? BF.L("age","возраст")+' '+c.age+' · '+BF.ui.T(BF.TAGS[c.profile]?BF.TAGS[c.profile].label:{en:"profile not set",ru:"профиль не задан"}) : BF.L("quiz not finished","анкета не заполнена"))+'</small></span>'+(c.isDemo?'<span class="demo-tag">'+BF.L("demo data","демо-данные")+'</span>':'')+'</button>';
     }).join("")+'</div><div class="cel-actions"><button class="btn clay" id="ksAdd">'+I("plus",18)+' '+BF.L("Add a child","Добавить ребёнка")+'</button><a class="btn ghost" href="#/family">'+BF.L("Manage children","Управление детьми")+'</a></div><p class="fine">'+BF.L("Free: 1 child · Monthly: 2 children · Yearly: up to 3 children.","Бесплатно: 1 ребёнок · Месяц: 2 ребёнка · Год: до 3 детей.")+'</p>', "narrow");
-    sh.querySelectorAll(".kid-row").forEach(function(b){ b.onclick = function(){ st.setActive(b.getAttribute("data-id")); sh.close(); BF.renderShell(); BF.router.go("/"); BF.router.refresh(); }; });
+    sh.querySelectorAll(".kid-row").forEach(function(b){ b.onclick = function(){ st.setActive(b.getAttribute("data-id")); sh.close(); BF.renderShell(); BF.router.go("/parent"); BF.router.refresh(); }; });
     sh.querySelector("#ksAdd").onclick = function(){ sh.close(); BF.addChildFlow(); };
     sh.querySelector('a[href="#/family"]').onclick = function(){ sh.close(); };
   }

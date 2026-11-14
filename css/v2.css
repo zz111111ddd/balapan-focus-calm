@@ -491,3 +491,19 @@ html.dark .gs-say{background:var(--paper)}
 /* Full-screen game on phones hides header/tab bar; the keyboard-only skip link has nothing to skip there. */
 @media (max-width:860px){ body[data-route="game"] .skip{display:none} }
 .hole.done{pointer-events:none} /* already-laced holes are decoration; the drag is handled on the stage */
+
+/* v1-style header: compact avatar switcher (name in the tooltip) */
+.kid-switch.compact{padding:3px; gap:4px; max-width:none}
+.kid-switch.compact .demo-tag{margin-right:6px}
+html.dark{background-color:#1b2540}
+/* restored v1 home: tool cards and Venn in the navy theme */
+html.dark .tool:nth-child(1){background:#22304d}
+html.dark .tool:nth-child(2){background:#23342f}
+html.dark .tool:nth-child(3){background:#3a2d2c}
+html.dark .venn .v1{background:rgba(120,146,170,.30)}
+html.dark .venn .v2{background:rgba(140,166,132,.28)}
+.venn .v-mid{max-width:150px}
+@media (max-width:700px){
+  .venn .v-mid{min-width:0; padding:8px 10px} .venn .v-mid small{display:none} .venn .v-mid b{font-size:1.05rem}
+  .venn .v{font-size:.98rem} .venn .v1{padding-left:16px} .venn .v2{padding-right:14px}
+}

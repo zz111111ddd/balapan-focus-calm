@@ -3,7 +3,7 @@ var BF = window.BF = window.BF || {};
 (function(){
   var current = null, cleanup = null, gen = 0;
   BF.screens = BF.screens || {};
-  var NAV = { home:"home", plan:"home", quiz:"home", hero:"home", library:"library", brave:"library", quest:"library", games:"games", game:"games", diary:"diary", specialist:"specialist", family:"home", settings:"settings", pricing:"pricing" };
+  var NAV = { home:"home", welcome:"home", parent:"parent", plan:"parent", quiz:"parent", hero:"hero", library:"library", brave:"library", quest:"library", games:"games", game:"games", diary:"diary", specialist:"parent", family:"parent", settings:"parent", pricing:"pricing" };
   function parse(){
     var h = location.hash.replace(/^#\/?/,"");
     var parts = h.split("?")[0].split("/").filter(Boolean);
