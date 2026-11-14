@@ -35,7 +35,7 @@ BF.games.rhythm = {
       if(r >= PAT.length){ var n = score===PAT.length?3:score>=Math.ceil(PAT.length/2)?2:1; later(function(){ api.win(n, BF.L(score+" of "+PAT.length+" rhythms echoed.","Повторено ритмов: "+score+" из "+PAT.length+".")); }, 700); }
       else later(play, 1300);
     }
-    drum.addEventListener("pointerdown", function(e){ e.preventDefault(); BF.sound.unlock(); if(busy) return; hit(); taps.push(performance.now()); drawDots(taps.length); if(taps.length >= PAT[r].length) judge(); });
+    drum.addEventListener("pointerdown", function(e){ e.preventDefault(); BF.sound.unlock(); if(busy){ api.say(BF.L("Wait — watch the drum first, then it is your turn.","Подожди — сначала смотри на барабан, потом твоя очередь.")); drum.classList.remove("wait"); void drum.offsetWidth; drum.classList.add("wait"); return; } hit(); taps.push(performance.now()); drawDots(taps.length); if(taps.length >= PAT[r].length) judge(); });
     later(play, 500);
     return function(){ timers.forEach(clearTimeout); };
   }

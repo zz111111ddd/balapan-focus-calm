@@ -38,7 +38,7 @@ BF.games.lace = {
     function placeTip(p){ tip.setAttribute("transform","translate("+p.x+" "+p.y+")"); }
     function down(e){
       var pt = U.svgPoint(svg, e), from = holes[next-1];
-      if(U.dist(pt, from) < 44){ dragging = true; svg.setPointerCapture(e.pointerId); band.setAttribute("opacity","1"); move(e); }
+      if(U.dist(pt, from) < 44){ dragging = true; try{ svg.setPointerCapture(e.pointerId); }catch(_){} band.setAttribute("opacity","1"); move(e); }
       else api.say(BF.L("Grab the lace tip first — it's on hole "+next+".","Сначала возьми кончик шнурка — он у дырочки "+next+"."));
     }
     function move(e){

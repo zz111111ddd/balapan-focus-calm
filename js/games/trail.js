@@ -41,7 +41,7 @@ BF.games.trail = {
     }
     function down(e){
       var pt = U.svgPoint(svg, e);
-      if(U.dist(pt, samples[idx]) < 48){ tracing = true; svg.setPointerCapture(e.pointerId); token.classList.add("held"); api.say(BF.L("Slow and steady… follow the dotted line.","Медленно и спокойно… по пунктирной линии.")); }
+      if(U.dist(pt, samples[idx]) < 48){ tracing = true; try{ svg.setPointerCapture(e.pointerId); }catch(_){} token.classList.add("held"); api.say(BF.L("Slow and steady… follow the dotted line.","Медленно и спокойно… по пунктирной линии.")); }
       else api.say(BF.L("Start from the hero — put your finger on them.","Начните с героя — поставьте на него палец."));
     }
     function move(e){

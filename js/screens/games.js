@@ -79,9 +79,12 @@ BF.screens.game = {
       },
       heroHead:BF.gameUtil.heroHead
     };
-    function start(){ if(typeof cleanup==="function") cleanup(); var fresh = stage.cloneNode(false); stage.replaceWith(fresh); stage = fresh; stage.innerHTML=""; stage.className = "stage paper stage-"+id+" lv-"+api.level; say.textContent = T(g.howto); el.querySelector("#gWin").hidden = true; cleanup = g.mount(stage, api); }
+    function start(){ if(typeof cleanup==="function") cleanup(); var fresh = stage.cloneNode(false); stage.replaceWith(fresh); stage = fresh; stage.innerHTML=""; stage.className = "stage paper stage-"+id+" lv-"+api.level; say.textContent = T(g.howto); el.querySelector("#gWin").hidden = true; cleanup = g.mount(stage, api);
+      // Drop zones / list items are not buttons: a tap on them explains what to do instead of doing nothing.
+      var downAt = null; stage.addEventListener("pointerdown", function(e){ downAt = [e.clientX, e.clientY]; }, true);
+      stage.addEventListener("click", function(e){ if(downAt && Math.abs(e.clientX-downAt[0]) + Math.abs(e.clientY-downAt[1]) > 6) return; var t = e.target.closest && e.target.closest(".pz-slot:empty, .sz-slot, .jar, .bp-list li"); if(!t) return; api.say(BF.L("Drag a piece onto it — press, hold and move.","Перетащи сюда деталь — нажми, удерживай и веди.")); say.classList.remove("nudge"); void say.offsetWidth; say.classList.add("nudge"); }); }
     function goLv(i){ BF.router.go("/game/"+id+"?lv="+BF.LEVELS[i]+(fromPlan?"&plan="+fromPlan:"")); }
-    el.querySelectorAll("[data-lv]").forEach(function(b){ b.onclick = function(){ var i = +b.getAttribute("data-lv"); if(i!==lvIdx) goLv(i); }; });
+    el.querySelectorAll("[data-lv]").forEach(function(b){ b.onclick = function(){ var i = +b.getAttribute("data-lv"); if(i!==lvIdx) goLv(i); else { start(); BF.ui.toast(BF.L("Level restarted.","Уровень начат заново.")); } }; });
     el.querySelector("#gRestart").onclick = start;
     el.querySelector("#gAgain").onclick = start;
     el.querySelector("#gNext").onclick = function(){ goLv(Math.min(2, lvIdx+1)); };

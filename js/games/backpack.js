@@ -39,7 +39,7 @@ BF.games.backpack = {
     function overBag(x,y){ var r = bag.getBoundingClientRect(); return x>=r.left && x<=r.right && y>=r.top && y<=r.bottom; }
     function drag(d){
       var sx, sy, ox, oy, on=false;
-      d.addEventListener("pointerdown", function(e){ e.preventDefault(); on=true; d.setPointerCapture(e.pointerId); sx=e.clientX; sy=e.clientY; ox=parseFloat(d.style.left); oy=parseFloat(d.style.top); d.classList.add("lift"); });
+      d.addEventListener("pointerdown", function(e){ e.preventDefault(); on=true; try{ d.setPointerCapture(e.pointerId); }catch(_){} sx=e.clientX; sy=e.clientY; ox=parseFloat(d.style.left); oy=parseFloat(d.style.top); d.classList.add("lift"); });
       d.addEventListener("pointermove", function(e){ if(!on) return; d.style.left=(ox+e.clientX-sx)+"px"; d.style.top=(oy+e.clientY-sy)+"px"; bag.classList.toggle("hover", overBag(e.clientX,e.clientY)); });
       function end(e){ if(!on) return; on=false; d.classList.remove("lift"); bag.classList.remove("hover");
         if(overBag(e.clientX, e.clientY)){

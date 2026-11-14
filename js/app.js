@@ -73,6 +73,8 @@ var BF = window.BF = window.BF || {};
     if(empty) st.setActive(empty.id); else st.addChild();
     BF.renderShell(); BF.router.go("/quiz?new=1");
   };
+  // Skip link: move focus to the content without touching the hash router ("#app" is not a route).
+  document.getElementById("skipLink").addEventListener("click", function(e){ e.preventDefault(); var m = document.getElementById("app"); m.focus(); m.scrollIntoView(); });
   if("scrollRestoration" in history) history.scrollRestoration = "manual";
   BF.renderShell();
   BF.router.start();

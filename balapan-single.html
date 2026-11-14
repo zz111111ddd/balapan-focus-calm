@@ -1331,6 +1331,33 @@ html.dark .gs-say{background:var(--paper)}
 }
 .settings{padding-top:26px}
 
+/* Header fit on mid-width screens (Windows laptops at 125–150% scaling ≈ 900–1240 CSS px).
+   Never let the toggles shrink/clip: a clipped RU button used to sit under the theme toggle. */
+.topbar .toggles{flex:none}
+.toggles > *, .langsw button{flex:none}
+@media (max-width:1240px){ .tgl-lbl{display:none} .tgl{padding:8px} .mainnav a{padding:8px 10px} .topbar{gap:12px} }
+@media (min-width:861px) and (max-width:1180px){
+  .topbar{flex-wrap:wrap; row-gap:6px}
+  .mainnav{order:3; flex:1 1 100%; justify-content:center; margin:0}
+  .toggles{margin-left:auto}
+}
+@keyframes nudge{0%,100%{transform:none}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.nudge{animation:nudge .35s 2}
+.rd-drum.wait{animation:nudge .35s 1}
+
+/* Hover "lift" must not move the hit area. Before: a card lifted 8px on hover, so with the mouse resting near
+   its bottom edge it lost :hover, dropped back, got :hover again… (flicker loop) and a press/release could land
+   on two different elements => the click was lost. An invisible extension keeps the pointer "inside". */
+.toy, .tile, .opt, .ci{position:relative}
+.toy::after, .tile::after, .opt::after, .ci::after{content:""; position:absolute; left:0; right:0; bottom:-12px; height:12px}
+.sit-card::before{content:""; position:absolute; left:0; right:0; bottom:-8px; height:8px}
+.btn:hover, .btn:active{transform:none}
+/* The result card dims the screen but must not cover the game's own top bar (Back to games / level switch). */
+.screen-game .gs-top, .screen-game .lv-pick{position:relative; z-index:161}
+/* Full-screen game on phones hides header/tab bar; the keyboard-only skip link has nothing to skip there. */
+@media (max-width:860px){ body[data-route="game"] .skip{display:none} }
+.hole.done{pointer-events:none} /* already-laced holes are decoration; the drag is handled on the stage */
+
 </style>
 <style data-src="css/print.css" media="print">
 /* Printable A4 report for a specialist (BF.printReport → #printArea → window.print) */
@@ -2912,7 +2939,7 @@ var BF = window.BF = window.BF || {};
 /* Tiny hash router: #/route/param?x=y — works from file:// too. */
 var BF = window.BF = window.BF || {};
 (function(){
-  var current = null, cleanup = null;
+  var current = null, cleanup = null, gen = 0;
   BF.screens = BF.screens || {};
   var NAV = { home:"home", plan:"home", quiz:"home", hero:"home", library:"library", brave:"library", quest:"library", games:"games", game:"games", diary:"diary", specialist:"specialist", family:"home", settings:"settings", pricing:"pricing" };
   function parse(){
@@ -2922,12 +2949,14 @@ var BF = window.BF = window.BF || {};
     return { name: parts[0]||"home", param: parts[1]||null, query:q };
   }
   function render(){
-    var r = parse(), app = document.getElementById("app");
+    var r = parse(), app = document.getElementById("app"), my = ++gen;
     var scr = BF.screens[r.name] || BF.screens.home;
     if(typeof cleanup === "function"){ try{ cleanup(); }catch(e){} cleanup = null; }
     if(BF.voice) BF.voice.stop(); document.querySelectorAll(".sheet").forEach(function(x){ x.remove(); });
     var old = app.firstElementChild;
     function swap(){
+      if(my !== gen) return; // a newer navigation started during the leave animation: drop this one (no leaked game listeners/timers)
+      if(typeof cleanup === "function"){ try{ cleanup(); }catch(e){} cleanup = null; }
       app.innerHTML = "";
       var el = document.createElement("section");
       el.className = "screen screen-"+r.name;
@@ -2947,7 +2976,19 @@ var BF = window.BF = window.BF || {};
   }
   BF.router = {
     go:function(path){ if(location.hash === "#"+path) render(); else location.hash = path; },
-    start:function(){ window.addEventListener("hashchange", render); render(); },
+    start:function(){
+      window.addEventListener("hashchange", render);
+      // A link to the screen you are already on (hash unchanged => no hashchange) re-opens it from the top
+      // instead of doing nothing: header/tab bar tabs, diary tabs, "back" links, etc.
+      document.addEventListener("click", function(e){
+        if(e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        var a = e.target.closest && e.target.closest('a[href^="#"]'); if(!a) return;
+        var h = a.getAttribute("href"), cur = location.hash || "#/";
+        if(h === "#" || h === "#app") return;
+        if(h === cur || (h === "#/" && (cur === "#" || cur === "#/"))){ e.preventDefault(); render(); }
+      });
+      render();
+    },
     refresh:render,
     current:function(){ return current; }
   };
@@ -3699,9 +3740,12 @@ BF.screens.game = {
       },
       heroHead:BF.gameUtil.heroHead
     };
-    function start(){ if(typeof cleanup==="function") cleanup(); var fresh = stage.cloneNode(false); stage.replaceWith(fresh); stage = fresh; stage.innerHTML=""; stage.className = "stage paper stage-"+id+" lv-"+api.level; say.textContent = T(g.howto); el.querySelector("#gWin").hidden = true; cleanup = g.mount(stage, api); }
+    function start(){ if(typeof cleanup==="function") cleanup(); var fresh = stage.cloneNode(false); stage.replaceWith(fresh); stage = fresh; stage.innerHTML=""; stage.className = "stage paper stage-"+id+" lv-"+api.level; say.textContent = T(g.howto); el.querySelector("#gWin").hidden = true; cleanup = g.mount(stage, api);
+      // Drop zones / list items are not buttons: a tap on them explains what to do instead of doing nothing.
+      var downAt = null; stage.addEventListener("pointerdown", function(e){ downAt = [e.clientX, e.clientY]; }, true);
+      stage.addEventListener("click", function(e){ if(downAt && Math.abs(e.clientX-downAt[0]) + Math.abs(e.clientY-downAt[1]) > 6) return; var t = e.target.closest && e.target.closest(".pz-slot:empty, .sz-slot, .jar, .bp-list li"); if(!t) return; api.say(BF.L("Drag a piece onto it — press, hold and move.","Перетащи сюда деталь — нажми, удерживай и веди.")); say.classList.remove("nudge"); void say.offsetWidth; say.classList.add("nudge"); }); }
     function goLv(i){ BF.router.go("/game/"+id+"?lv="+BF.LEVELS[i]+(fromPlan?"&plan="+fromPlan:"")); }
-    el.querySelectorAll("[data-lv]").forEach(function(b){ b.onclick = function(){ var i = +b.getAttribute("data-lv"); if(i!==lvIdx) goLv(i); }; });
+    el.querySelectorAll("[data-lv]").forEach(function(b){ b.onclick = function(){ var i = +b.getAttribute("data-lv"); if(i!==lvIdx) goLv(i); else { start(); BF.ui.toast(BF.L("Level restarted.","Уровень начат заново.")); } }; });
     el.querySelector("#gRestart").onclick = start;
     el.querySelector("#gAgain").onclick = start;
     el.querySelector("#gNext").onclick = function(){ goLv(Math.min(2, lvIdx+1)); };
@@ -4142,8 +4186,8 @@ BF.screens.settings = {
         '<div class="set-row"><span>'+BF.L("Soft sounds","Мягкие звуки")+'</span><label class="switch"><input type="checkbox" id="setSound" '+(s.sound?'checked':'')+'><i></i></label></div>'+
       '</section>'+
       '<section class="set paper"><h2>'+I('speaker',20)+' '+BF.L("Read-aloud voice","Голос для чтения вслух")+'</h2><p class="muted small">'+BF.L("We automatically choose the most natural voice your device has (★ = natural/neural). On Windows, Edge has the best free voices; on Mac/iPhone, download “Enhanced” voices in system settings.","Мы автоматически выбираем самый естественный голос на устройстве (★ — естественный/нейронный). В Windows лучшие бесплатные голоса — в Edge; на Mac/iPhone скачайте «улучшенные» голоса в настройках системы.")+'</p>'+
-        '<div class="set-row"><span>English</span><select class="input" id="vEn">'+voiceOpts("en")+'</select><button class="btn small ghost" data-test="en">'+I('play',14)+'</button></div>'+
-        '<div class="set-row"><span>Русский</span><select class="input" id="vRu">'+voiceOpts("ru")+'</select><button class="btn small ghost" data-test="ru">'+I('play',14)+'</button></div>'+
+        '<div class="set-row"><span>English</span><select class="input" id="vEn"'+(BF.voice.voices("en").length?'':' disabled')+'>'+voiceOpts("en")+'</select><button class="btn small ghost" data-test="en">'+I('play',14)+'</button></div>'+
+        '<div class="set-row"><span>Русский</span><select class="input" id="vRu"'+(BF.voice.voices("ru").length?'':' disabled')+'>'+voiceOpts("ru")+'</select><button class="btn small ghost" data-test="ru">'+I('play',14)+'</button></div>'+
         '<div class="set-row"><span>'+BF.L("Speed","Скорость")+' <output id="rateO">'+s.rate+'</output></span><input type="range" id="vRate" min="0.6" max="1.1" step="0.02" value="'+s.rate+'"></div>'+
         '<div class="set-row"><span>'+BF.L("Pitch","Высота")+' <output id="pitchO">'+s.pitch+'</output></span><input type="range" id="vPitch" min="0.7" max="1.3" step="0.05" value="'+s.pitch+'"></div>'+
         '<details class="tts"><summary><b>'+BF.L("Neural voice (optional, advanced)","Нейроголос (необязательно, для продвинутых)")+'</b></summary><p class="muted small">'+BF.L("Uses an OpenAI-compatible text-to-speech API for a very natural voice. Your key is stored only in this browser and sent only to the endpoint you enter. For a public site, use your own server proxy instead of a key. If it fails, we fall back to the browser voice.","Использует совместимый с OpenAI API синтеза речи для очень естественного голоса. Ключ хранится только в этом браузере и отправляется только на указанный адрес. Для публичного сайта используйте свой серверный прокси вместо ключа. При ошибке используется голос браузера.")+'</p>'+
@@ -4289,7 +4333,7 @@ BF.games.trail = {
     }
     function down(e){
       var pt = U.svgPoint(svg, e);
-      if(U.dist(pt, samples[idx]) < 48){ tracing = true; svg.setPointerCapture(e.pointerId); token.classList.add("held"); api.say(BF.L("Slow and steady… follow the dotted line.","Медленно и спокойно… по пунктирной линии.")); }
+      if(U.dist(pt, samples[idx]) < 48){ tracing = true; try{ svg.setPointerCapture(e.pointerId); }catch(_){} token.classList.add("held"); api.say(BF.L("Slow and steady… follow the dotted line.","Медленно и спокойно… по пунктирной линии.")); }
       else api.say(BF.L("Start from the hero — put your finger on them.","Начните с героя — поставьте на него палец."));
     }
     function move(e){
@@ -4369,7 +4413,7 @@ BF.games.jars = {
     }
     function drag(b){
       var sx=0, sy=0, ox=0, oy=0, on=false;
-      b.addEventListener("pointerdown", function(e){ e.preventDefault(); on=true; b.setPointerCapture(e.pointerId); sx=e.clientX; sy=e.clientY; ox=parseFloat(b.style.left); oy=parseFloat(b.style.top); b.classList.add("lift"); });
+      b.addEventListener("pointerdown", function(e){ e.preventDefault(); on=true; try{ b.setPointerCapture(e.pointerId); }catch(_){} sx=e.clientX; sy=e.clientY; ox=parseFloat(b.style.left); oy=parseFloat(b.style.top); b.classList.add("lift"); });
       b.addEventListener("pointermove", function(e){ if(!on) return; b.style.left=(ox+e.clientX-sx)+"px"; b.style.top=(oy+e.clientY-sy)+"px";
         var hit = jarAt(e.clientX, e.clientY); stage.querySelectorAll(".jar").forEach(function(j){ j.classList.toggle("hover", j===hit); }); });
       function end(e){ if(!on) return; on=false; b.classList.remove("lift");
@@ -4581,7 +4625,7 @@ BF.games.backpack = {
     function overBag(x,y){ var r = bag.getBoundingClientRect(); return x>=r.left && x<=r.right && y>=r.top && y<=r.bottom; }
     function drag(d){
       var sx, sy, ox, oy, on=false;
-      d.addEventListener("pointerdown", function(e){ e.preventDefault(); on=true; d.setPointerCapture(e.pointerId); sx=e.clientX; sy=e.clientY; ox=parseFloat(d.style.left); oy=parseFloat(d.style.top); d.classList.add("lift"); });
+      d.addEventListener("pointerdown", function(e){ e.preventDefault(); on=true; try{ d.setPointerCapture(e.pointerId); }catch(_){} sx=e.clientX; sy=e.clientY; ox=parseFloat(d.style.left); oy=parseFloat(d.style.top); d.classList.add("lift"); });
       d.addEventListener("pointermove", function(e){ if(!on) return; d.style.left=(ox+e.clientX-sx)+"px"; d.style.top=(oy+e.clientY-sy)+"px"; bag.classList.toggle("hover", overBag(e.clientX,e.clientY)); });
       function end(e){ if(!on) return; on=false; d.classList.remove("lift"); bag.classList.remove("hover");
         if(overBag(e.clientX, e.clientY)){
@@ -4644,7 +4688,7 @@ BF.games.lace = {
     function placeTip(p){ tip.setAttribute("transform","translate("+p.x+" "+p.y+")"); }
     function down(e){
       var pt = U.svgPoint(svg, e), from = holes[next-1];
-      if(U.dist(pt, from) < 44){ dragging = true; svg.setPointerCapture(e.pointerId); band.setAttribute("opacity","1"); move(e); }
+      if(U.dist(pt, from) < 44){ dragging = true; try{ svg.setPointerCapture(e.pointerId); }catch(_){} band.setAttribute("opacity","1"); move(e); }
       else api.say(BF.L("Grab the lace tip first — it's on hole "+next+".","Сначала возьми кончик шнурка — он у дырочки "+next+"."));
     }
     function move(e){
@@ -5063,7 +5107,7 @@ BF.games.rhythm = {
       if(r >= PAT.length){ var n = score===PAT.length?3:score>=Math.ceil(PAT.length/2)?2:1; later(function(){ api.win(n, BF.L(score+" of "+PAT.length+" rhythms echoed.","Повторено ритмов: "+score+" из "+PAT.length+".")); }, 700); }
       else later(play, 1300);
     }
-    drum.addEventListener("pointerdown", function(e){ e.preventDefault(); BF.sound.unlock(); if(busy) return; hit(); taps.push(performance.now()); drawDots(taps.length); if(taps.length >= PAT[r].length) judge(); });
+    drum.addEventListener("pointerdown", function(e){ e.preventDefault(); BF.sound.unlock(); if(busy){ api.say(BF.L("Wait — watch the drum first, then it is your turn.","Подожди — сначала смотри на барабан, потом твоя очередь.")); drum.classList.remove("wait"); void drum.offsetWidth; drum.classList.add("wait"); return; } hit(); taps.push(performance.now()); drawDots(taps.length); if(taps.length >= PAT[r].length) judge(); });
     later(play, 500);
     return function(){ timers.forEach(clearTimeout); };
   }
@@ -5097,7 +5141,7 @@ BF.games.puzzle = {
     function slotAt(x, y){ var hit = null; stage.querySelectorAll(".pz-slot").forEach(function(s){ var r = s.getBoundingClientRect(); if(x>=r.left && x<=r.right && y>=r.top && y<=r.bottom) hit = s; }); return hit; }
     function drag(d){
       var sx, sy, on = false;
-      d.addEventListener("pointerdown", function(e){ if(d.classList.contains("set")) return; e.preventDefault(); on = true; d.setPointerCapture(e.pointerId); sx = e.clientX; sy = e.clientY; d.classList.add("lift"); });
+      d.addEventListener("pointerdown", function(e){ if(d.classList.contains("set")) return; e.preventDefault(); on = true; try{ d.setPointerCapture(e.pointerId); }catch(_){} sx = e.clientX; sy = e.clientY; d.classList.add("lift"); });
       d.addEventListener("pointermove", function(e){ if(!on) return; d.style.transform = "translate("+(e.clientX-sx)+"px,"+(e.clientY-sy)+"px)"; var s = slotAt(e.clientX, e.clientY); stage.querySelectorAll(".pz-slot").forEach(function(x){ x.classList.toggle("hover", x===s); }); });
       function end(e){ if(!on) return; on = false; d.classList.remove("lift"); d.style.transform = ""; stage.querySelectorAll(".pz-slot").forEach(function(x){ x.classList.remove("hover"); });
         var s = slotAt(e.clientX, e.clientY); if(!s) return;
@@ -5140,7 +5184,7 @@ BF.games.sizes = {
     function shelfHit(x, y){ var r = stage.querySelector("#szS").getBoundingClientRect(); return x>=r.left-20 && x<=r.right+20 && y>=r.top-40 && y<=r.bottom+20; }
     function drag(d){
       var sx, sy, on = false;
-      d.addEventListener("pointerdown", function(e){ if(d.classList.contains("set")) return; e.preventDefault(); on = true; d.setPointerCapture(e.pointerId); sx = e.clientX; sy = e.clientY; d.classList.add("lift"); });
+      d.addEventListener("pointerdown", function(e){ if(d.classList.contains("set")) return; e.preventDefault(); on = true; try{ d.setPointerCapture(e.pointerId); }catch(_){} sx = e.clientX; sy = e.clientY; d.classList.add("lift"); });
       d.addEventListener("pointermove", function(e){ if(on) d.style.transform = "translate("+(e.clientX-sx)+"px,"+(e.clientY-sy)+"px)"; });
       function end(e){ if(!on) return; on = false; d.classList.remove("lift"); d.style.transform = "";
         if(!shelfHit(e.clientX, e.clientY)) return;
@@ -5237,6 +5281,8 @@ var BF = window.BF = window.BF || {};
     if(empty) st.setActive(empty.id); else st.addChild();
     BF.renderShell(); BF.router.go("/quiz?new=1");
   };
+  // Skip link: move focus to the content without touching the hash router ("#app" is not a route).
+  document.getElementById("skipLink").addEventListener("click", function(e){ e.preventDefault(); var m = document.getElementById("app"); m.focus(); m.scrollIntoView(); });
   if("scrollRestoration" in history) history.scrollRestoration = "manual";
   BF.renderShell();
   BF.router.start();

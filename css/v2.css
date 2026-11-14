@@ -464,3 +464,30 @@ html.dark .gs-say{background:var(--paper)}
   .stage-keys,.stage-diff,.stage-simon,.stage-spot,.stage-rhythm,.stage-puzzle,.stage-sizes{padding:12px; min-height:300px}
 }
 .settings{padding-top:26px}
+
+/* Header fit on mid-width screens (Windows laptops at 125–150% scaling ≈ 900–1240 CSS px).
+   Never let the toggles shrink/clip: a clipped RU button used to sit under the theme toggle. */
+.topbar .toggles{flex:none}
+.toggles > *, .langsw button{flex:none}
+@media (max-width:1240px){ .tgl-lbl{display:none} .tgl{padding:8px} .mainnav a{padding:8px 10px} .topbar{gap:12px} }
+@media (min-width:861px) and (max-width:1180px){
+  .topbar{flex-wrap:wrap; row-gap:6px}
+  .mainnav{order:3; flex:1 1 100%; justify-content:center; margin:0}
+  .toggles{margin-left:auto}
+}
+@keyframes nudge{0%,100%{transform:none}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.nudge{animation:nudge .35s 2}
+.rd-drum.wait{animation:nudge .35s 1}
+
+/* Hover "lift" must not move the hit area. Before: a card lifted 8px on hover, so with the mouse resting near
+   its bottom edge it lost :hover, dropped back, got :hover again… (flicker loop) and a press/release could land
+   on two different elements => the click was lost. An invisible extension keeps the pointer "inside". */
+.toy, .tile, .opt, .ci{position:relative}
+.toy::after, .tile::after, .opt::after, .ci::after{content:""; position:absolute; left:0; right:0; bottom:-12px; height:12px}
+.sit-card::before{content:""; position:absolute; left:0; right:0; bottom:-8px; height:8px}
+.btn:hover, .btn:active{transform:none}
+/* The result card dims the screen but must not cover the game's own top bar (Back to games / level switch). */
+.screen-game .gs-top, .screen-game .lv-pick{position:relative; z-index:161}
+/* Full-screen game on phones hides header/tab bar; the keyboard-only skip link has nothing to skip there. */
+@media (max-width:860px){ body[data-route="game"] .skip{display:none} }
+.hole.done{pointer-events:none} /* already-laced holes are decoration; the drag is handled on the stage */

@@ -24,7 +24,7 @@ BF.games.puzzle = {
     function slotAt(x, y){ var hit = null; stage.querySelectorAll(".pz-slot").forEach(function(s){ var r = s.getBoundingClientRect(); if(x>=r.left && x<=r.right && y>=r.top && y<=r.bottom) hit = s; }); return hit; }
     function drag(d){
       var sx, sy, on = false;
-      d.addEventListener("pointerdown", function(e){ if(d.classList.contains("set")) return; e.preventDefault(); on = true; d.setPointerCapture(e.pointerId); sx = e.clientX; sy = e.clientY; d.classList.add("lift"); });
+      d.addEventListener("pointerdown", function(e){ if(d.classList.contains("set")) return; e.preventDefault(); on = true; try{ d.setPointerCapture(e.pointerId); }catch(_){} sx = e.clientX; sy = e.clientY; d.classList.add("lift"); });
       d.addEventListener("pointermove", function(e){ if(!on) return; d.style.transform = "translate("+(e.clientX-sx)+"px,"+(e.clientY-sy)+"px)"; var s = slotAt(e.clientX, e.clientY); stage.querySelectorAll(".pz-slot").forEach(function(x){ x.classList.toggle("hover", x===s); }); });
       function end(e){ if(!on) return; on = false; d.classList.remove("lift"); d.style.transform = ""; stage.querySelectorAll(".pz-slot").forEach(function(x){ x.classList.remove("hover"); });
         var s = slotAt(e.clientX, e.clientY); if(!s) return;

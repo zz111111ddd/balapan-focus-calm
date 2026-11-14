@@ -24,7 +24,7 @@ BF.games.sizes = {
     function shelfHit(x, y){ var r = stage.querySelector("#szS").getBoundingClientRect(); return x>=r.left-20 && x<=r.right+20 && y>=r.top-40 && y<=r.bottom+20; }
     function drag(d){
       var sx, sy, on = false;
-      d.addEventListener("pointerdown", function(e){ if(d.classList.contains("set")) return; e.preventDefault(); on = true; d.setPointerCapture(e.pointerId); sx = e.clientX; sy = e.clientY; d.classList.add("lift"); });
+      d.addEventListener("pointerdown", function(e){ if(d.classList.contains("set")) return; e.preventDefault(); on = true; try{ d.setPointerCapture(e.pointerId); }catch(_){} sx = e.clientX; sy = e.clientY; d.classList.add("lift"); });
       d.addEventListener("pointermove", function(e){ if(on) d.style.transform = "translate("+(e.clientX-sx)+"px,"+(e.clientY-sy)+"px)"; });
       function end(e){ if(!on) return; on = false; d.classList.remove("lift"); d.style.transform = "";
         if(!shelfHit(e.clientX, e.clientY)) return;

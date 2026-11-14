@@ -46,7 +46,7 @@ BF.games.jars = {
     }
     function drag(b){
       var sx=0, sy=0, ox=0, oy=0, on=false;
-      b.addEventListener("pointerdown", function(e){ e.preventDefault(); on=true; b.setPointerCapture(e.pointerId); sx=e.clientX; sy=e.clientY; ox=parseFloat(b.style.left); oy=parseFloat(b.style.top); b.classList.add("lift"); });
+      b.addEventListener("pointerdown", function(e){ e.preventDefault(); on=true; try{ b.setPointerCapture(e.pointerId); }catch(_){} sx=e.clientX; sy=e.clientY; ox=parseFloat(b.style.left); oy=parseFloat(b.style.top); b.classList.add("lift"); });
       b.addEventListener("pointermove", function(e){ if(!on) return; b.style.left=(ox+e.clientX-sx)+"px"; b.style.top=(oy+e.clientY-sy)+"px";
         var hit = jarAt(e.clientX, e.clientY); stage.querySelectorAll(".jar").forEach(function(j){ j.classList.toggle("hover", j===hit); }); });
       function end(e){ if(!on) return; on=false; b.classList.remove("lift");
