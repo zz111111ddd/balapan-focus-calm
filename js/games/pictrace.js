@@ -24,7 +24,7 @@ BF.games.pictrace = {
     function pct(){ return allMoves ? Math.round(100*onMoves/allMoves) : 100; }
     function build(){
       var P = PICS[LIST[k]];
-      stage.innerHTML = '<div class="lvl-tag">'+T(P.n)+' · '+(k+1)+' / '+LIST.length+'</div>'+
+      stage.innerHTML = '<div class="lvl-tag">'+T(P.n).charAt(0).toUpperCase()+T(P.n).slice(1)+' · '+(k+1)+' / '+LIST.length+'</div>'+
         '<div class="pt-meter" aria-live="polite"><span>'+BF.L("Accuracy","Точность")+'</span><i><b id="ptBar"></b></i><em id="ptPct">'+pct()+'%</em></div>'+
         '<svg class="g-svg" viewBox="0 0 600 380" aria-label="'+T(P.n)+'"><g id="ptDone"></g>'+
         P.s.map(function(d){ return '<path d="'+d+'" fill="none" stroke="#E4D6BD" stroke-width="'+(TOL*2)+'" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/><path d="'+d+'" fill="none" stroke="#B9A684" stroke-width="3" stroke-dasharray="2 11" stroke-linecap="round"/>'; }).join("")+

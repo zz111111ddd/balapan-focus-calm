@@ -36,7 +36,7 @@ It runs from `file://`: data lives in classic JS files (no `fetch`, no ES module
 | **122 situations** | 40 anxiety · 36 ADHD/focus · 46 both, in 7 categories (school, home, health, out & about, friends, travel, big feelings). Each one has why it's hard, 3 parent phrases, a 5-step ladder and a warm-up game. Filters, search (EN/RU) and lazy loading in batches of 18. |
 | **Animated scene engine** | `js/core/scene.js` builds a unique SVG scene for every situation from a recipe `background|props|pose|fx|time` (28 backgrounds, ~70 props, 17 effects, day/evening/night). The scenes star the child's own avatar. They stop moving in Calm mode and under `prefers-reduced-motion`. |
 | **Brave Plan / Routine Quest** | A 7-page story with the child as hero (scene per page, read aloud), a 5-rung ladder with stars and dates. Evening check-in: "too hard" splits the step into a mini step. |
-| **16 games × 3 levels** | Easy / medium / hard. Two stars or more unlocks the next level, and progress is saved per child. Games go full-screen on phones. See the table below. |
+| **21 games × 3 levels** | Easy / medium / hard. Two stars or more unlocks the next level, and progress is saved per child. Games go full-screen on phones. See the table below. |
 | **Better voice** | Picks the most natural voice the device has (Natural / Neural / Premium / Enhanced / Google…). Per-language voice picker, slower default rate (0.86), pitch, and sentence chunking with pauses. There's an optional **neural TTS hook** (OpenAI-compatible `/audio/speech`): the key is entered in Settings and stays only in this browser. If the call fails, it falls back to the browser voice. |
 | **Several children** | Child switcher in the header. Free: 1 child · Monthly: 2 · Yearly: up to 3. Adding a child starts the same quiz. |
 | **Parent diary** | Mood 1–5, a comment and date/time. You can edit and delete entries, shown as a timeline. |
@@ -106,7 +106,7 @@ balapan-focus-calm/
 │   │                        # voice (voice ranking, chunking, neural TTS), charts, avatar, router, ui, icons, sound
 │   ├── screens/             # home (onboarding + dashboard), quiz, plan, library, brave, quest, games, diary,
 │   │                        # specialist, family, settings, pricing, safety, about, builder
-│   ├── games/               # 16 games: trail lace dots shapes jars puzzle sizes backpack balloon bubbles rhythm memory simon spot diff keys
+│   ├── games/               # 21 games: trail lace dots shapes jars puzzle sizes backpack balloon bubbles rhythm memory simon spot diff keys pictrace color schulte robot changed
 │   └── app.js               # boot, header, child switcher, theme / calm / sound
 ├── docs/screenshots/        # curated JPG screenshots · docs/sample-report-*.pdf
 └── netlify.toml · LICENSE
@@ -127,6 +127,7 @@ $0 (3 plans, 1 child) · **$12.99/month** (2 children) · **$79.99/year** (up to
 | ![First run](docs/screenshots/desktop-01-home-onboarding.jpg) | ![Library](docs/screenshots/desktop-03-library.jpg) |
 | First run: quiz on the home screen | 122 situations with animated scenes |
 | ![Keyboard Hunt](docs/screenshots/desktop-07-game-keyboard-hunt.jpg) | ![Puzzle](docs/screenshots/desktop-08-game-puzzle.jpg) |
+| ![Picture Tracing](docs/screenshots/desktop-24-game-picture-tracing.jpg) | ![Coloring (RU)](docs/screenshots/desktop-25-ru-game-coloring.jpg) |
 | Keyboard Hunt (medium) | Hero Puzzle |
 | ![Daily log](docs/screenshots/desktop-10-daily-log.jpg) | ![Trigger log](docs/screenshots/desktop-11-trigger-log.jpg) |
 | Daily log: sleep, food, day factors | Trigger outcome log + adaptive steps |
@@ -141,6 +142,7 @@ Mobile (390 × 844):
 <img src="docs/screenshots/mobile-01-onboarding.jpg" width="180" alt="Onboarding">
 <img src="docs/screenshots/mobile-02-home.jpg" width="180" alt="Home">
 <img src="docs/screenshots/mobile-03-game-keys.jpg" width="180" alt="Keyboard Hunt RU">
+<img src="docs/screenshots/mobile-09-game-number-hunt.jpg" width="180" alt="Number Hunt">
 <img src="docs/screenshots/mobile-04-daily-log.jpg" width="180" alt="Daily log">
 <img src="docs/screenshots/mobile-06-dark-home.jpg" width="180" alt="Dark theme">
 </p>
@@ -165,7 +167,7 @@ All screenshots are in [`docs/screenshots/`](docs/screenshots/).
 - **Первый запуск: квиз прямо на главной.** «Давайте познакомимся с вашим ребёнком», первый вопрос сразу на экране. 7 шагов: имя и возраст → что труднее всего → чего боится ребёнок → что делает родитель, когда ребёнку страшно → интересы → что мотивирует (+ проверка безопасности) → **план для вашей семьи**. После квиза главная становится кабинетом этого ребёнка. Квиз можно пройти заново.
 - **Трек «Навыки»:** родитель осваивает по одному навыку — слова на неделю, привычки «мягко убрать → попробовать вместо», ритм по 10 минут в день.
 - **122 ситуации** (40 тревожность · 36 СДВГ · 46 «оба») в 7 категориях. Фильтры, поиск, ленивая подгрузка. У каждой ситуации **своя анимированная SVG-сцена** с аватаром ребёнка; в спокойном режиме и при `prefers-reduced-motion` анимации выключаются.
-- **16 игр, у каждой 3 уровня** (легко / средне / сложно). Две звезды открывают следующий уровень. Новые игры: «Охота за буквами» (экранная клавиатура, латиница или кириллица по языку интерфейса; сложность растёт за счёт таймера, отвлекающих подсветок и последовательностей букв), «Обведи фигуру», «Пазл с героем», «От маленького к большому», «Барабан-эхо», «Эхо-сад» (Simon), «Найди такие же», «Найди отличия». На телефоне игры открываются на весь экран.
+- **21 игра, у каждой 3 уровня** (легко / средне / сложно). Две звезды открывают следующий уровень. Новые игры: «Охота за буквами» (экранная клавиатура, латиница или кириллица по языку интерфейса; сложность растёт за счёт таймера, отвлекающих подсветок и последовательностей букв), «Обведи фигуру», «Пазл с героем», «От маленького к большому», «Барабан-эхо», «Эхо-сад» (Simon), «Найди такие же», «Найди отличия». На телефоне игры открываются на весь экран.
 - **Голос:** автоматически выбирается самый естественный голос устройства; можно выбрать голос для каждого языка. Медленнее по умолчанию, регулируются скорость и высота, текст читается по предложениям с паузами. Есть **подключение нейроголоса** (OpenAI-совместимый API): ключ вводится в настройках и хранится только в браузере. Если нейроголос недоступен, читает голос браузера.
 - **Несколько детей:** переключатель в шапке. Бесплатно — 1 ребёнок, месячный тариф — 2, годовой — до 3.
 - **Дневник родителя** (настроение 1–5, комментарий, дата и время, правка и удаление, лента записей).

@@ -1,5 +1,5 @@
-/* Coloring — tap a colour, then tap a part of the picture to fill it. Easy: free colouring.
-   Medium/Hard: colour by number with a legend. Eraser, undo, and a gallery that keeps finished pictures. */
+/* Coloring — tap a color, then tap a part of the picture to fill it. Easy: free coloring.
+   Medium/Hard: color by number with a legend. Eraser, undo, and a gallery that keeps finished pictures. */
 var BF = window.BF = window.BF || {};
 BF.games = BF.games || {};
 BF.COLOR_PAL = [
@@ -7,7 +7,7 @@ BF.COLOR_PAL = [
   {c:"#D79A7E", n:{en:"clay",ru:"терракотовый"}}, {c:"#E2B3B5", n:{en:"rose",ru:"розовый"}}, {c:"#B8AACB", n:{en:"lavender",ru:"лавандовый"}},
   {c:"#A27C62", n:{en:"brown",ru:"коричневый"}}, {c:"#EFE3CC", n:{en:"oat",ru:"бежевый"}}
 ];
-/* Each region: [id, svg element, legend colour index, label x, label y] — drawn in order (background first). */
+/* Each region: [id, svg element, legend color index, label x, label y] — drawn in order (background first). */
 BF.COLOR_PICS = {
   house:{n:{en:"House",ru:"Домик"}, r:[
     ["sky",'<rect x="0" y="0" width="600" height="300"/>',0,60,40],["grass",'<rect x="0" y="300" width="600" height="80"/>',1,60,345],
@@ -37,8 +37,8 @@ BF.colorThumb = function(g, w){
 };
 BF.games.color = {
   title:{en:"Coloring",ru:"Раскраска"}, skill:{en:"Fine motor & attention",ru:"Моторика и внимание"}, motor:true, cat:"motor", time:{en:"2–4 min",ru:"2–4 мин"},
-  howto:{en:"Pick a colour, then tap a part of the picture. Harder levels: match the numbers to the colour legend.",ru:"Выбери цвет и нажми на часть картинки. На сложных уровнях подбирай цвет по номеру из легенды."},
-  why:{en:"Colouring inside shapes and following a legend trains careful looking, planning and a calm, steady hand.",ru:"Раскрашивание по контуру и по легенде тренирует внимательность, планирование и спокойную, твёрдую руку."},
+  howto:{en:"Pick a color, then tap a part of the picture. Harder levels: match the numbers to the color legend.",ru:"Выбери цвет и нажми на часть картинки. На сложных уровнях подбирай цвет по номеру из легенды."},
+  why:{en:"Coloring inside shapes and following a legend trains careful looking, planning and a calm, steady hand.",ru:"Раскрашивание по контуру и по легенде тренирует внимательность, планирование и спокойную, твёрдую руку."},
   art:function(){ return '<svg viewBox="0 0 120 90"><rect x="18" y="14" width="64" height="62" rx="6" fill="#FBF7EF" stroke="#8a7562" stroke-width="2"/><circle cx="50" cy="36" r="12" fill="#E8CF8F" stroke="#8a7562" stroke-width="2"/><path d="M26 72 Q44 52 62 72Z" fill="#A9C29B" stroke="#8a7562" stroke-width="2"/><path d="M64 70 L74 60" stroke="#8a7562" stroke-width="2"/><g transform="translate(86 18) rotate(30)"><rect width="10" height="48" rx="3" fill="#D79A7E"/><path d="M0 48 L5 60 L10 48Z" fill="#EFE3CC"/></g></svg>'; },
   mount:function(stage, api){
     var T = BF.ui.T, esc = BF.ui.esc, byNum = api.lv > 0;
@@ -51,7 +51,7 @@ BF.games.color = {
     stage.innerHTML = '<div class="cl-wrap"><div class="cl-pic"><svg class="g-svg cl-svg" viewBox="0 0 600 380" aria-label="'+esc(T(P.n))+'">'+
         P.r.map(function(r){ return r[1].replace(/^<(\w+)/, '<$1 class="cl-r" data-r="'+r[0]+'" fill="'+BLANK+'" stroke="#5b4a3e" stroke-width="3" stroke-linejoin="round"'); }).join("")+
         (byNum ? '<g class="cl-nums" pointer-events="none">'+P.r.map(function(r){ return '<text x="'+r[3]+'" y="'+r[4]+'" data-n="'+r[0]+'" text-anchor="middle" dominant-baseline="middle">'+legendNum[r[2]]+'</text>'; }).join("")+'</g>' : '')+
-      '</svg></div><div class="cl-side"><div class="cl-pal" role="group" aria-label="'+BF.L("Colours","Цвета")+'">'+
+      '</svg></div><div class="cl-side"><div class="cl-pal" role="group" aria-label="'+BF.L("Colors","Цвета")+'">'+
         (byNum ? used : PAL.map(function(_, i){ return i; })).map(function(ci){ return '<button class="cl-sw" data-ci="'+ci+'" style="--c:'+PAL[ci].c+'" aria-pressed="'+(ci===cur)+'" aria-label="'+esc(T(PAL[ci].n))+'">'+(byNum?'<b>'+legendNum[ci]+'</b>':'')+'</button>'; }).join("")+'</div>'+
         '<div class="cl-tools"><button class="btn small ghost" id="clErase" aria-pressed="false">'+BF.icon("trash",14)+' '+BF.L("Eraser","Ластик")+'</button><button class="btn small ghost" id="clUndo" disabled>'+BF.icon("back",14)+' '+BF.L("Undo","Отменить")+'</button>'+
         (byNum ? '' : '<button class="btn small sage" id="clDone" disabled>'+BF.icon("check",14)+' '+BF.L("Done — save","Готово — сохранить")+'</button>')+'</div>'+
@@ -71,10 +71,10 @@ BF.games.color = {
     svg.addEventListener("click", function(e){
       var t = e.target.closest && e.target.closest(".cl-r"); if(!t || finished) return;
       var id = t.getAttribute("data-r"), reg = P.r.filter(function(r){ return r[0]===id; })[0], prev = fills[id]||null, col = erase ? null : PAL[cur].c;
-      if(byNum && col && col !== PAL[reg[2]].c){ mistakes++; api.say(BF.L("Look at the number — this part needs colour ","Посмотри на номер — здесь нужен цвет ")+legendNum[reg[2]]+"."); t.classList.remove("cl-no"); void t.getBBox(); t.classList.add("cl-no"); return; }
+      if(byNum && col && col !== PAL[reg[2]].c){ mistakes++; api.say(BF.L("Look at the number — this part needs color ","Посмотри на номер — здесь нужен цвет ")+legendNum[reg[2]]+"."); t.classList.remove("cl-no"); void t.getBBox(); t.classList.add("cl-no"); return; }
       if(prev === col) return;
       hist.push([id, prev]); if(col) fills[id] = col; else delete fills[id]; paint(id, col); BF.sound.pop(); refresh();
-      if(!byNum && complete()) api.say(BF.L("All coloured! Press “Done — save”.","Всё раскрашено! Нажми «Готово — сохранить»."));
+      if(!byNum && complete()) api.say(BF.L("All colored! Press “Done — save”.","Всё раскрашено! Нажми «Готово — сохранить»."));
     });
     gallery();
     return function(){};

@@ -11,7 +11,7 @@ BF.gameUtil = {
 };
 BF.LEVELS = ["easy","medium","hard"];
 BF.GAME_CATS = [
-  {k:"motor", t:{en:"Fine motor",ru:"Мелкая моторика"}, d:{en:"Slow fingers, careful eyes: tracing, colouring, threading.",ru:"Медленные пальцы, внимательные глаза: обводка, раскраска, шнуровка."}, ids:["pictrace","color","trail","shapes","lace","dots","jars","puzzle","sizes"]},
+  {k:"motor", t:{en:"Fine motor",ru:"Мелкая моторика"}, d:{en:"Slow fingers, careful eyes: tracing, coloring, threading.",ru:"Медленные пальцы, внимательные глаза: обводка, раскраска, шнуровка."}, ids:["pictrace","color","trail","shapes","lace","dots","jars","puzzle","sizes"]},
   {k:"attention", t:{en:"Attention",ru:"Внимание"}, d:{en:"Look carefully, find, keep the order, ignore distractions.",ru:"Смотреть внимательно, находить, держать порядок, не отвлекаться."}, ids:["schulte","robot","changed","spot","diff","keys","backpack"]},
   {k:"memory", t:{en:"Memory",ru:"Память"}, d:{en:"Hold pictures, places and sequences in mind.",ru:"Удерживать в голове картинки, места и последовательности."}, ids:["memory","simon","rhythm"]},
   {k:"calm", t:{en:"Calm",ru:"Спокойствие"}, d:{en:"Breathe, wait, slow the body down.",ru:"Дышать, ждать, замедлять тело."}, ids:["balloon","bubbles"]}
