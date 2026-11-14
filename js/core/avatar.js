@@ -136,7 +136,7 @@ var BF = window.BF = window.BF || {};
     var vb = opts.headOnly ? "44 18 112 112" : "0 0 200 300";
     var cls = "avatar pose-"+(opts.pose||"idle")+(opts.headOnly?" head-only":"")+(opts.cls?(" "+opts.cls):"");
     var w = opts.size || 200, h = opts.headOnly ? w : Math.round(w*1.5);
-    return '<svg class="'+cls+'" viewBox="'+vb+'" width="'+w+'" height="'+h+'" role="img" aria-label="'+(opts.label||"Your child's hero character")+'">'+o.join("")+'</svg>';
+    return '<svg class="'+cls+'" viewBox="'+vb+'" width="'+w+'" height="'+h+'" role="img" aria-label="'+(opts.label||BF.L("Your child's hero character","Герой вашего ребёнка"))+'">'+o.join("")+'</svg>';
   }
 
   /* Balapan = "little chick" in Kazakh — our paper-cut mascot */

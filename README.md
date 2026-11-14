@@ -1,182 +1,193 @@
 # Balapan Focus & Calm
 
-**Brave plans, focus quests and calm fine-motor games for kids 5–10 with anxiety, ADHD, or both, all starring the child as the hero.**
+**Brave plans, focus quests, calm games and a parent diary for kids 5–10 with anxiety, ADHD, or both. The child is the hero of every story.**
 
 *Balapan* means "little chick" in Kazakh. It's our paper-cut mascot.
 
-> Hackathon prototype for **Zimran Business Cup 2.0**. It's a static web app: open the link and start. There's no sign-up or login, and every bit of data stays in the browser's `localStorage`.
+> Hackathon prototype for **Zimran Business Cup 2.0**. It's a static website: open it and start. No sign-up, no login, no server. All data stays in the browser's `localStorage`. Interface in **English and Russian**.
 
-![Landing](docs/screenshots/desktop-01-landing.jpg)
+[English](#english) · [Русский](#русский)
+
+![Home dashboard](docs/screenshots/desktop-02-home-dashboard.jpg)
 
 ---
 
-## What it is
+## English
 
-Balapan is a B2C web service for US parents (25–45) of children aged 5–10 who struggle with **worry and fears**, **focus and starting tasks**, or **both at the same time**. Most tools pick one lane. Balapan treats the overlap as its own real starting point.
+### Quick start
 
-1. **Parent quiz (7 steps).** It covers the child's name, age and pronoun, then what feels closest (anxiety / focus / both / not sure), the hardest moments, typical reactions, interests, what the parent usually tries, and a safety check. Two encouragement screens sit between the steps. If the safety check finds a red flag, the parent is routed to "talk to a specialist" plus US **988**.
-2. **Character builder.** Parents build a hero that looks like their child: 10 skin tones, 8 hairstyles, 8 hair colors, 6 eye colors, 4 tops and 10 top colors, 4 bottoms and 6 colors, 3 shoe types and 5 colors, 3 body builds (slim / medium / chubby), plus glasses, ear muffs or freckles. It's a live layered SVG that blinks and breathes.
-3. **Family plan.** It shows three recommended situations, "words for this week" (acceptance + confidence), "gently drop → try instead" habits, and a 10-minutes-a-day rhythm.
-4. **Situation library.** 32 everyday moments: **12 Anxiety · 10 ADHD/Focus · 10 Both**. Each one has why it's hard, 3 parent phrases, and a 5-step ladder or routine. You can filter by tag and place, and search by text.
-5. **Brave Plan (Calm).** A 7-page story where the child is the hero. It walks through the scene with their buddy and can be read aloud (Web Speech API). It also has a 5-rung brave ladder with stars and dates, a parent tips panel and habits to drop.
-6. **Routine Quest (Focus).** One card at a time, a big Time-Timer-style visual timer, a satisfying **Done!** button with stars, and a 60-second movement break with the hero animated.
-7. **8 mini-games** (1–3 min each, mouse and touch). Stars count as practice toward the current brave step.
-8. **Parent dashboard.** It has a streak plant, stars, a completed-steps timeline with dates, and an **evening check-in** (easy / okay / too hard). "Too hard" automatically **splits the next step** into a smaller mini step. There's also a **printable summary for the doctor** (`window.print` with a print stylesheet).
-9. **Pricing / paywall.** 3 free plans, then **$12.99/month** or **$79.99/year**. Checkout is a Stripe test-link placeholder, with an honest cancel note.
-10. **Safety & disclaimer.** The app is not therapy, makes no medical claims, lists red flags with a "talk to a specialist" prompt, and shows 988 / 911 / Crisis Text Line.
+> **Downloaded the zip? Extract it first**, then open `index.html`. Opening `index.html` from inside the zip viewer breaks the CSS/JS paths.
+> **Or just open `balapan-single.html`.** It's one self-contained file with all CSS and JS inlined, so it works on its own, even copied to another folder. Only Google Fonts load from the internet; without a connection it falls back to system fonts.
+
+```bash
+open index.html              # macOS (xdg-open on Linux, start on Windows)
+# or any static server
+python3 -m http.server 8080  # then http://localhost:8080
+```
+
+It runs from `file://`: data lives in classic JS files (no `fetch`, no ES modules), and routing is hash-based (`#/library`, `#/game/keys?lv=hard`, …).
+
+### What's inside (v2)
+
+| Area | What it does |
+|---|---|
+| **First run = quiz on the home screen** | With no child profile yet, home opens on "Let's get to know your child" with the first question already visible. The 7 steps are: name/age → what's hardest (+ anxiety / focus / both / not sure) → what the child fears → what the parent does when the child is scared → interests → motivators (+ safety check) → **Plan for your family**. Afterwards, home becomes that child's dashboard. You can retake the quiz any time. |
+| **Skills track** | The parent learns one skill at a time: the words for this week (acceptance + confidence), habits to gently drop and what to try instead, and a 10-minute daily rhythm. |
+| **122 situations** | 40 anxiety · 36 ADHD/focus · 46 both, in 7 categories (school, home, health, out & about, friends, travel, big feelings). Each one has why it's hard, 3 parent phrases, a 5-step ladder and a warm-up game. Filters, search (EN/RU) and lazy loading in batches of 18. |
+| **Animated scene engine** | `js/core/scene.js` builds a unique SVG scene for every situation from a recipe `background|props|pose|fx|time` (28 backgrounds, ~70 props, 17 effects, day/evening/night). The scenes star the child's own avatar. They stop moving in Calm mode and under `prefers-reduced-motion`. |
+| **Brave Plan / Routine Quest** | A 7-page story with the child as hero (scene per page, read aloud), a 5-rung ladder with stars and dates. Evening check-in: "too hard" splits the step into a mini step. |
+| **16 games × 3 levels** | Easy / medium / hard. Two stars or more unlocks the next level, and progress is saved per child. Games go full-screen on phones. See the table below. |
+| **Better voice** | Picks the most natural voice the device has (Natural / Neural / Premium / Enhanced / Google…). Per-language voice picker, slower default rate (0.86), pitch, and sentence chunking with pauses. There's an optional **neural TTS hook** (OpenAI-compatible `/audio/speech`): the key is entered in Settings and stays only in this browser. If the call fails, it falls back to the browser voice. |
+| **Several children** | Child switcher in the header. Free: 1 child · Monthly: 2 · Yearly: up to 3. Adding a child starts the same quiz. |
+| **Parent diary** | Mood 1–5, a comment and date/time. You can edit and delete entries, shown as a timeline. |
+| **Daily log** | Quick chips and sliders. Sleep: bedtime, wake time, hours worked out automatically, night wakings, quality. Food: breakfast, lunch, dinner, snacks, what was eaten, appetite, sugar, new foods. Also medication (optional), activity, screen and outdoor minutes, tummy/bowel/illness, school or kindergarten yes/no, and notable events. |
+| **Trigger outcome log** | Managed it / partly / didn't, plus intensity, reactions, what helped and a comment, linked to a situation. It feeds **adaptive next steps**: split the step, repeat it, or move on. |
+| **Mood stickers** | 8 hand-drawn faces by time of day (morning, midday, after school, evening), with day and week views. |
+| **Specialist tab** | Per-child summary, sleep-vs-mood chart, scatter with a trend line and Pearson *r*, trigger outcomes by day, screen time vs mood, a correlation table, a triggers table, moods by time of day, a daily-log table, diary entries and plans. Filters: 7/14/30 days, all or a custom range, plus specialist role and name. **Printable A4 report** in the chosen language ([EN sample](docs/sample-report-en.pdf), [RU sample](docs/sample-report-ru.pdf)), and per-child **JSON export/import**. |
+| **Demo child** | "Mira", clearly labeled *demo*, with 2 weeks of realistic data. It's seeded on first launch but **not** active, so the first screen is still your own quiz. You can **clear the demo data** in Settings or Children (and restore it). |
+| **Look** | The hand-crafted muted palette stays. Light "oat" theme plus a **dark theme on deep midnight navy** (#141c2e → #1b2540, lighter navy surfaces, oat text, dusty clay and soft sage accents, no neon). Calm mode, sound off by default. |
+| **Mobile** | A fully responsive website (no PWA, no install prompt): bottom tab bar, bottom-sheet dialogs, full-screen games. |
 
 ### The games
 
-| Game | Skill | What the child does |
+| Game | Skill | Easy → Hard |
 |---|---|---|
-| **Trail Tracer** | Fine motor | Keeps a finger on a winding trail and guides the hero home. Slipping off pauses progress but never resets it. 3 trails. |
-| **Lace It Up** | Fine motor | Pulls the shoelace tip from eyelet to eyelet in number order, then a bow appears. 2 shoes. |
-| **Dot-to-Dot** | Fine motor + order | Slides from dot to dot to reveal a star, a house and a fish. |
-| **Button Jars** | Fine motor + flexible attention | Drags buttons into jars by color, then the rule switches to shape. |
-| **Pack the Backpack** | Planning / sequencing | Packs the school items in checklist order. Toys stay home. |
-| **Balloon Breath** | Calm body | Holds to breathe in (4 s) and lets go to breathe out (6 s). 5 balloons. |
-| **Calm Bubbles** | Self-control (go/no-go) | Pops only the smooth calm bubbles and lets the prickly ones float away. 45 s. |
-| **Hero Memory** | Working memory | A 6-pair memory game. One pair is the child's own hero. |
+| Trail Tracer | Fine motor | 2 wide trails → 3 narrow trails |
+| Lace It Up | Fine motor | 1 shoe, 6 holes → 10 + 12 holes |
+| Dot-to-Dot | Fine motor + order | 2 pictures, big targets → 3 pictures, small targets |
+| **Shape Tracing** *(new)* | Pre-writing | circle, square → star, drop, heart with a narrow outline |
+| Button Jars | Fine motor + flexible attention | 6 buttons, colors only → 12 buttons + rule switch to shape |
+| **Hero Puzzle** *(new)* | Fine motor + planning | 2×2 → 4×3 pieces of a scene with the child's hero |
+| **Little to Big** *(new)* | Comparing & order | 3 very different dolls → 5–6 close sizes + reversed rule |
+| Pack the Backpack | Planning / sequencing | 3 items, 1 toy → 5 items, 5 distractors |
+| Balloon Breath | Calm body | 3 breaths, 3 s in / 4 s out → 6 breaths, 4 s in / 7 s out |
+| Calm Bubbles | Self-control (go/no-go) | 30 s, few prickly, slow → 60 s, many prickly, faster |
+| **Echo Drum** *(new)* | Timing & impulse control | steady beats → syncopated 5–6-beat rhythms, tighter timing |
+| Hero Memory | Working memory | 4 pairs → 8 pairs |
+| **Echo Garden** *(new)* | Memory for order (Simon) | 4 pads, chain of 4, slow → 6 pads, chain of 8, faster |
+| **Spot It** *(new)* | Visual attention | 4×4, clear distractors → 6×6, look-alike colors, rotated |
+| **Spot the Difference** *(new)* | Careful looking | 3 big changes → 7 subtle changes |
+| **Keyboard Hunt** *(new)* | Visual search & letters | On-screen **Latin or Cyrillic** keyboard (follows the UI language). Single letters with a gentle hint → letter pairs, soft timer, a decoy glow → short words, faster timer, two decoys. Physical keyboard works too. |
 
-### Design choices
+### Ethics & safety
 
-- The palette is muted on purpose (oat, sand, warm clay, sage, dusty blue, soft charcoal) so nothing shouts at a sensitive child. There are no neons, no pure reds and no flashing.
-- It has a hand-made, paper-cut, children's-book feel: inline SVG illustrations, organic blob shapes, tape strips, dashed "stitch" lines and an SVG-noise paper grain. Type is **Fraunces** (display) with **Nunito** (body), with system fallbacks.
-- The app respects `prefers-reduced-motion`. A **Calm mode** toggle cuts motion to almost nothing and silences sound. Soft Web Audio sounds are **off by default**.
-- There are no emoji icons. Every icon and illustration is hand-built SVG.
+- Balapan is a **parenting support tool, not therapy and not a medical device**. It doesn't diagnose, treat or promise outcomes. It is **not affiliated with any university program**; it is only inspired by published research on parent-based approaches.
+- **Red flags** (panic attacks, weeks of school refusal, self-harm, talk of death, danger) mean **no brave plan is built**. The parent sees "talk to a specialist" with **988** (US, call/text), **911**, Crisis Text Line (text HOME to 741741), and **112 / 150** for Kazakhstan. Plans unlock only if the parent confirms they already work with a specialist who agrees with small steps.
+- Steps are gentle and the child is never forced. The language is acceptance plus confidence.
+- **The child's name is never sent to an AI.** The LLM stub sends only age, interest, profile and the situation, and uses a `{name}` placeholder.
+- Privacy: no accounts, no analytics, no server. Everything is in `localStorage` ("Reset all data" in the footer). The neural-voice key (if you add one) stays in this browser; for a public deployment, use a server-side proxy instead of a key.
 
----
+### Build the single-file version
 
-## Screenshots
+```bash
+python3 build-single.py      # writes balapan-single.html (~600 KB)
+```
+
+The script inlines every stylesheet (print styles as `<style media="print">`) and every script between the `<!-- build:css -->` / `<!-- build:js -->` markers in `index.html`, and embeds the favicon. Run it again after changing any file.
+
+### Deploy
+
+- **Netlify:** drag the folder to app.netlify.com/drop, or connect the repo (`netlify.toml`: publish `.`, no build).
+- **GitHub Pages:** Settings → Pages → Deploy from branch → `main` / root.
+- **Vercel:** framework "Other", no build command, output `.`.
+
+### Project structure
+
+```
+balapan-focus-calm/
+├── index.html               # shell: header, tab bar, footer, print area, script list
+├── balapan-single.html      # generated single-file build (python3 build-single.py)
+├── build-single.py
+├── css/  base · components · screens · games · v2 (new screens, scenes, dark navy theme, mobile) · print (A4 report)
+├── js/
+│   ├── i18n/i18n.js         # L(en, ru), language switch, plurals, dates
+│   ├── data/                # situations.js, situations-2.js, situations-3.js (122), content.js, demo.js
+│   ├── core/                # store (v2, multi-child), scene (SVG scene engine), engine (plans, adaptive steps, LLM stub),
+│   │                        # voice (voice ranking, chunking, neural TTS), charts, avatar, router, ui, icons, sound
+│   ├── screens/             # home (onboarding + dashboard), quiz, plan, library, brave, quest, games, diary,
+│   │                        # specialist, family, settings, pricing, safety, about, builder
+│   ├── games/               # 16 games: trail lace dots shapes jars puzzle sizes backpack balloon bubbles rhythm memory simon spot diff keys
+│   └── app.js               # boot, header, child switcher, theme / calm / sound
+├── docs/screenshots/        # curated JPG screenshots · docs/sample-report-*.pdf
+└── netlify.toml · LICENSE
+```
+
+### Where to plug in the LLM
+
+`BF.engine.generateWithLLM()` is a marked stub. Put your key in a **serverless function** (never in this repo), set `BF.config.llmEndpoint`, and return `{ story: { en:[7], ru:[7] } }` with a `{name}` placeholder. The template engine stays as the fallback.
+
+### Payments
+
+$0 (3 plans, 1 child) · **$12.99/month** (2 children) · **$79.99/year** (up to 3 children). `BF.config.stripeMonthly` / `stripeYearly` in `js/screens/pricing.js` are Stripe test-link placeholders, and checkout is simulated on this device.
+
+### Screenshots
 
 | | |
 |---|---|
-| ![Character builder](docs/screenshots/desktop-06-builder.jpg) | ![Family plan](docs/screenshots/desktop-07-plan.jpg) |
-| Character builder | Family plan |
-| ![Library](docs/screenshots/desktop-08-library.jpg) | ![Brave Plan](docs/screenshots/desktop-12-brave-p4.jpg) |
-| Situation library (Anxiety / ADHD / Both) | Brave Plan: story + ladder |
-| ![Routine Quest](docs/screenshots/desktop-14-quest.jpg) | ![Games](docs/screenshots/desktop-18-games.jpg) |
-| Routine Quest with the visual timer | Games shelf |
-| ![Lace It Up](docs/screenshots/desktop-game-lace-playing.jpg) | ![Dashboard](docs/screenshots/desktop-19-dashboard.jpg) |
-| Lace It Up (fine motor) | Parent dashboard + evening check-in |
+| ![First run](docs/screenshots/desktop-01-home-onboarding.jpg) | ![Library](docs/screenshots/desktop-03-library.jpg) |
+| First run: quiz on the home screen | 122 situations with animated scenes |
+| ![Keyboard Hunt](docs/screenshots/desktop-07-game-keyboard-hunt.jpg) | ![Puzzle](docs/screenshots/desktop-08-game-puzzle.jpg) |
+| Keyboard Hunt (medium) | Hero Puzzle |
+| ![Daily log](docs/screenshots/desktop-10-daily-log.jpg) | ![Trigger log](docs/screenshots/desktop-11-trigger-log.jpg) |
+| Daily log: sleep, food, day factors | Trigger outcome log + adaptive steps |
+| ![Specialist](docs/screenshots/desktop-19-dark-specialist.jpg) | ![A4 report](docs/screenshots/desktop-23-report-a4-p1.jpg) |
+| Specialist tab (dark navy theme) | Printable A4 report |
+| ![Settings](docs/screenshots/desktop-14-settings-voice.jpg) | ![Russian](docs/screenshots/desktop-20-ru-home.jpg) |
+| Voice settings | Russian interface |
 
 Mobile (390 × 844):
 
 <p>
-<img src="docs/screenshots/mobile-01-landing.jpg" width="200" alt="Mobile landing">
-<img src="docs/screenshots/mobile-12-brave-p4.jpg" width="200" alt="Mobile Brave Plan">
-<img src="docs/screenshots/mobile-game-trail.jpg" width="200" alt="Mobile game">
-<img src="docs/screenshots/mobile-19-dashboard.jpg" width="200" alt="Mobile dashboard">
+<img src="docs/screenshots/mobile-01-onboarding.jpg" width="180" alt="Onboarding">
+<img src="docs/screenshots/mobile-02-home.jpg" width="180" alt="Home">
+<img src="docs/screenshots/mobile-03-game-keys.jpg" width="180" alt="Keyboard Hunt RU">
+<img src="docs/screenshots/mobile-04-daily-log.jpg" width="180" alt="Daily log">
+<img src="docs/screenshots/mobile-06-dark-home.jpg" width="180" alt="Dark theme">
 </p>
 
 All screenshots are in [`docs/screenshots/`](docs/screenshots/).
 
 ---
 
-## Run locally
+## Русский
 
-No build step and no dependencies.
+**Balapan Focus & Calm** — сайт для родителей детей 5–10 лет с тревожностью, СДВГ или **и тем и другим сразу**. Ребёнок — главный герой каждой истории. Интерфейс на **русском и английском** (переключатель EN/RU в шапке запоминается).
+
+### Как открыть
+
+> **Скачали zip? Сначала распакуйте архив**, потом откройте `index.html`. Если открыть `index.html` прямо из архива, стили и скрипты не подгрузятся.
+> **Или просто откройте `balapan-single.html`.** Это один самодостаточный файл со всеми стилями и скриптами внутри. Он работает сам по себе, даже если скопировать его в другую папку. Из интернета грузятся только шрифты Google; без сети используются системные.
+
+Регистрации нет, сервера нет: все данные хранятся только в `localStorage` этого браузера.
+
+### Что внутри (v2)
+
+- **Первый запуск: квиз прямо на главной.** «Давайте познакомимся с вашим ребёнком», первый вопрос сразу на экране. 7 шагов: имя и возраст → что труднее всего → чего боится ребёнок → что делает родитель, когда ребёнку страшно → интересы → что мотивирует (+ проверка безопасности) → **план для вашей семьи**. После квиза главная становится кабинетом этого ребёнка. Квиз можно пройти заново.
+- **Трек «Навыки»:** родитель осваивает по одному навыку — слова на неделю, привычки «мягко убрать → попробовать вместо», ритм по 10 минут в день.
+- **122 ситуации** (40 тревожность · 36 СДВГ · 46 «оба») в 7 категориях. Фильтры, поиск, ленивая подгрузка. У каждой ситуации **своя анимированная SVG-сцена** с аватаром ребёнка; в спокойном режиме и при `prefers-reduced-motion` анимации выключаются.
+- **16 игр, у каждой 3 уровня** (легко / средне / сложно). Две звезды открывают следующий уровень. Новые игры: «Охота за буквами» (экранная клавиатура, латиница или кириллица по языку интерфейса; сложность растёт за счёт таймера, отвлекающих подсветок и последовательностей букв), «Обведи фигуру», «Пазл с героем», «От маленького к большому», «Барабан-эхо», «Эхо-сад» (Simon), «Найди такие же», «Найди отличия». На телефоне игры открываются на весь экран.
+- **Голос:** автоматически выбирается самый естественный голос устройства; можно выбрать голос для каждого языка. Медленнее по умолчанию, регулируются скорость и высота, текст читается по предложениям с паузами. Есть **подключение нейроголоса** (OpenAI-совместимый API): ключ вводится в настройках и хранится только в браузере. Если нейроголос недоступен, читает голос браузера.
+- **Несколько детей:** переключатель в шапке. Бесплатно — 1 ребёнок, месячный тариф — 2, годовой — до 3.
+- **Дневник родителя** (настроение 1–5, комментарий, дата и время, правка и удаление, лента записей).
+- **Дневник дня:** сон (отбой, подъём, часы считаются сами, пробуждения, качество), еда (завтрак, обед, ужин, перекусы, аппетит, сладкое, новая еда), лекарства (необязательно), активность, экраны, улица, живот и самочувствие, школа или сад, события. Ввод в одно касание: чипы и ползунки.
+- **Журнал триггеров:** справился / частично / не справился, интенсивность, реакции, что помогло, комментарий. На их основе приложение подсказывает следующий шаг: уменьшить, повторить или идти дальше.
+- **Наклейки настроения** по времени суток, вид за день и за неделю.
+- **Вкладка для специалиста:** графики (сон и настроение, точечная диаграмма с линией тренда и корреляцией, исходы триггеров, экраны и настроение), таблицы корреляций, триггеров и дневника дня. Фильтры по датам, **отчёт A4 для печати** на выбранном языке, экспорт и импорт JSON.
+- **Демо-ребёнок «Мира»** с данными за 2 недели. Он помечен как демо и не мешает первому запуску; удалить его можно в настройках.
+- **Тёмная тема** на глубоком ночном синем (#141c2e–#1b2540), приглушённые акценты (пыльная глина, мягкий шалфей, овсяный текст), без неона. Светлая тема — прежняя, приглушённая.
+- **Мобильная версия** — обычный адаптивный сайт (не PWA): нижняя панель вкладок, диалоги снизу, игры на весь экран.
+
+### Этика
+
+Это **не терапия и не медицинское изделие**: приложение не ставит диагнозов и ничего не обещает. Оно **не связано** с университетскими программами, а лишь вдохновлено исследованиями подхода через родителя. При «красных флажках» (панические атаки, недели отказа от школы, самоповреждение, мысли о смерти) план **не строится**: показываем «обратитесь к специалисту» и номера **988 / 911** (США), **112 / 150** (Казахстан). Шаги мягкие, ребёнка не заставляют. **Имя ребёнка никогда не отправляется в ИИ.**
+
+### Сборка одного файла
 
 ```bash
-# Option 1: just open the file
-open index.html            # macOS
-xdg-open index.html        # Linux
-start index.html           # Windows
-
-# Option 2: any static server
-npx serve .                # or: python3 -m http.server 8080
+python3 build-single.py   # создаёт balapan-single.html
 ```
-
-Everything works from `file://`. Data is embedded in JS files (no `fetch` of local JSON), and the scripts are classic scripts rather than ES modules, so there are no CORS issues.
-
-## Deploy
-
-- **Netlify:** drag the folder onto app.netlify.com/drop, or connect the repo. `netlify.toml` is included (publish dir `.`, no build command).
-- **GitHub Pages:** Settings → Pages → Deploy from branch → `main` / root.
-- **Vercel:** `vercel` → Framework preset "Other", no build command, output dir `.`.
-
-Routing is hash-based (`#/library`, `#/game/trail`, …), so no rewrite rules are needed anywhere.
-
-## Project structure
-
-```
-balapan-focus-calm/
-├── index.html              # app shell, header, footer, script includes
-├── css/
-│   ├── base.css            # tokens (palette, type), paper grain, motion + calm mode
-│   ├── components.css      # header, buttons, chips, avatar animation, toast
-│   ├── screens.css         # every screen + responsive rules
-│   ├── games.css           # game stages
-│   └── print.css           # printable doctor summary
-├── js/
-│   ├── data/
-│   │   ├── situations.js   # 32 situations (tag, why, phrases, 5 steps, minutes, warm-up game)
-│   │   └── content.js      # quiz, interests/buddies, story templates, habits, movement breaks
-│   ├── core/
-│   │   ├── store.js        # localStorage state (key "balapan.v1")
-│   │   ├── avatar.js       # layered SVG hero + chick mascot
-│   │   ├── engine.js       # template engine + LLM stub  ← plug a model in here
-│   │   ├── router.js       # hash router
-│   │   ├── ui.js, icons.js, sound.js
-│   ├── screens/            # landing, quiz, builder, plan, library, brave, quest, games, dashboard, pricing, safety
-│   ├── games/              # trail, lace, dots, jars, backpack, balloon, bubbles, memory
-│   └── app.js              # boot + Calm/Sound toggles
-├── assets/favicon.svg
-├── docs/screenshots/
-├── netlify.toml · LICENSE · .gitignore
-```
-
-## Where to plug in the LLM
-
-Plans are generated offline by a template engine (`js/core/engine.js → buildPlan()`). It fills in the child's name, pronouns, interest-based buddy and world, the situation event and the ladder steps.
-
-`BF.engine.generateWithLLM(situation, child)` is a **clearly marked stub**. To use a real model:
-
-1. Create a serverless function (for example `netlify/functions/story.js`) that holds your API key **server-side**. Never ship keys to the browser.
-2. Set `BF.config.llmEndpoint = "/.netlify/functions/story"` (in `engine.js` or a small config script).
-3. Return JSON `{ story: [7 strings], phrases: [3 strings] }`. The stub merges it into the plan, and the templates stay as the automatic fallback if the call fails.
-
-The prompt skeleton (system rules: warm, non-clinical, child-as-hero, no medical claims) is already in the stub.
-
-## Payments
-
-`js/screens/pricing.js` has `BF.config.stripeMonthly` / `stripeYearly` placeholders. Swap in real **Stripe Payment Links** (test mode first). In the prototype, checkout is simulated and only unlocks unlimited plans on the current device.
-
-## Ethics & disclaimer
-
-- Balapan is a **parenting support tool, not therapy, and not a medical device**. It does not diagnose or treat any condition and makes no medical claims.
-- Red flags (self-harm talk, weeks of not sleeping or eating, daily panic, school refusal, danger to self or others) lead to "talk to your pediatrician or a child mental-health professional", plus **988** (call/text, US), **911**, and Crisis Text Line (text HOME to 741741).
-- Privacy: no accounts and no server. Everything is in `localStorage`, and "Reset demo data" in the footer wipes it.
-- The UI shows no statistics. We didn't want to put unverified numbers in front of parents.
-
-## Roadmap
-
-- [ ] Real LLM story generation via a serverless function (with safety filters)
-- [ ] Optional account + sync between parents' phones
-- [ ] Spanish UI
-- [ ] Printable / AR "brave cards" for the fridge
-- [ ] Therapist share link (read-only progress view)
-- [ ] A/B-tested onboarding funnel (quiz → plan → trial)
-- [ ] More situations co-written with child psychologists
-
-## Team
-
-- _Name_ — role
-- _Name_ — role
 
 ---
-
-## Кратко по-русски
-
-**Balapan Focus & Calm** — веб-сервис для родителей детей 5–10 лет с тревожностью, СДВГ или **сразу обоими** (это отдельный фильтр «Both»). Родитель проходит квиз из 7 шагов и собирает персонажа, похожего на ребёнка: цвет кожи, волосы, глаза, одежда, обувь, телосложение. После этого он получает:
-
-- **библиотеку из 32 ситуаций** (12 тревожность, 10 СДВГ, 10 «оба»): почему это трудно, что сказать ребёнку и лестницу из 5 шагов;
-- **Brave Plan**: сказку, где ребёнок — главный герой, с чтением вслух и лестницей смелых шагов со звёздами;
-- **Routine Quest**: по одной карточке, большой визуальный таймер, кнопку «Done» и минуту движения;
-- **8 мини-игр**, из них 4 на мелкую моторику: дорожка пальцем, шнуровка, точки по номерам, пуговицы по баночкам;
-- **кабинет родителя**: серия дней, вечерний чек-ин («слишком трудно» делит шаг на мини-шаг) и печатную сводку для врача.
-
-Цвета приглушённые, есть «Calm mode», звук по умолчанию выключен. Регистрация не нужна, все данные хранятся в браузере. Запуск: открыть `index.html`. Это не терапия и не медицинский сервис.
 
 ## License
 

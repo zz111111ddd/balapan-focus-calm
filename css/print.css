@@ -1,15 +1,40 @@
-/* Printable summary for the doctor (window.print from dashboard) */
-@page{margin:16mm}
-body{background:#fff !important; color:#222; font-size:11pt}
+/* Printable A4 report for a specialist (BF.printReport → #printArea → window.print) */
+@page{size:A4; margin:14mm 13mm}
+html,html.dark{--ink:#222; --ink-soft:#555; --ink-faint:#888; --line:#ccc; --paper:#fff; --oat:#fff; --sand-deep:#999}
+body{background:#fff !important; color:#222 !important; font-size:10pt; padding:0 !important}
 body::before,body::after{display:none !important}
-.topbar,.foot,#app,.toast,.skip{display:none !important}
+.topbar,.foot,#app,.toast,.skip,.tabbar,.sheet{display:none !important}
 .print-only{display:block !important}
-.pr h1{font-size:20pt; margin-bottom:4pt}
-.pr-sub{color:#555; font-size:10pt}
-.pr table{border-collapse:collapse; width:100%; margin:10pt 0}
-.pr th,.pr td{border:1px solid #bbb; padding:5pt 8pt; text-align:left; vertical-align:top}
-.pr th{width:32%; background:#f3efe8}
-.pr h2{font-size:14pt; margin-top:14pt}
-.pr h3{font-size:12pt; margin:8pt 0 4pt}
-.pr-lines{height:110pt; background:repeating-linear-gradient(#fff 0 26pt, #bbb 26pt 27pt)}
-.pr-foot{margin-top:16pt; font-size:9pt; color:#666}
+.pr{font-family:var(--f-body); color:#222}
+.pr h1{font-size:17pt; margin:0 0 3pt}
+.pr h2{font-size:13pt; margin:12pt 0 4pt}
+.pr h3{font-size:11.5pt; margin:11pt 0 4pt; page-break-after:avoid}
+.pr-head{display:flex; justify-content:space-between; gap:12pt; border-bottom:2px solid #C98E70; padding-bottom:6pt; margin-bottom:8pt}
+.pr-sub{color:#555; font-size:9pt; margin:0}
+.pr table{border-collapse:collapse; width:100%; margin:6pt 0}
+.pr th,.pr td{border:1px solid #bbb; padding:3pt 6pt; text-align:left; vertical-align:top; font-size:9pt}
+.pr th{background:#f3efe8}
+.pr-meta th{width:28%}
+.pr .ctable th{font-size:8pt; text-transform:none; letter-spacing:0; color:#333}
+.pr-two{display:grid; grid-template-columns:1fr 1fr; gap:10pt}
+.pr-charts .chart,.pr-two .chart{max-height:62mm}
+.chart{width:100%; height:auto; color:#555}
+.ch-grid line{stroke:#ddd}
+.ch-lbl{fill:#444; font-size:9px}
+.ch-ax{stroke:#999}
+.ch-legend{display:flex; flex-wrap:wrap; gap:8pt; font-size:8pt; color:#444}
+.ch-legend i{display:inline-block; width:9pt; height:9pt; border-radius:2pt; margin-right:3pt; -webkit-print-color-adjust:exact; print-color-adjust:exact}
+.chart *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+.stats-row{display:grid; grid-template-columns:repeat(4,1fr); gap:6pt; margin:6pt 0}
+.stat{border:1px solid #ccc; border-radius:6pt; padding:5pt 7pt; box-shadow:none}
+.stat b{display:block; font-size:14pt}
+.stat small{color:#555; font-size:8pt}
+.mp-table{display:grid; gap:3pt}
+.mpt-row{display:flex; gap:6pt; align-items:center; font-size:9pt}
+.diary-ex{border-left:2px solid #ccc; padding-left:6pt; margin:0 0 5pt; font-size:9pt}
+.pr-plan{page-break-inside:avoid; font-size:9pt}
+.pr-plan ol{margin:2pt 0 4pt 14pt; padding:0}
+.chart-card,.pr-two > div,.pr table{page-break-inside:avoid}
+.demo-tag{border:1px solid #999; background:#fff !important}
+.pr-lines{height:90pt; background:repeating-linear-gradient(#fff 0 22pt, #bbb 22pt 23pt)}
+.pr-foot{margin-top:12pt; font-size:8pt; color:#666}

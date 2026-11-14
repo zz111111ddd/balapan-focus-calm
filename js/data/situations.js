@@ -1,156 +1,142 @@
 /* ==========================================================
-   Situation library — 32 everyday moments that can be hard
-   for a child with anxiety, ADHD, or BOTH at the same time.
-   tag:   "anxiety" | "adhd" | "both"
-   cat:   school | home | health | out | social | travel
-   event: phrase used inside the generated story
-   why:   short, non-clinical explanation for the parent
-   phrases: "acceptance + confidence" lines the parent can say
-   steps: a 5-rung brave ladder (anxiety) or routine steps (adhd);
-          "both" uses steps as a ladder done one timed step at a time
-   mins:  suggested minutes per step for the Routine Quest timer
-   game:  warm-up mini-game id
-   Content is written as practical parenting ideas, not medical advice.
+   Situation library (bilingual). 120+ everyday moments that
+   can be hard for a child with anxiety, ADHD, or BOTH.
+   S(id, tag, cat, game, scene, mins, EN, RU)
+     EN/RU = "title|event (infinitive)|why|step1;step2;step3;step4;step5"
+   tag:  anxiety | adhd | both
+   cat:  school | home | health | out | social | travel | feelings
+   scene: recipe for BF.scene (background|props|pose|fx|time)
+   Practical parenting ideas, not medical advice.
    ========================================================== */
 var BF = window.BF = window.BF || {};
-BF.SITUATIONS = [
-  /* ---------------- ANXIETY ---------------- */
-  { id:"dropoff", title:"School drop-off goodbye", tag:"anxiety", cat:"school", event:"say goodbye at the school gate",
-    why:"Separation can feel like danger to a worried brain. Long goodbyes and promises like “nothing bad will happen” usually make the worry louder, not quieter.",
-    phrases:["It makes sense you feel wobbly when we say goodbye. I'll be right here at 3 o'clock.","Your body is saying ‘new and scary’. You can feel scared and still walk in.","Hug, high-five, wave — then you go. I know you can do it."],
-    steps:["Practice the hug–high-five–wave goodbye at home","Walk to the gate together and wave from the car","Walk the last 20 steps on your own while I watch","Short goodbye at the gate, keep the routine the same","Short goodbye three days in a row"], mins:[3,5,3,2,2], game:"balloon" },
-  { id:"sleepover", title:"First sleepover", tag:"anxiety", cat:"social", event:"sleep over at a friend's house",
-    why:"Being away from home at night removes every familiar comfort at once. A step-by-step approach lets the child build trust in their own coping.",
-    phrases:["It's okay to miss home. Missing home means you love it.","You've been brave at new things before. You can handle this too.","If the worry shows up, you know your balloon breath."],
-    steps:["Talk about the sleepover and pack a comfort item","Visit the friend's home in daylight","Stay for dinner, then come home","Late-over: stay until pajamas and a story","Full sleepover, with a phone call at bedtime if needed"], mins:[5,10,10,10,10], game:"balloon" },
-  { id:"dentist", title:"Dentist visit", tag:"anxiety", cat:"health", event:"go to the dentist",
-    why:"Bright lights, strange sounds and someone close to their face — a lot of unknowns at once. Knowing exactly what will happen shrinks the fear.",
-    phrases:["Lots of kids feel nervous at the dentist. It's a normal feeling.","You can raise your hand if you need a little break.","I'm proud of you for trying, whatever happens."],
-    steps:["Play dentist at home with a mirror and toothbrush","Look at photos of the dentist office together","Sit in the waiting room for five minutes","Sit in the big chair and count your teeth with the dentist","Full check-up with a hand-raise signal for breaks"], mins:[5,5,5,5,15], game:"bubbles" },
-  { id:"haircut", title:"Haircut", tag:"anxiety", cat:"health", event:"get a haircut",
-    why:"Buzzing clippers, itchy hair and a cape that holds you still can feel like too much. Practice makes the sensations predictable.",
-    phrases:["The clippers are loud. Loud doesn't mean dangerous.","You can hold my hand or squeeze the stress ball.","You did a brave thing even if it felt uncomfortable."],
-    steps:["Touch and hear an electric toothbrush near your ear","Wear a towel like a cape for two minutes at home","Visit the salon and watch someone else","Trim just the front with scissors","Full haircut with breaks if needed"], mins:[2,2,5,5,15], game:"trail" },
-  { id:"shot", title:"Doctor shot", tag:"anxiety", cat:"health", event:"get a shot at the doctor",
-    why:"The waiting is often worse than the pinch. Honest, calm information beats surprises or “it won't hurt”.",
-    phrases:["It will pinch for a few seconds, and then it's done.","You don't have to like it. You only have to get through it — and you can.","Look at me and breathe out slowly while it happens."],
-    steps:["Talk about why shots keep us healthy","Practice slow balloon breathing for 1 minute","Role-play a shot with a teddy bear","Choose a distraction: song, counting, squeezing","Get the shot and pick the reward afterwards"], mins:[3,1,5,2,5], game:"balloon" },
-  { id:"storm", title:"Thunderstorms", tag:"anxiety", cat:"home", event:"stay calm during a thunderstorm",
-    why:"Thunder is sudden and loud. Hiding every time teaches the brain that storms are dangerous; small exposure teaches that they pass.",
-    phrases:["Thunder is just the sky making a big noise. We are safe inside.","You can feel scared and still stay in the room with me.","Let's count the seconds between the flash and the boom."],
-    steps:["Listen to soft thunder sounds for 30 seconds","Read a storm picture book together","Watch rain from the window together","During a storm: stay in the living room for 5 minutes","During a storm: play a game until it passes"], mins:[1,5,5,5,10], game:"bubbles" },
-  { id:"dark", title:"Dark bedroom", tag:"anxiety", cat:"home", event:"sleep in a darker room",
-    why:"Darkness lets the imagination fill the gaps. Gradually dimming the light builds confidence without forcing it.",
-    phrases:["Your imagination is strong — that's a superpower, even at night.","The room is the same room, just with the lights resting.","I'll check on you in five minutes. You can do the waiting part."],
-    steps:["Flashlight tour of the room with the lights off","Sleep with the hall light on and door open","Sleep with a small night light only","Parent checks in after 5, then 10 minutes","Fall asleep with the night light and no check-ins"], mins:[5,5,5,5,5], game:"dots" },
-  { id:"firedrill", title:"Fire drill at school", tag:"anxiety", cat:"school", event:"walk outside calmly during a fire drill",
-    why:"The alarm is designed to be startling. Knowing that drills are practice, and what to do, gives back a sense of control.",
-    phrases:["The alarm is loud on purpose, so everyone can hear it.","Drills are practice. Your job is to walk and follow your teacher.","You can cover your ears while you walk — that's okay."],
-    steps:["Talk through what happens in a fire drill","Listen to a short alarm sound at low volume","Practice ‘line up and walk out’ at home","Ask the teacher to tell you before the next drill","Do a drill with ear muffs if needed"], mins:[3,1,3,2,5], game:"bubbles" },
-  { id:"lost", title:"Fear of getting lost", tag:"anxiety", cat:"out", event:"walk a few steps away from a parent in a store",
-    why:"Some kids cling hard in public because the ‘what if I lose you’ thought is so loud. A safety plan makes it smaller.",
-    phrases:["You're a smart planner. Let's make a plan, just in case.","If we get separated, you stand still and ask a worker. I will find you.","You can be a little nervous and still go to the next aisle."],
-    steps:["Learn the safety plan: stand still, find a worker","Learn your parent's phone number by heart","In a store, walk to the end of the aisle while I watch","Pick something from the next aisle and come back","Go two aisles away for 1 minute and come back"], mins:[3,5,2,3,2], game:"memory" },
-  { id:"dryer", title:"Public bathroom hand dryer", tag:"anxiety", cat:"out", event:"use a public bathroom with a loud hand dryer",
-    why:"The sudden roar of a dryer can feel like an attack on the ears. Many children start avoiding public bathrooms altogether.",
-    phrases:["The dryer is loud but it can't hurt you.","You can use paper towels — and you can still be brave in there.","Let's try covering your ears and counting to five."],
-    steps:["Watch a video of a hand dryer with the sound low","Go into a public bathroom when no dryer is running","Stay in while someone else uses the dryer","Turn on the dryer yourself with ears covered","Use the dryer for five seconds"], mins:[2,2,2,1,1], game:"bubbles" },
-  { id:"swim", title:"Swimming lesson", tag:"anxiety", cat:"out", event:"go to a swimming lesson",
-    why:"Water on the face, a new coach and noisy echoing pools — three new things at once. Breaking it down makes it doable.",
-    phrases:["Water on your face feels strange at first. It gets easier each time.","You decide when to put your face in — and I know you'll get there.","Brave is trying, not being perfect."],
-    steps:["Splash water on your face in the bath","Visit the pool and just sit on the edge","Stand in the shallow end with the coach","Blow bubbles in the water","Join the lesson for the first 10 minutes"], mins:[2,10,5,2,10], game:"balloon" },
-  { id:"showtell", title:"Speaking in class", tag:"anxiety", cat:"school", event:"share a show-and-tell in class",
-    why:"Being looked at by many faces can trigger a freeze. Practicing in small, safe steps teaches the body that speaking is survivable.",
-    phrases:["Butterflies in your tummy mean it matters to you.","You don't have to be perfect. Your class wants to hear about it.","Let's practice — practice makes the words feel easier."],
-    steps:["Tell your show-and-tell to a stuffed animal","Tell it to the family at dinner","Record a short video and watch it together","Tell it to one friend or the teacher alone","Share it with the class"], mins:[3,3,5,3,3], game:"balloon" },
-
-  /* ---------------- ADHD / FOCUS ---------------- */
-  { id:"morning", title:"Morning routine, out the door", tag:"adhd", cat:"home", event:"get ready for school on time",
-    why:"Mornings ask for many steps in a row, with a clock ticking. A brain that loves new ideas loses the thread easily — one visible step at a time helps.",
-    phrases:["One step at a time. What's the next card?","I see you already did shoes — that's real progress.","You're in charge of the timer. Let's beat it together."],
-    steps:["Get dressed (clothes laid out the night before)","Eat breakfast","Brush teeth","Shoes and jacket on","Backpack check — then out the door"], mins:[5,10,2,3,2], game:"backpack" },
-  { id:"homework", title:"Starting homework", tag:"adhd", cat:"school", event:"start homework without a fight",
-    why:"The hardest part is starting. A tiny first step and a short timer lower the mountain.",
-    phrases:["Just the first problem. That's all for now.","It's okay that it feels boring. You can do boring things — for 10 minutes.","Look how fast you got started today!"],
-    steps:["Clear the table and get a pencil","Read the first question out loud","Do the first problem","Work for 10 minutes, then a movement break","Pack homework into the folder"], mins:[2,1,3,10,2], game:"trail" },
-  { id:"screens", title:"Ending screen time", tag:"adhd", cat:"home", event:"turn off the tablet when time is up",
-    why:"Screens are built to be hard to stop. Switching from something exciting to something ordinary is a big leap for a busy brain.",
-    phrases:["It's hard to stop something fun. I get it.","Two-minute warning — find a good place to pause.","You turned it off yourself. That's strong."],
-    steps:["Agree on screen time with a visual timer","Two-minute warning: find a pause point","Tablet goes to its ‘bed’ basket","Choose the next activity card","Start the next activity together"], mins:[1,2,1,1,3], game:"bubbles" },
-  { id:"dressed", title:"Getting dressed", tag:"adhd", cat:"home", event:"get dressed without getting distracted",
-    why:"Every sock is a chance to get lost in thought. Clothes in order and a short timer make it a game.",
-    phrases:["Socks first. I'll check back when the timer sings.","You're getting faster at this every day.","Oops, the toy jumped in! Let's park it on the shelf."],
-    steps:["Underwear and socks","Pants or skirt","Shirt","Sweater or hoodie","Look in the mirror — thumbs up!"], mins:[2,2,2,2,1], game:"lace" },
-  { id:"bedtime", title:"Bedtime routine", tag:"adhd", cat:"home", event:"follow the bedtime routine",
-    why:"When the body is tired but the brain is wide awake, a predictable, calm sequence is the bridge to sleep.",
-    phrases:["Your brain is still buzzing. Let's help it slow down.","Next card is pajamas. You've got it.","I like being with you at bedtime."],
-    steps:["Bath or wash up","Pajamas on","Brush teeth","Two books or one long story","Lights low and three balloon breaths"], mins:[10,3,2,10,2], game:"balloon" },
-  { id:"tidy", title:"Cleaning up toys", tag:"adhd", cat:"home", event:"tidy up the play room",
-    why:"‘Clean your room’ is too big. Sorting one kind of thing at a time turns chaos into small wins.",
-    phrases:["Just the blocks first. Then we'll see.","Look, the floor is coming back!","You're a sorting champion."],
-    steps:["Blocks into the block bin","Books onto the shelf","Soft toys into the basket","Art stuff into the drawer","Victory dance"], mins:[3,3,3,3,1], game:"jars" },
-  { id:"line", title:"Waiting in line", tag:"adhd", cat:"out", event:"wait in a long line",
-    why:"Waiting with nothing to do feels endless to a brain that needs movement. A ‘waiting toolkit’ gives the energy somewhere to go.",
-    phrases:["Waiting is hard work. You're doing it.","Let's play I-spy while we wait.","Squeeze your hands, then let go — that's your waiting trick."],
-    steps:["Practice waiting for 1 minute at home with a timer","Pick a waiting game: I-spy, counting, fidget","Wait in a short line at a store","Wait in a longer line with a game","Wait without reminders"], mins:[1,1,3,5,5], game:"bubbles" },
-  { id:"car", title:"Long car ride", tag:"adhd", cat:"travel", event:"go on a long car ride",
-    why:"Sitting still for hours goes against the grain. Planned stops and small missions make time visible.",
-    phrases:["We'll stop at the next big sign. Let's look for it.","I see you sitting calmly — thank you.","Car bingo time!"],
-    steps:["Pack a car kit: book, fidget, snack","Look at the map and the planned stops","First 30 minutes: car bingo","Stop and move for 5 minutes","Second part: audiobook or music"], mins:[5,3,30,5,30], game:"memory" },
-  { id:"losing", title:"Losing a game", tag:"adhd", cat:"social", event:"lose a board game and keep playing",
-    why:"Big feelings arrive fast and leave slowly. Practicing losing in low-stakes games builds the pause button.",
-    phrases:["Losing feels bad. It's okay to feel disappointed.","You can be upset and still say ‘good game’.","Let's take three breaths, then decide: rematch or new game?"],
-    steps:["Talk about a time you lost and it was okay","Play a short game where you might lose","Practice saying ‘good game’ out loud","Lose on purpose to a parent — and laugh","Play a real game and handle the ending"], mins:[3,10,1,5,15], game:"memory" },
-  { id:"switch", title:"Switching activities", tag:"adhd", cat:"home", event:"stop one thing and start the next",
-    why:"Shifting attention from one task to another takes extra effort. Warnings and a clear ‘next’ card make transitions smooth.",
-    phrases:["Five more minutes, then it's lunch.","I see it's hard to stop. Let's finish this part together.","What's the first tiny thing in the next activity?"],
-    steps:["Five-minute warning with a visual timer","Find a good stopping point","Put the first thing away","Look at the ‘next’ card","Start the first tiny step"], mins:[5,1,1,1,2], game:"trail" },
-
-  /* ---------------- BOTH (anxiety + ADHD together) ---------------- */
-  { id:"test", title:"Test day", tag:"both", cat:"school", event:"take a test at school",
-    why:"Worry eats up working memory, and a wandering mind loses its place. Together they can freeze a child who actually knows the material.",
-    phrases:["You studied. Your brain knows more than the worry says.","If you get stuck, skip it and come back — that's a smart move.","Breathe out longer than you breathe in, then read the next question."],
-    steps:["Practice a mini test at home with a 5-minute timer","Learn the ‘skip and come back’ trick","Pack the test kit the night before","Three balloon breaths before the test starts","Take the test one question at a time"], mins:[5,2,3,1,20], game:"trail" },
-  { id:"cafeteria", title:"Loud cafeteria", tag:"both", cat:"school", event:"eat lunch in the busy cafeteria",
-    why:"Noise and crowds overload the senses (hard for anxious kids) and scatter attention (hard for ADHD kids). Lunch becomes a struggle to eat at all.",
-    phrases:["It's very noisy in there. Your ears are working hard.","You can eat first and talk later.","You found a way to handle a loud place. That's a skill."],
-    steps:["Practice eating with background noise at home","Pick a quiet seat at the end of the table","Eat the first three bites before talking","Use ear muffs or a calm break if needed","Eat lunch with a friend"], mins:[10,2,3,2,15], game:"bubbles" },
-  { id:"party", title:"Birthday party noise", tag:"both", cat:"social", event:"go to a busy birthday party",
-    why:"Parties mix noise, surprises and waiting for cake. A worried child may cling, an impulsive child may melt down — and one child can do both.",
-    phrases:["Parties are exciting and a bit much. Both are true.","You can take a quiet break with me and then go back.","You stayed and had fun for a while — that counts."],
-    steps:["Look at photos of the party place","Plan a quiet-break signal with your parent","Arrive early when it's calmer","Join one game","Stay for cake and say goodbye"], mins:[3,2,10,10,15], game:"balloon" },
-  { id:"newteacher", title:"New or substitute teacher", tag:"both", cat:"school", event:"meet a new teacher",
-    why:"Unknown rules feel unsafe for anxious kids, and missing routines confuse ADHD kids. A substitute day can be the hardest day of the week.",
-    phrases:["New teachers can feel strange. The class rules are still the same.","You can ask the teacher to repeat — that's allowed.","You handled a surprise today!"],
-    steps:["Talk about what stays the same on a sub day","Practice asking ‘Can you say that again?’","Write the class rules on a small card","Say hello to the new teacher","Get through the day with the card"], mins:[3,2,5,1,5], game:"memory" },
-  { id:"store", title:"Crowded store", tag:"both", cat:"out", event:"shop in a crowded store",
-    why:"Bright lights, crowds and endless shelves overload a sensitive brain and tempt a busy one. A job and a time limit help a lot.",
-    phrases:["It's busy in here. Stay next to the cart, that's your spot.","Your job is to find the apples. Can you see them?","You helped me so much today."],
-    steps:["Make a picture shopping list together","Go at a quiet time for 10 minutes","Be the ‘list checker’ who ticks items","Find three items on your own","Help with the full shop"], mins:[5,10,10,5,30], game:"backpack" },
-  { id:"airport", title:"Airport and travel", tag:"both", cat:"travel", event:"travel through an airport",
-    why:"Security lines, loud announcements and long waits add up: fear of the unknown plus nowhere to move.",
-    phrases:["Airports are busy. We'll go one step at a time.","The security line is boring and safe.","You're a real traveler now!"],
-    steps:["Watch a video about going through an airport","Pack your own travel backpack","Practice the security steps at home","Wait at the gate with your activity kit","Board the plane and find your seat"], mins:[5,10,5,20,10], game:"backpack" },
-  { id:"tryout", title:"Sports team tryout", tag:"both", cat:"social", event:"try out for a sports team",
-    why:"Fear of failing in front of others meets trouble following quick instructions. Practicing the drills ahead takes both edges off.",
-    phrases:["You don't have to be the best. You have to show up.","If you miss the instruction, watch the coach and copy.","I'm proud of you for trying out."],
-    steps:["Practice the main drill in the yard","Watch a practice from the side","Ask the coach one question","Do the warm-up with the team","Join the full tryout"], mins:[10,15,2,10,45], game:"trail" },
-  { id:"sibling", title:"New sibling arrives", tag:"both", cat:"home", event:"welcome a new baby sibling",
-    why:"Big change at home, less attention, and a loud new baby. Worry and restlessness can both spike — and that's normal.",
-    phrases:["It's okay to feel jealous sometimes. I love you just as much.","You have an important big-kid job.","Let's have our special 10 minutes, just us."],
-    steps:["Read a book about new siblings","Choose a big-kid helper job","Hold the baby with help","Daily 10 minutes of one-on-one time","Show the baby your favorite toy"], mins:[5,2,3,10,3], game:"memory" },
-  { id:"restaurant", title:"Eating at a restaurant", tag:"both", cat:"out", event:"eat dinner at a restaurant",
-    why:"Waiting for food, noise, and sitting still in public — a lot to ask from a nervous and busy child.",
-    phrases:["Restaurants are noisy and slow. You're doing great at waiting.","Let's play a quick table game while the food comes.","You can stand up and walk with me if you need a break."],
-    steps:["Look at the menu online and choose your food","Go at an early, quiet time","Play a table game while waiting","Take a short walk break with a parent","Finish the meal and say thank you"], mins:[5,5,10,3,15], game:"dots" },
-  { id:"newplace", title:"First day at a new school or camp", tag:"both", cat:"school", event:"start a new school",
-    why:"Everything is new at once — people, rules, rooms. The anxious part worries, the ADHD part forgets where things are. A walk-through helps both.",
-    phrases:["New places feel big at first. Every day they get smaller.","You don't need to remember everything. Just the next thing.","You did the hardest day — the first one."],
-    steps:["Look at the school website and photos","Visit the building before the first day","Make a ‘where things are’ map","Practice the morning route","First day — with a pocket card of your plan"], mins:[5,15,5,10,5], game:"dots" }
-];
-BF.TAGS = {
-  anxiety:{label:"Anxiety", short:"Anx", note:"Worry, fear, avoidance"},
-  adhd:{label:"ADHD / Focus", short:"Focus", note:"Starting, switching, waiting"},
-  both:{label:"Both at once", short:"Both", note:"Anxiety + ADHD together"}
+BF.SITUATIONS = [];
+BF.S = function(id, tag, cat, game, scene, mins, en, ru){
+  function split(s){ var a = s.split("|"); return { title:a[0], event:a[1], why:a[2], steps:(a[3]||"").split(";").map(function(x){ return x.trim(); }) }; }
+  var E = split(en), R = split(ru);
+  BF.SITUATIONS.push({ id:id, tag:tag, cat:cat, game:game, scene:scene, mins:mins,
+    title:{en:E.title, ru:R.title}, event:{en:E.event, ru:R.event}, why:{en:E.why, ru:R.why},
+    steps:E.steps.map(function(t,i){ return {en:t, ru:R.steps[i]||t}; }) });
 };
-BF.CATS = { school:"School", home:"Home", health:"Doctor & care", out:"Out & about", social:"Friends & play", travel:"Travel" };
+(function(S){
+/* ---------------- ANXIETY ---------------- */
+S("dropoff","anxiety","school","balloon","gate|backpack,adult,bell|wave|none|d",[3,5,3,2,2],
+ "School drop-off goodbye|say goodbye at the school gate|Separation can feel like danger to a worried brain. Long goodbyes and promises like “nothing bad will happen” usually make the worry louder.|Practice the hug–high-five–wave goodbye at home;Walk to the gate together and wave from the car;Walk the last 20 steps on your own while I watch;Short goodbye at the gate, same routine every day;Short goodbye three days in a row",
+ "Прощание у школы|попрощаться у школьных ворот|Для тревожного ребёнка расставание ощущается как опасность. Долгие прощания и обещания «ничего плохого не случится» обычно только усиливают тревогу.|Отрепетировать дома прощание «обнялись — дали пять — помахали»;Дойти до ворот вместе и помахать из машины;Последние 20 шагов пройти самому, пока я смотрю;Короткое прощание у ворот, каждый день одинаково;Короткое прощание три дня подряд");
+S("sleepover","anxiety","social","balloon","bedroom|teddy,suitcase,friend|shy|stars|n",[5,10,10,10,10],
+ "First sleepover|sleep over at a friend's house|Being away from home at night removes every familiar comfort at once. Small steps let the child build trust in their own coping.|Talk about the sleepover and pack a comfort item;Visit the friend's home in daylight;Stay for dinner, then come home;Stay until pajamas and a story;Full sleepover, with a bedtime phone call if needed",
+ "Первая ночёвка у друга|переночевать у друга|Ночь вне дома забирает все привычные опоры сразу. Маленькие шаги помогают ребёнку поверить в свои силы.|Поговорить о ночёвке и положить в сумку любимую игрушку;Сходить к другу в гости днём;Остаться на ужин и вернуться домой;Остаться до пижамы и сказки;Полная ночёвка, при необходимости — звонок перед сном");
+S("dentist","anxiety","health","bubbles","dentist|chair,tooth,doctor|shy|sparkle|d",[5,5,5,5,15],
+ "Dentist visit|go to the dentist|Bright lights, strange sounds and someone close to your face — lots of unknowns at once. Knowing exactly what will happen shrinks the fear.|Play dentist at home with a mirror and toothbrush;Look at photos of the dentist office together;Sit in the waiting room for five minutes;Sit in the big chair and count teeth with the dentist;Full check-up with a hand-raise signal for breaks",
+ "Визит к стоматологу|сходить к стоматологу|Яркая лампа, странные звуки, чужой человек близко к лицу — много неизвестного сразу. Когда ребёнок точно знает, что будет, страх уменьшается.|Поиграть дома в стоматолога с зеркальцем и щёткой;Посмотреть вместе фото кабинета;Посидеть пять минут в зоне ожидания;Сесть в большое кресло и посчитать зубы с врачом;Полный осмотр с сигналом «подними руку — пауза»");
+S("haircut","anxiety","health","trail","salon|mirror,scissors,adult|shy|none|d",[2,2,5,5,15],
+ "Haircut|get a haircut|Buzzing clippers, itchy hair and a cape that holds you still can feel like too much. Practice makes the sensations predictable.|Hear an electric toothbrush buzz near your ear;Wear a towel like a cape for two minutes at home;Visit the salon and watch someone else;Trim just the front with scissors;Full haircut with breaks if needed",
+ "Стрижка|подстричься|Жужжащая машинка, колючие волосы и накидка, в которой нельзя шевелиться, — это может быть слишком. Тренировка делает ощущения предсказуемыми.|Послушать жужжание электрической щётки возле уха;Посидеть дома две минуты в полотенце-накидке;Сходить в парикмахерскую и посмотреть, как стригут другого;Подровнять только чёлку ножницами;Полная стрижка с перерывами, если нужно");
+S("shot","anxiety","health","balloon","clinic|syringe,doctor,teddy|shy|none|d",[3,1,5,2,5],
+ "Doctor shot|get a shot at the doctor|The waiting is often worse than the pinch. Honest, calm information beats surprises or “it won't hurt”.|Talk about why shots keep us healthy;Practice slow balloon breathing for 1 minute;Role-play a shot with a teddy bear;Choose a distraction: song, counting, squeezing;Get the shot and pick the reward afterwards",
+ "Укол у врача|сделать прививку|Ожидание часто страшнее самого укола. Честное спокойное объяснение лучше сюрпризов и фразы «будет не больно».|Поговорить, зачем нужны прививки;Минуту потренировать медленное дыхание-шарик;Сделать «укол» плюшевому мишке;Выбрать отвлечение: песенка, счёт, сжать мячик;Сделать укол и выбрать награду после");
+S("storm","anxiety","home","bubbles","living|lightning,teddy,nightlight|shy|rain|e",[1,5,5,5,10],
+ "Thunderstorms|stay calm during a thunderstorm|Thunder is sudden and loud. Hiding every time teaches the brain storms are dangerous — small exposure teaches that they pass.|Listen to soft thunder sounds for 30 seconds;Read a storm picture book together;Watch rain from the window together;During a storm, stay in the living room for 5 minutes;During a storm, play a game until it passes",
+ "Гроза|оставаться спокойным во время грозы|Гром внезапный и громкий. Если каждый раз прятаться, мозг решает, что гроза опасна. Маленькие шаги показывают, что она проходит.|30 секунд послушать тихие звуки грома;Почитать вместе книжку про грозу;Посмотреть вместе на дождь из окна;Во время грозы 5 минут побыть в гостиной;Во время грозы играть в игру, пока она не закончится");
+S("dark","anxiety","home","dots","bedroom|nightlight,door,teddy|idle|stars|n",[5,5,5,5,5],
+ "Dark bedroom|sleep in a darker room|Darkness lets the imagination fill the gaps. Gradually dimming the light builds confidence without forcing it.|Flashlight tour of the room with the lights off;Sleep with the hall light on and door open;Sleep with a small night light only;Parent checks in after 5, then 10 minutes;Fall asleep with the night light and no check-ins",
+ "Тёмная комната|спать в более тёмной комнате|В темноте воображение дорисовывает страшное. Постепенно приглушая свет, мы строим уверенность без давления.|Экскурсия по комнате с фонариком при выключенном свете;Спать с открытой дверью и светом в коридоре;Спать только с маленьким ночником;Родитель заглядывает через 5, потом через 10 минут;Засыпать с ночником без проверок");
+S("firedrill","anxiety","school","bubbles","classroom|bell,teacher,door|walk|noise|d",[3,1,3,2,5],
+ "Fire drill at school|walk outside calmly during a fire drill|The alarm is loud and sudden, and everyone moves at once. Knowing the steps turns chaos into a plan.|Talk through what happens in a fire drill;Listen to a short alarm sound at low volume;Practice “line up and walk out” at home;Ask the teacher to warn you before the next drill;Do a drill with ear muffs if needed",
+ "Учебная пожарная тревога|спокойно выйти на улицу во время учебной тревоги|Сирена громкая и внезапная, все двигаются одновременно. Знание шагов превращает хаос в план.|Обсудить, что происходит на учебной тревоге;Послушать короткий звук сирены на малой громкости;Дома потренировать «встать в линию и выйти»;Попросить учителя предупредить перед следующей тревогой;Пройти тревогу в наушниках, если нужно");
+S("lost","anxiety","out","memory","shop|cart,adult,crowd|walk|thought|d",[3,5,2,3,2],
+ "Fear of getting lost|walk a few steps away from a parent in a store|The fear of losing you can freeze a child in place. A clear safety plan gives them something to do instead of panic.|Learn the safety plan: stand still, find a worker;Learn your parent's phone number by heart;In a store, walk to the end of the aisle while I watch;Pick something from the next aisle and come back;Go two aisles away for 1 minute and come back",
+ "Страх потеряться|отойти на несколько шагов от родителя в магазине|Страх потерять маму или папу может сковать ребёнка. Понятный план безопасности даёт ему действие вместо паники.|Выучить план: стой на месте, найди продавца;Выучить наизусть телефон родителя;В магазине дойти до конца ряда, пока я смотрю;Взять что-то из соседнего ряда и вернуться;Отойти на два ряда на 1 минуту и вернуться");
+S("dryer","anxiety","out","bubbles","bathroom|mirror,toilet|shy|noise|d",[2,2,2,1,1],
+ "Loud hand dryer|use a public bathroom with a loud hand dryer|Sudden loud machines can feel like an attack on the ears. Control over the sound makes it smaller.|Watch a video of a hand dryer with the sound low;Go into a public bathroom when no dryer is running;Stay while someone else uses the dryer;Turn on the dryer yourself with ears covered;Use the dryer for five seconds",
+ "Громкая сушилка для рук|зайти в общественный туалет с громкой сушилкой|Внезапный громкий шум ощущается как атака на уши. Когда ребёнок сам управляет звуком, он становится меньше.|Посмотреть видео сушилки с тихим звуком;Зайти в туалет, когда сушилка не работает;Постоять, пока сушилкой пользуется кто-то другой;Включить сушилку самому, прикрыв уши;Посушить руки пять секунд");
+S("swim","anxiety","out","balloon","pool|swim,adult|shy|bubbles|d",[2,10,5,2,10],
+ "Swimming lesson|go to a swimming lesson|Water on the face, echoing noise and a new coach — lots to handle. Getting used to water in tiny doses helps.|Splash water on your face in the bath;Visit the pool and just sit on the edge;Stand in the shallow end with the coach;Blow bubbles in the water;Join the lesson for the first 10 minutes",
+ "Урок плавания|пойти на урок плавания|Вода на лице, гулкий шум и новый тренер — много всего сразу. Привыкание к воде маленькими дозами помогает.|Побрызгать водой на лицо в ванне;Сходить в бассейн и просто посидеть на бортике;Постоять на мелкой части с тренером;Подуть пузыри в воду;Побыть на уроке первые 10 минут");
+S("showtell","anxiety","school","balloon","classroom|podium,kids,star|wave|none|d",[3,3,5,3,3],
+ "Speaking in class|share a show-and-tell in class|Many eyes at once can make a worried child go silent. Practicing with smaller audiences first builds a ladder.|Tell your story to a stuffed animal;Tell it to the family at dinner;Record a short video and watch it together;Tell it to one friend or the teacher alone;Share it with the class",
+ "Выступление в классе|рассказать что-то перед классом|Много глаз сразу — и тревожный ребёнок замолкает. Тренировка перед маленькой аудиторией строит лесенку.|Рассказать плюшевой игрушке;Рассказать семье за ужином;Записать короткое видео и посмотреть вместе;Рассказать одному другу или учителю наедине;Рассказать всему классу");
+S("dog","anxiety","out","bubbles","park|dog,adult,tree|shy|none|d",[3,3,5,3,5],
+ "Fear of dogs|walk past a friendly dog|Dogs move fast and bark suddenly. Learning dog signals and keeping distance under the child's control builds courage.|Look at pictures of calm dogs and name their moods;Watch a dog in the park from far away;Stand 10 steps from a friendly dog on a leash;Ask the owner and pat a calm dog on the back;Walk past a dog without crossing the street",
+ "Страх собак|пройти мимо дружелюбной собаки|Собаки двигаются быстро и неожиданно лают. Когда ребёнок понимает собачьи сигналы и сам выбирает дистанцию, смелости становится больше.|Посмотреть фото спокойных собак и назвать их настроение;Понаблюдать за собакой в парке издалека;Постоять в 10 шагах от дружелюбной собаки на поводке;Спросить хозяина и погладить спокойную собаку по спине;Пройти мимо собаки, не переходя на другую сторону");
+S("bugs","anxiety","out","spot","garden|flower,leaves|shy|none|d",[3,3,3,3,5],
+ "Bees and bugs|play outside when bugs are around|A buzzing bee can make a child run or freeze. Facts and slow steps show that most bugs are busy, not dangerous.|Read a picture book about bees and ladybugs;Watch a bug in a jar with a lid on;Sit in the garden for 3 minutes;Stay still while a bee visits a flower nearby;Play outside for 15 minutes and stay calm when a bug flies by",
+ "Пчёлы и жуки|играть на улице, когда рядом насекомые|Жужжащая пчела может заставить ребёнка убежать или замереть. Факты и медленные шаги показывают: насекомые заняты своими делами.|Почитать книжку про пчёл и божьих коровок;Понаблюдать за жучком в закрытой банке;Посидеть в саду 3 минуты;Спокойно постоять, пока пчела летает у цветка рядом;Играть на улице 15 минут и не убегать, если пролетит жук");
+S("bloodtest","anxiety","health","balloon","clinic|doctor,pills,chair|shy|none|d",[3,2,3,2,5],
+ "Blood test|have a blood test|Needles and the sight of blood can be very scary. Honest steps and a job for the child (breathing, counting) give them control.|Talk about what a blood test is and why;Practice holding your arm still for 30 seconds;Look at a picture of the clinic room;Choose a helper: song, squeeze ball or my hand;Have the test, then a small treat",
+ "Анализ крови|сдать анализ крови|Иголки и кровь бывают очень страшными. Честные шаги и «задание» для ребёнка — дышать, считать — дают ощущение контроля.|Поговорить, что такое анализ крови и зачем;Потренироваться 30 секунд держать руку неподвижно;Посмотреть фото процедурного кабинета;Выбрать помощника: песенка, мячик или моя рука;Сдать анализ и получить маленькое угощение");
+S("vomit","anxiety","health","balloon","bathroom|toilet,pills|shy|thought|d",[2,3,3,3,5],
+ "Fear of throwing up|eat normally when worried about feeling sick|Worry about being sick can make children refuse food or trips. Avoidance makes the fear grow — gentle practice shrinks it.|Talk about how bodies sometimes feel sick and get better;Name the difference between worry tummy and sick tummy;Eat a small snack on the way somewhere;Go on a short car trip after a meal;Eat a full meal at a friend's house",
+ "Страх, что стошнит|нормально поесть, когда боишься, что станет плохо|Из-за страха тошноты дети отказываются от еды и поездок. Избегание усиливает страх, а мягкая практика — уменьшает.|Поговорить, что телу иногда бывает плохо, а потом проходит;Различать «тревожный животик» и «больной животик»;Съесть маленький перекус в дороге;Сделать короткую поездку после еды;Нормально поесть в гостях");
+S("nightmare","anxiety","home","balloon","bedroom|bed,worry,nightlight|idle|zzz|n",[3,3,3,3,5],
+ "After a nightmare|fall back asleep after a bad dream|A bad dream can make bedtime scary for days. Rewriting the dream and a calm plan help the child feel safe in their own bed.|Draw the bad dream and give it a funny ending;Make a “calm kit” by the bed;Practice the plan: breathe, cuddle teddy, light on;Parent comforts in the child's own bed, briefly;Fall back asleep alone using the plan",
+ "После страшного сна|снова заснуть после плохого сна|Один страшный сон может сделать отбой пугающим на несколько дней. Новый конец для сна и спокойный план помогают чувствовать себя в безопасности в своей кровати.|Нарисовать страшный сон и придумать смешной конец;Собрать у кровати «набор спокойствия»;Отрепетировать план: дыхание, обнять мишку, включить ночник;Родитель коротко утешает в кровати ребёнка;Самому снова заснуть по плану");
+S("monsters","anxiety","home","spot","bedroom|bed,teddy,worry|shy|stars|n",[3,3,3,3,3],
+ "Monsters under the bed|go to bed in their own room|The imagination is strong at night. Checking together once — not every night — teaches that the room is safe.|Draw a monster and make it silly;Do one flashlight check together;Make a “monster-free” sign for the door;Go to bed with just one check;Go to bed with no checks",
+ "Монстры под кроватью|лечь спать в своей комнате|Ночью воображение особенно сильное. Проверить вместе один раз — а не каждую ночь — значит показать, что комната безопасна.|Нарисовать монстра и сделать его смешным;Один раз вместе проверить комнату с фонариком;Сделать табличку «Монстрам вход запрещён»;Лечь спать после одной проверки;Лечь спать без проверок");
+S("alonestairs","anxiety","home","memory","hall|stairs,door|walk|none|e",[2,2,2,3,3],
+ "Going upstairs alone|go to another room alone|Being out of sight of a parent, even at home, can feel unsafe. Short trips with a timer build the habit of returning safely.|Call out to each other from two rooms;Go upstairs while I count to 10 out loud;Fetch something from upstairs and come back;Stay in your room alone for 3 minutes;Play in your room alone for 10 minutes",
+ "Подняться наверх одному|сходить в другую комнату одному|Даже дома быть вне поля зрения родителя может казаться небезопасным. Короткие вылазки с таймером учат, что можно уйти и спокойно вернуться.|Перекликаться друг с другом из разных комнат;Подняться наверх, пока я вслух считаю до 10;Принести что-то сверху и вернуться;Побыть в своей комнате одному 3 минуты;Поиграть одному в комнате 10 минут");
+S("babysitter","anxiety","home","memory","living|adult,door,teddy|wave|none|e",[3,5,5,10,30],
+ "New babysitter|stay home with a new babysitter|A new adult and a parent leaving at the same time is a double change. Meeting first, with you present, makes the goodbye easier.|Look at a photo of the babysitter and say their name;Babysitter visits while you are home;Play a game with the babysitter while you're in the next room;Parent goes out for 15 minutes;Parent goes out for the whole evening",
+ "Новая няня|остаться дома с новой няней|Новый взрослый и уход родителя одновременно — двойная перемена. Знакомство заранее, в вашем присутствии, облегчает прощание.|Посмотреть фото няни и выучить её имя;Няня приходит, пока родитель дома;Поиграть с няней, пока родитель в соседней комнате;Родитель уходит на 15 минут;Родитель уходит на весь вечер");
+S("elevator","anxiety","out","balloon","hall|elevator,adult|shy|none|d",[2,2,2,2,3],
+ "Riding an elevator|ride an elevator|A small closed space that moves can feel trapping. Watching and riding with control (pressing buttons) helps.|Watch elevators open and close for a minute;Step in and out while the doors stay open;Ride one floor holding my hand;Press the buttons yourself and ride two floors;Ride up and down three floors",
+ "Поездка в лифте|проехать в лифте|Маленькое закрытое пространство, которое движется, может пугать. Наблюдение и контроль — самому нажимать кнопки — помогают.|Минуту посмотреть, как лифт открывается и закрывается;Зайти и выйти, пока двери открыты;Проехать один этаж, держась за руку;Самому нажать кнопку и проехать два этажа;Проехать три этажа вверх и вниз");
+S("orderfood","anxiety","out","balloon","cafe|plate,adult|shy|steam|d",[3,3,2,2,3],
+ "Ordering food yourself|order food at a café|Talking to a stranger can make a worried child whisper or hide. Rehearsed words give them a script.|Play café at home and take turns ordering;Choose your food from the menu beforehand;Practice the sentence out loud three times;Order a drink yourself while I stand next to you;Order your whole meal yourself",
+ "Сделать заказ самому|заказать еду в кафе|Разговор с незнакомым взрослым может заставить тревожного ребёнка шептать или прятаться. Отрепетированные слова дают готовый сценарий.|Поиграть дома в кафе и по очереди делать заказ;Заранее выбрать блюдо в меню;Трижды вслух проговорить фразу;Заказать напиток самому, пока я рядом;Заказать всю еду самому");
+S("phonecall","anxiety","social","memory","living|phone,teddy|idle|none|d",[2,2,3,3,3],
+ "Talking on the phone|talk on the phone with a relative|No faces, unclear voices and pauses make phone calls tricky. Short scripted calls with familiar people build up.|Play telephone with toy phones;Say hello and goodbye to grandma on speaker;Answer one question on a call;Call a relative with three ready questions;Make a short call on your own",
+ "Разговор по телефону|поговорить по телефону с родственником|Нет лица, плохо слышно, паузы — телефонные звонки бывают трудными. Короткие звонки близким по сценарию помогают.|Поиграть в игрушечные телефоны;Поздороваться и попрощаться с бабушкой по громкой связи;Ответить на один вопрос по телефону;Позвонить родственнику с тремя готовыми вопросами;Самому сделать короткий звонок");
+S("newfood","anxiety","home","jars","kitchen|plate,broccoli|shy|none|d",[2,2,2,2,3],
+ "Trying a new food|taste a new food|New tastes and textures can feel risky. Tiny exposure steps without pressure work better than “just one bite”.|Look at and smell the new food;Touch it with a finger or fork;Lick it or kiss it;Take one tiny bite and spit it out if needed;Eat one bite and rate it with stars",
+ "Попробовать новую еду|попробовать новое блюдо|Новые вкусы и текстуры кажутся рискованными. Маленькие шаги без давления работают лучше, чем «ну хоть кусочек».|Посмотреть и понюхать новую еду;Потрогать её пальцем или вилкой;Лизнуть или «поцеловать»;Откусить чуть-чуть, можно выплюнуть;Съесть один кусочек и оценить звёздочками");
+S("mistakes","anxiety","school","dots","classroom|paper,pencil,worry|shy|none|d",[3,3,3,3,5],
+ "Fear of mistakes|try schoolwork without fear of mistakes|Perfectionism makes children erase holes in paper or refuse to start. Celebrating mistakes as learning loosens the grip.|Parent makes a silly mistake on purpose and laughs;Draw with a pen — no eraser allowed;Make one “brave mistake” in homework on purpose;Count mistakes as learning points this week;Hand in work without checking it three times",
+ "Страх ошибок|выполнять задания, не боясь ошибиться|Перфекционизм заставляет стирать до дыр или вообще не начинать. Когда ошибки — это часть учёбы, хватка ослабевает.|Родитель специально делает смешную ошибку и смеётся;Рисовать ручкой — без ластика;Специально сделать одну «смелую ошибку» в домашке;На этой неделе считать ошибки «очками опыта»;Сдать работу, не проверяя её три раза");
+S("askhelp","anxiety","school","memory","classroom|teacher,paper|shy|none|d",[2,2,2,3,3],
+ "Asking the teacher for help|ask the teacher a question|Raising a hand puts all eyes on you. A secret signal and practice make asking feel normal.|Practice asking a question at home with a toy teacher;Agree on a quiet signal with the teacher;Ask the teacher after class, one-on-one;Raise your hand once during class;Ask for help when you're stuck",
+ "Попросить помощи у учителя|задать вопрос учителю|Поднять руку — значит привлечь все взгляды. Секретный сигнал и тренировка делают просьбу обычной.|Дома потренироваться задавать вопрос игрушечному учителю;Договориться с учителем о тихом сигнале;Спросить учителя после урока наедине;Один раз поднять руку на уроке;Попросить помощи, когда что-то не получается");
+S("toiletschool","anxiety","school","bubbles","bathroom|toilet,door|shy|none|d",[2,2,2,2,3],
+ "Using the school toilet|use the toilet at school|Unfamiliar toilets, noise and asking permission can make a child hold on all day. A plan reduces the worry.|Visit the school bathroom with a parent after school;Learn how to ask: the words or a card;Use the bathroom at the start of break;Use it once during the school day;Use it whenever you need",
+ "Туалет в школе|сходить в туалет в школе|Незнакомый туалет, шум и необходимость отпрашиваться — и ребёнок терпит весь день. План уменьшает тревогу.|Сходить в школьный туалет вместе с родителем после уроков;Выучить, как отпроситься: слова или карточка;Сходить в туалет в начале перемены;Сходить один раз за учебный день;Ходить, когда нужно");
+S("busride","anxiety","travel","memory","bus|adult,ticket|idle|none|d",[3,3,10,10,15],
+ "School bus ride|ride the school bus|A loud bus, older kids and no parent nearby can feel overwhelming. A known seat and a buddy make the ride predictable.|Look at the bus route on a map;Watch the bus arrive at the stop together;Ride a city bus with me for two stops;Ride the school bus with a friend;Ride the school bus on your own",
+ "Школьный автобус|поехать на школьном автобусе|Шумный автобус, старшие дети и никого из родителей рядом — это может перегружать. Своё место и друг рядом делают поездку предсказуемой.|Посмотреть маршрут автобуса на карте;Вместе посмотреть, как автобус подъезжает к остановке;Проехать со мной две остановки на городском автобусе;Поехать на школьном автобусе с другом;Поехать на школьном автобусе самому");
+S("plane","anxiety","travel","balloon","airport|suitcase,ticket,adult|walk|none|d",[5,5,5,10,30],
+ "First flight|fly on a plane|Bumps, ear pressure and being high up are new feelings. Knowing what each sound means helps a lot.|Watch a calm video of a plane taking off;Learn what bumps and engine sounds mean;Practice swallowing and yawning for ear pressure;Pack a flight kit with headphones and snacks;Take the flight with a calm-breathing card",
+ "Первый полёт|полететь на самолёте|Тряска, заложенные уши и высота — новые ощущения. Когда знаешь, что означает каждый звук, становится намного легче.|Посмотреть спокойное видео взлёта;Узнать, что значат тряска и звуки мотора;Потренировать глотать и зевать при закладывании ушей;Собрать «набор для полёта»: наушники, перекус;Полететь с карточкой спокойного дыхания");
+S("hospital","anxiety","health","memory","clinic|doctor,adult,teddy|shy|none|d",[5,5,5,5,10],
+ "Visiting someone in hospital|visit a relative in the hospital|Machines, smells and seeing someone you love unwell can be frightening. Preparing for what they'll see helps.|Talk about what the hospital room will look like;Draw a card for the relative;Visit the hospital café first;Visit the room for 5 minutes;Stay for a full visit and give the card",
+ "Навестить в больнице|навестить родственника в больнице|Аппараты, запахи и близкий человек в постели могут пугать. Помогает заранее рассказать, что ребёнок увидит.|Поговорить, как будет выглядеть палата;Нарисовать открытку родственнику;Сначала зайти в больничное кафе;Побыть в палате 5 минут;Побыть всё время визита и подарить открытку");
+S("separationnight","anxiety","home","balloon","bedroom|bed,adult,teddy|idle|zzz|n",[5,5,5,5,5],
+ "Falling asleep without a parent|fall asleep without a parent in the room|Many worried children need a parent to stay until they sleep. Moving the chair a little farther each night builds independence gently.|Parent sits on the bed until sleep;Parent sits on a chair next to the bed;Chair moves to the middle of the room;Chair moves to the doorway;Parent says goodnight and leaves, checks once",
+ "Засыпать без родителя|засыпать без родителя в комнате|Многим тревожным детям нужно, чтобы мама или папа были рядом до сна. Если каждый вечер отодвигать стул чуть дальше, самостоятельность растёт мягко.|Родитель сидит на кровати до сна;Родитель сидит на стуле рядом с кроватью;Стул переезжает на середину комнаты;Стул переезжает к двери;Родитель желает спокойной ночи, уходит и заглядывает один раз");
+S("weather","anxiety","out","bubbles","street|umbrella,tree|walk|wind|d",[2,3,3,3,5],
+ "Wind and weather worries|go outside on a windy day|Strong wind and news about weather can make children fear going out. Learning about weather and short walks help.|Read about how wind works;Watch the trees from the window and name the wind speed;Stand at the door for one minute on a windy day;Take a 5-minute walk with a hat on;Play outside on a breezy day",
+ "Страх ветра и непогоды|выйти на улицу в ветреный день|Сильный ветер и новости о погоде могут вызывать страх выходить из дома. Знания о погоде и короткие прогулки помогают.|Почитать, откуда берётся ветер;Посмотреть на деревья из окна и оценить силу ветра;Минуту постоять в дверях в ветреный день;Погулять 5 минут в шапке;Поиграть на улице в ветреную погоду");
+S("clubnew","anxiety","social","rhythm","hall|kids,adult,music|wave|notes|d",[5,5,10,15,30],
+ "Joining a new club|start a new club or class|A room full of kids who already know each other is a lot. Coming early and having one job helps.|Look at photos or a video of the club;Visit and watch for 10 minutes;Meet the leader one-on-one;Join for the first half;Stay for the whole session",
+ "Новый кружок|пойти в новый кружок|Комната детей, которые уже знакомы друг с другом, — это непросто. Помогает прийти пораньше и иметь своё «задание».|Посмотреть фото или видео кружка;Прийти и понаблюдать 10 минут;Познакомиться с руководителем наедине;Позаниматься первую половину;Остаться на всё занятие");
+S("playdate","anxiety","social","puzzle","living|friend,puzzle,gift|wave|none|d",[3,5,10,20,30],
+ "Inviting a friend over|invite a classmate to play|Worry about what to say can make children avoid friends. A planned activity takes the pressure off talking.|Choose a friend and a game together;Practice the invitation sentence;Short playdate at a park, 30 minutes;Playdate at home with a planned activity;Longer playdate with free play",
+ "Позвать друга в гости|пригласить одноклассника поиграть|Тревога «что сказать?» заставляет избегать дружбы. Заранее выбранное занятие снимает давление разговора.|Вместе выбрать друга и игру;Отрепетировать фразу-приглашение;Короткая встреча в парке на 30 минут;Встреча дома с запланированным занятием;Долгая встреча со свободной игрой");
+S("grandma","anxiety","social","memory","kitchen|adult,cake|wave|steam|d",[3,5,10,30,60],
+ "Staying with grandparents|stay a day at grandma's house|Even loved relatives' homes feel different without a parent. A picture schedule shows when you will come back.|Make a picture schedule of the day;Call grandma together before the visit;Visit grandma with the parent;Stay for 2 hours without the parent;Stay for the whole day",
+ "Остаться у бабушки|провести день у бабушки|Даже у любимых родственников без родителя всё по-другому. Расписание в картинках показывает, когда родитель вернётся.|Нарисовать расписание дня в картинках;Вместе позвонить бабушке перед визитом;Сходить к бабушке вместе с родителем;Остаться на 2 часа без родителя;Остаться на целый день");
+S("health","anxiety","feelings","balloon","living|worry,pills,teddy|shy|thought|d",[3,3,3,3,5],
+ "Worrying about getting sick|cope with worries about illness|Some children ask again and again if they are sick. Answering once and then using a “worry time” helps more than endless reassurance.|Write worries in a worry notebook;Set a 10-minute daily “worry time”;Answer a health question once, calmly;Postpone the next question to worry time;Go a whole day using only worry time",
+ "Тревога о болезнях|справляться с тревогой о болезнях|Некоторые дети снова и снова спрашивают, не заболели ли они. Ответить один раз и перенести остальное на «время тревог» помогает больше, чем бесконечные утешения.|Записывать тревоги в «тетрадь тревог»;Назначить 10-минутное «время тревог» каждый день;Спокойно ответить на вопрос о здоровье один раз;Отложить следующий вопрос до «времени тревог»;Прожить целый день, используя только «время тревог»");
+S("news","anxiety","feelings","bubbles","living|tv,adult|shy|thought|e",[3,3,3,3,3],
+ "Scary news on TV|feel safe after hearing scary news|Children hear more than we think. Simple honest words and a focus on helpers calm the worry.|Ask what the child heard and what they think;Explain simply and honestly in two sentences;Talk about the helpers who keep people safe;Switch off news when kids are around;Do something kind together for others",
+ "Страшные новости|чувствовать себя в безопасности после страшных новостей|Дети слышат больше, чем мы думаем. Простые честные слова и рассказ о тех, кто помогает, успокаивают.|Спросить, что ребёнок услышал и что думает;Объяснить просто и честно в двух предложениях;Поговорить о людях, которые помогают и защищают;Выключать новости, когда дети рядом;Вместе сделать доброе дело для других");
+S("moving","anxiety","home","puzzle","living|suitcase,door,teddy|walk|none|d",[5,10,10,10,15],
+ "Moving to a new home|move to a new house|Everything familiar changes at once. Visiting, planning the new room and keeping routines make it feel safer.|Look at photos of the new home;Visit the new neighborhood and find a playground;Plan and draw your new room;Pack your own special box;Spend the first night with the same bedtime routine",
+ "Переезд|переехать в новый дом|Меняется всё привычное сразу. Знакомство с новым местом, планирование своей комнаты и прежние ритуалы помогают.|Посмотреть фото нового дома;Сходить в новый район и найти детскую площадку;Придумать и нарисовать свою новую комнату;Самому упаковать свою особую коробку;Первая ночь — с тем же ритуалом перед сном");
+S("eyedrops","anxiety","health","spot","clinic|doctor,chair|shy|sparkle|d",[2,2,3,3,5],
+ "Eye doctor check|have an eye test|Bright lights and drops near your eyes can feel scary. Practicing the letter chart at home makes it a game.|Play the letter chart game at home;Try on toy glasses;Look at photos of the eye doctor's room;Sit in the chair and read the big letters;Have the full eye check",
+ "Проверка зрения|проверить зрение у окулиста|Яркий свет и капли в глаза могут пугать. Если потренироваться с таблицей дома, проверка станет игрой.|Поиграть дома в «таблицу букв»;Примерить игрушечные очки;Посмотреть фото кабинета окулиста;Сесть в кресло и прочитать большие буквы;Пройти всю проверку");
+S("water","anxiety","travel","balloon","beach|bucket,shell,adult|walk|none|d",[3,5,5,5,10],
+ "Waves at the beach|go into the sea at the beach|Waves are loud, cold and unpredictable. Starting from the sand and choosing how close to go puts the child in charge.|Build a sandcastle far from the water;Walk to where the sand is wet;Let a small wave touch your toes;Stand ankle-deep holding hands;Jump small waves with a grown-up",
+ "Волны на пляже|зайти в море на пляже|Волны громкие, холодные и непредсказуемые. Начать с песка и самому выбирать, насколько подойти, — значит управлять ситуацией.|Построить замок из песка подальше от воды;Дойти до мокрого песка;Дать маленькой волне коснуться пальцев;Постоять по щиколотку, держась за руки;Прыгать через маленькие волны со взрослым");
+})(BF.S);

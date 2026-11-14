@@ -13,7 +13,7 @@ var BF = window.BF = window.BF || {};
     g.gain.exponentialRampToValueAtTime(0.0001, t+dur);
     o.connect(g); g.connect(c.destination); o.start(t); o.stop(t+dur+0.05);
   }
-  function on(){ var s=BF.store.s.settings; return s.sound && !s.calm; }
+  function on(){ var s=BF.store.f.settings; return s.sound && !s.calm; }
   BF.sound = {
     pop:function(){ if(on()) tone(520,0.18,0,0.06); },
     soft:function(){ if(on()) tone(330,0.25,0,0.05,"triangle"); },
