@@ -1,0 +1,111 @@
+/* ---------- top bar ---------- */
+.topbar{position:sticky; top:0; z-index:50; display:flex; align-items:center; gap:18px; padding:12px 22px;
+  background:rgba(243,235,221,.92); backdrop-filter:saturate(1.1) blur(6px); border-bottom:1.5px dashed var(--line)}
+.brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink)}
+.brand-mark{width:42px; height:42px; display:grid; place-items:center; background:var(--paper); border-radius:46% 54% 50% 50% / 55% 48% 52% 45%; box-shadow:var(--shadow-paper)}
+.brand-mark svg{width:34px; height:34px}
+.brand-text{display:flex; flex-direction:column; line-height:1}
+.brand-text b{font-family:var(--f-display); font-size:1.35rem; font-weight:700; letter-spacing:-.01em}
+.brand-text small{font-size:.72rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--clay-deep); margin-top:3px}
+.mainnav{display:flex; gap:4px; margin-left:auto}
+.mainnav a{padding:8px 13px; border-radius:999px; text-decoration:none; color:var(--ink-soft); font-weight:700; font-size:.95rem; position:relative}
+.mainnav a:hover{color:var(--ink); background:rgba(214,192,156,.25)}
+.mainnav a.on{color:var(--ink); background:var(--paper); box-shadow:inset 0 0 0 1.5px var(--sand-deep)}
+.toggles{display:flex; gap:6px}
+.tgl{display:flex; align-items:center; gap:6px; border:1.5px solid var(--sand-deep); background:transparent; border-radius:999px; padding:6px 12px; cursor:pointer; font-weight:700; font-size:.85rem; color:var(--ink-soft)}
+.tgl[aria-pressed="true"]{background:var(--sage-soft); border-color:var(--sage); color:var(--ink)}
+.tgl-ico{display:inline-flex}
+@media (max-width:900px){
+  .topbar{flex-wrap:wrap; padding:10px 14px; gap:8px}
+  .mainnav{order:3; width:100%; margin:0; overflow-x:auto; scrollbar-width:none}
+  .mainnav a{white-space:nowrap; padding:7px 12px; font-size:.9rem}
+  .toggles{margin-left:auto}
+  .tgl-lbl{display:none}
+  .tgl{padding:8px}
+}
+
+/* ---------- buttons ---------- */
+.btn{--bg:var(--ink); --fg:var(--paper); display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:14px 24px; border-radius:999px; border:0; cursor:pointer;
+  background:var(--bg); color:var(--fg); font-weight:800; font-size:1.02rem; text-decoration:none; letter-spacing:.01em;
+  box-shadow:0 3px 0 rgba(0,0,0,.18); transition:transform .18s var(--ease-out), box-shadow .18s, background .2s; position:relative}
+.btn:hover{transform:translateY(-2px); color:var(--fg); box-shadow:0 5px 0 rgba(0,0,0,.16)}
+.btn:active{transform:translateY(1px); box-shadow:0 1px 0 rgba(0,0,0,.2)}
+.btn.clay{--bg:var(--clay-deep)}
+.btn.sage{--bg:var(--sage-deep)}
+.btn.dusty{--bg:var(--dusty-deep)}
+.btn.ghost{--bg:transparent; --fg:var(--ink); box-shadow:inset 0 0 0 2px var(--sand-deep)}
+.btn.ghost:hover{box-shadow:inset 0 0 0 2px var(--ink-soft)}
+.btn.paper{--bg:var(--paper); --fg:var(--ink); box-shadow:var(--shadow-paper)}
+.btn.small{padding:9px 16px; font-size:.92rem}
+.btn.big{padding:18px 30px; font-size:1.15rem}
+.btn[disabled]{opacity:.45; pointer-events:none}
+.linkbtn{background:none; border:0; padding:0; color:var(--dusty-deep); text-decoration:underline; cursor:pointer; font-weight:700}
+
+/* ---------- chips / tags ---------- */
+.chip{display:inline-flex; align-items:center; gap:7px; padding:4px 11px 4px 9px; border-radius:999px; font-size:.78rem; font-weight:800; letter-spacing:.02em; background:var(--paper); box-shadow:inset 0 0 0 1.5px var(--line)}
+.chip i{width:10px; height:10px; border-radius:50%; display:inline-block}
+.chip-anxiety i{background:var(--dusty)}
+.chip-adhd i{background:var(--sage)}
+.chip-both i{background:linear-gradient(90deg, var(--dusty) 50%, var(--sage) 50%); box-shadow:0 0 0 2px var(--clay-soft)}
+.chip-both{box-shadow:inset 0 0 0 1.5px var(--clay-soft); background:#F8EEE6}
+
+/* ---------- paper surfaces ---------- */
+.paper{background:var(--paper); border-radius:var(--r-m); box-shadow:var(--shadow-paper); position:relative}
+.tape{position:absolute; top:-11px; left:50%; width:84px; height:22px; transform:translateX(-50%) rotate(-3deg); background:rgba(228,204,143,.55); border-left:2px dashed rgba(255,255,255,.4); border-right:2px dashed rgba(255,255,255,.4)}
+.stitch{border:2px dashed var(--sand-deep); border-radius:var(--r-m)}
+.blob{border-radius:56% 44% 48% 52% / 46% 54% 46% 54%}
+
+/* ---------- forms ---------- */
+.field{display:flex; flex-direction:column; gap:6px; margin-bottom:16px}
+.field label{font-weight:800; font-size:.92rem}
+.input{font:inherit; padding:14px 16px; border-radius:14px; border:2px solid var(--line); background:var(--paper); color:var(--ink); outline:none; transition:border-color .2s}
+.input:focus{border-color:var(--dusty)}
+.seg{display:flex; flex-wrap:wrap; gap:8px}
+.seg button{border:2px solid var(--line); background:var(--paper); padding:9px 16px; border-radius:999px; font-weight:700; cursor:pointer; transition:all .18s}
+.seg button[aria-pressed="true"]{border-color:var(--ink); background:var(--ink); color:var(--paper)}
+.search{position:relative}
+.search .ico{position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--ink-faint)}
+.search input{padding-left:44px; width:100%}
+
+/* ---------- stars ---------- */
+.starrow{display:inline-flex; gap:2px; vertical-align:middle}
+.pstar.on{animation:starPop .5s var(--ease-out) both}
+.fly-star{position:fixed; z-index:300; pointer-events:none; animation:fly 1.2s var(--ease-out) forwards}
+@keyframes fly{0%{transform:translate(0,0) scale(.4); opacity:0} 25%{opacity:1; transform:translate(calc(var(--dx)*.4), calc(var(--dy)*.6)) scale(1.1)} 100%{transform:translate(var(--dx), calc(var(--dy) - 80px)) scale(.6) rotate(40deg); opacity:0}}
+
+/* ---------- toast ---------- */
+.toast{position:fixed; left:50%; bottom:24px; transform:translate(-50%, 30px); opacity:0; pointer-events:none; z-index:400; background:var(--ink); color:var(--paper); padding:12px 20px; border-radius:16px; font-weight:700; transition:all .35s var(--ease-out); max-width:90vw; text-align:center}
+.toast.show{opacity:1; transform:translate(-50%,0)}
+
+/* ---------- footer ---------- */
+.foot{margin-top:70px; padding:28px 22px 40px; border-top:1.5px dashed var(--line); text-align:center; color:var(--ink-soft); font-size:.9rem}
+.foot p{max-width:820px; margin:0 auto 8px}
+.foot-small{font-size:.8rem}
+
+/* ---------- hills scene ---------- */
+.hills{display:block; width:100%; height:100%}
+.hills .sun{animation:floaty 9s ease-in-out infinite}
+.hills .cloud{animation:drift 18s ease-in-out infinite alternate}
+.hills .c2{animation-duration:24s; animation-direction:alternate-reverse}
+.hills .h1,.hills .h2,.hills .h3{filter:drop-shadow(0 -2px 0 rgba(255,255,255,.35))}
+
+/* ---------- avatar animation ---------- */
+.avatar{overflow:visible}
+.avatar.head-only{overflow:hidden}
+.avatar.head-only .av-body{animation:none}
+.avatar .av-body{animation:breathe 4.2s ease-in-out infinite; transform-origin:100px 280px}
+.avatar .av-eye{transform-box:view-box; animation:blink 5.5s infinite}
+.avatar .av-eye:last-of-type{animation-delay:.02s}
+.avatar.pose-wave .av-arm-r{animation:wave 2.6s ease-in-out infinite}
+@keyframes wave{0%,55%,100%{transform:rotate(0)} 65%{transform:rotate(-150deg)} 75%{transform:rotate(-125deg)} 85%{transform:rotate(-150deg)}}
+.avatar.pose-walk .av-leg-l{animation:stepL .8s ease-in-out infinite}
+.avatar.pose-walk .av-leg-r{animation:stepL .8s ease-in-out infinite reverse}
+.avatar.pose-walk .av-body{animation:bob .4s ease-in-out infinite alternate}
+@keyframes stepL{0%,100%{transform:rotate(9deg)} 50%{transform:rotate(-9deg)}}
+@keyframes bob{to{transform:translateY(-3px)}}
+.avatar.pose-cheer .av-arm-l{animation:cheerL 1.2s ease-in-out infinite alternate}
+.avatar.pose-cheer .av-arm-r{animation:cheerR 1.2s ease-in-out infinite alternate}
+@keyframes cheerL{to{transform:rotate(140deg)}}
+@keyframes cheerR{to{transform:rotate(-140deg)}}
+.chick .chick-wing{animation:sway 1.6s ease-in-out infinite}
+.chick{animation:floaty 3.4s ease-in-out infinite}

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Balapan Focus &amp; Calm — brave plans and focus quests for kids</title>
+  <meta name="description" content="Balapan Focus & Calm helps parents of kids 5–10 with anxiety, ADHD, or both: brave plans where your child is the hero, routine quests, and calm fine-motor games. No sign-up.">
+  <meta name="theme-color" content="#F3EBDD">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,500..800,100,1&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/screens.css">
+  <link rel="stylesheet" href="css/games.css">
+  <link rel="stylesheet" href="css/print.css" media="print">
+</head>
+<body>
+  <a class="skip" href="#app">Skip to content</a>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <filter id="paper-rough"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="2.2"/></filter>
+    </defs>
+  </svg>
+
+  <header class="topbar" id="topbar">
+    <a href="#/" class="brand" aria-label="Balapan Focus and Calm — home">
+      <span class="brand-mark" id="brandMark"></span>
+      <span class="brand-text"><b>Balapan</b><small>Focus &amp; Calm</small></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a href="#/library" data-nav="library">Situations</a>
+      <a href="#/games" data-nav="games">Games</a>
+      <a href="#/hero" data-nav="hero">Hero</a>
+      <a href="#/dashboard" data-nav="dashboard">Parent</a>
+      <a href="#/pricing" data-nav="pricing">Plans</a>
+    </nav>
+    <div class="toggles">
+      <button class="tgl" id="calmToggle" aria-pressed="false" title="Calm mode: less motion, no sound"><span class="tgl-ico" data-icon="leaf"></span><span class="tgl-lbl">Calm mode</span></button>
+      <button class="tgl" id="soundToggle" aria-pressed="false" title="Soft sounds (off by default)"><span class="tgl-ico" data-icon="soundOff"></span><span class="tgl-lbl">Sound</span></button>
+    </div>
+  </header>
+
+  <main id="app" tabindex="-1" aria-live="polite"></main>
+
+  <footer class="foot">
+    <p><b>Balapan Focus &amp; Calm</b> is a parenting support tool, not therapy and not a medical device. It does not diagnose or treat any condition.
+      <a href="#/safety">Safety &amp; when to talk to a specialist</a> · In the US, call or text <b>988</b> in a crisis · <b>911</b> for emergencies.</p>
+    <p class="foot-small">Prototype for Zimran Business Cup 2.0 · all data stays in this browser (localStorage) · <button class="linkbtn" id="resetAll">Reset demo data</button></p>
+  </footer>
+
+  <div id="printArea" class="print-only" aria-hidden="true"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- Data -->
+  <script src="js/data/situations.js"></script>
+  <script src="js/data/content.js"></script>
+  <!-- Core -->
+  <script src="js/core/icons.js"></script>
+  <script src="js/core/store.js"></script>
+  <script src="js/core/sound.js"></script>
+  <script src="js/core/avatar.js"></script>
+  <script src="js/core/engine.js"></script>
+  <script src="js/core/router.js"></script>
+  <script src="js/core/ui.js"></script>
+  <!-- Screens -->
+  <script src="js/screens/landing.js"></script>
+  <script src="js/screens/quiz.js"></script>
+  <script src="js/screens/builder.js"></script>
+  <script src="js/screens/plan.js"></script>
+  <script src="js/screens/library.js"></script>
+  <script src="js/screens/brave.js"></script>
+  <script src="js/screens/quest.js"></script>
+  <script src="js/screens/games.js"></script>
+  <script src="js/screens/dashboard.js"></script>
+  <script src="js/screens/pricing.js"></script>
+  <script src="js/screens/safety.js"></script>
+  <!-- Games -->
+  <script src="js/games/trail.js"></script>
+  <script src="js/games/jars.js"></script>
+  <script src="js/games/balloon.js"></script>
+  <script src="js/games/bubbles.js"></script>
+  <script src="js/games/memory.js"></script>
+  <script src="js/games/backpack.js"></script>
+  <script src="js/games/lace.js"></script>
+  <script src="js/games/dots.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
