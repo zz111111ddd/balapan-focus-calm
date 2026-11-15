@@ -60,7 +60,7 @@ Stories in the prototype are built from templates. An AI hook is already in the 
 
 ### The games
 
-Each game takes about 1–3 minutes.
+The games develop fine motor skills and help a child calm down during or after a meltdown, when something new and unfamiliar has thrown them off. Each game takes about 1–3 minutes.
 
 | Game | Skill |
 |---|---|
@@ -245,7 +245,7 @@ All screenshots are in [`docs/screenshots/`](docs/screenshots/). Sample reports:
 
 ### Игры
 
-Каждая занимает примерно 1–3 минуты.
+Игры развивают мелкую моторику и помогают ребёнку успокоиться во время срыва или после него, когда его выбило что-то новое и незнакомое. Каждая занимает примерно 1–3 минуты.
 
 | Игра | Навык |
 |---|---|
