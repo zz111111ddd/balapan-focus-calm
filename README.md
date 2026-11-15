@@ -10,6 +10,8 @@ A hackathon prototype for **Zimran Business Cup 2.0**. Open the site and start: 
 
 **Live demo:** [balapan-focus-calm.vercel.app](https://balapan-focus-calm.vercel.app)
 
+**Pitch deck (PDF, RU):** [docs/Balapan-pitch.pdf](docs/Balapan-pitch.pdf)
+
 [English](#english) · [Русский](#русский)
 
 ![Home page in English](docs/screenshots/desktop-00-home.jpg)
@@ -200,6 +202,8 @@ All screenshots are in [`docs/screenshots/`](docs/screenshots/). Sample reports:
 **Balapan Focus & Calm** помогает родителям детей 5–10 лет с тревожностью, СДВГ или и тем и другим сразу. Ребёнок здесь главный герой каждой истории. Интерфейс на русском и английском (переключатель EN/RU в шапке запоминается).
 
 **Живое демо:** [balapan-focus-calm.vercel.app](https://balapan-focus-calm.vercel.app)
+
+**Презентация (PDF):** [docs/Balapan-pitch.pdf](docs/Balapan-pitch.pdf)
 
 ### Проблема
 
